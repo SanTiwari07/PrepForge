@@ -8,6 +8,7 @@ import { datasets } from '@/content/sql/datasets';
 import { exercises } from '@/content/sql/exercises';
 import { compareResults, type ResultSet } from '@/engine/sqlCompare';
 import { execLast } from '@/lib/sqlExec';
+import { mcqs as sqlMcqs } from '@/content/sql/topics';
 
 const require = createRequire(import.meta.url);
 let SQL: SqlJsStatic;
@@ -68,5 +69,19 @@ describe('SQL exercises', () => {
         expect(failsSomewhere).toBe(true);
       });
     }
+  }
+});
+
+describe('SQL output-prediction MCQs (executed)', () => {
+  const fmt = (r: ResultSet) => r.rows.map((row) => row.map((v) => (v === null ? 'NULL' : String(v))).join(' | ')).join('\n');
+  for (const m of sqlMcqs.filter((x) => x.code?.lang === 'sql' && x.code.expectedOutput !== undefined)) {
+    it(`${m.id}: the stated output is what SQLite actually returns`, () => {
+      const db = new SQL.Database();
+      try {
+        expect(fmt(execLast(db, m.code!.code))).toBe(m.code!.expectedOutput);
+      } finally {
+        db.close();
+      }
+    });
   }
 });
