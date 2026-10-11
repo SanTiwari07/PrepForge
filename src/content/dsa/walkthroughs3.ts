@@ -761,4 +761,184 @@ public void sortColors(int[] a) {
     ],
     takeawaysMd: 'Three-way partitioning keeps a written invariant for each region. Only advance a pointer past values you have actually examined.',
   },
+
+  'merge-k-sorted-lists': {
+    understandMd: 'Merge k sorted linked lists into one sorted linked list and return its head.',
+    ioConstraintsMd: 'k up to 10⁴ lists, N up to 10⁴ nodes in total; some lists may be empty, and the array of lists may be empty.',
+    edgeCases: ['No lists at all', 'All lists empty', 'One list', 'Lists of very different lengths'],
+    bruteForceMd: 'Collect every value, sort, and build a new list; or merge the lists one by one into a growing result.',
+    bruteComplexity: 'Collect and sort: O(N log N) time, O(N) space. One by one: O(N · k).',
+    bottleneckMd: 'Merging into one growing list re-walks the merged prefix k times. Merging in a balanced way (pairs of lists, then pairs of results) touches each node only log k times.',
+    hints: [
+      'You know how to merge two sorted lists in linear time. How can you combine k of them without re-walking the same nodes many times?',
+      'Merge lists in pairs: 0+1, 2+3, …, then merge the results in pairs again, like the levels of merge sort.',
+      'Each node takes part in about log₂ k merges. Alternatively, a min-heap of the k current heads always yields the next smallest node.',
+      'step = 1; while step < k: for i in range(0, k − step, 2·step): lists[i] = merge(lists[i], lists[i + step]); step *= 2; return lists[0]',
+    ],
+    optimalMd: 'Divide and conquer over the array of lists: merge neighbours at distance 1, then 2, 4, …, so there are log₂ k rounds and each round touches every node once. A min-heap of (value, list) heads gives the same O(N log k) bound.',
+    code: [
+      cpp(`
+ListNode* mergeTwo(ListNode* a, ListNode* b) {
+    ListNode dummy(0), *t = &dummy;
+    while (a && b) {
+        if (a->val <= b->val) { t->next = a; a = a->next; } else { t->next = b; b = b->next; }
+        t = t->next;
+    }
+    t->next = a ? a : b;
+    return dummy.next;
+}
+ListNode* mergeKLists(vector<ListNode*>& lists) {
+    int k = lists.size();
+    if (k == 0) return nullptr;
+    for (int step = 1; step < k; step *= 2)
+        for (int i = 0; i + step < k; i += 2 * step) lists[i] = mergeTwo(lists[i], lists[i + step]);
+    return lists[0];
+}`, 'C++'),
+      java(`
+private ListNode mergeTwo(ListNode a, ListNode b) {
+    ListNode dummy = new ListNode(0), t = dummy;
+    while (a != null && b != null) {
+        if (a.val <= b.val) { t.next = a; a = a.next; } else { t.next = b; b = b.next; }
+        t = t.next;
+    }
+    t.next = a != null ? a : b;
+    return dummy.next;
+}
+public ListNode mergeKLists(ListNode[] lists) {
+    int k = lists.length;
+    if (k == 0) return null;
+    for (int step = 1; step < k; step *= 2)
+        for (int i = 0; i + step < k; i += 2 * step) lists[i] = mergeTwo(lists[i], lists[i + step]);
+    return lists[0];
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(N log k) time, O(1) extra space (the heap version uses O(k)).',
+    testCases: [
+      { input: '[[1,4,5],[1,3,4],[2,6]]', expected: '[1,1,2,3,4,4,5,6]', why: 'Basic' },
+      { input: '[]', expected: '[]', why: 'No lists' },
+      { input: '[[]]', expected: '[]', why: 'One empty list' },
+      { input: '[[1],[0]]', expected: '[0,1]', why: 'Order between lists' },
+    ],
+    takeawaysMd: 'Combining many pieces pairwise in balanced rounds turns O(N·k) into O(N log k), the same reason merge sort beats insertion sort.',
+  },
+
+  'lru-cache': {
+    understandMd: 'Design a cache with a fixed capacity: get(key) returns the value or −1, put(key, value) inserts or updates, and when the cache is full the least recently used key is evicted. Both operations must be O(1) on average.',
+    ioConstraintsMd: 'Capacity up to 3000; up to 2·10⁵ calls; keys and values are non-negative ints.',
+    edgeCases: ['Capacity 1', 'put on an existing key (update and refresh recency, no eviction)', 'get on a missing key', 'A get that changes which key gets evicted next'],
+    bruteForceMd: 'Store (key, value, lastUsedTime) in a list; get scans for the key; eviction scans for the smallest time.',
+    bruteComplexity: 'O(capacity) per operation.',
+    bottleneckMd: 'Two things are slow: finding a key and finding the least recently used entry. A hash map solves the first; an ordered list solves the second if a node can be moved or removed in O(1), which needs a doubly linked list.',
+    hints: [
+      'Which structure gives O(1) lookup by key? Which keeps items ordered by recency?',
+      'Keep entries in a doubly linked list from most to least recently used, and a hash map from key to list node.',
+      'On get or update, unlink the node and reinsert it at the front. On overflow, remove the node at the back and erase its key from the map.',
+      'Sentinel head and tail: pushFront(n): n.next = head.next; n.prev = head; head.next.prev = n; head.next = n. unlink(n): n.prev.next = n.next; n.next.prev = n.prev.',
+    ],
+    optimalMd: 'Hash map key → node, plus a doubly linked list with sentinel head and tail. get moves the node to the front. put updates and moves an existing node, or inserts a new node at the front after evicting tail.prev (and its map entry) when full.',
+    code: [
+      cpp(`
+class LRUCache {
+    struct Node { int key, val; Node *prev, *next; };
+    int cap;
+    unordered_map<int, Node*> where;
+    Node head{0, 0, nullptr, nullptr}, tail{0, 0, nullptr, nullptr};
+    void unlink(Node* n) { n->prev->next = n->next; n->next->prev = n->prev; }
+    void pushFront(Node* n) { n->next = head.next; n->prev = &head; head.next->prev = n; head.next = n; }
+public:
+    LRUCache(int capacity) : cap(capacity) { head.next = &tail; tail.prev = &head; }
+    int get(int key) {
+        auto it = where.find(key);
+        if (it == where.end()) return -1;
+        unlink(it->second); pushFront(it->second);
+        return it->second->val;
+    }
+    void put(int key, int value) {
+        auto it = where.find(key);
+        if (it != where.end()) { it->second->val = value; unlink(it->second); pushFront(it->second); return; }
+        if ((int)where.size() == cap) { Node* old = tail.prev; unlink(old); where.erase(old->key); delete old; }
+        Node* n = new Node{key, value, nullptr, nullptr};
+        pushFront(n); where[key] = n;
+    }
+};`, 'C++'),
+      java(`
+class LRUCache {
+    private static class Node { int key, val; Node prev, next; Node(int k, int v) { key = k; val = v; } }
+    private final int cap;
+    private final Map<Integer, Node> where = new HashMap<>();
+    private final Node head = new Node(0, 0), tail = new Node(0, 0);
+    public LRUCache(int capacity) { cap = capacity; head.next = tail; tail.prev = head; }
+    private void unlink(Node n) { n.prev.next = n.next; n.next.prev = n.prev; }
+    private void pushFront(Node n) { n.next = head.next; n.prev = head; head.next.prev = n; head.next = n; }
+    public int get(int key) {
+        Node n = where.get(key);
+        if (n == null) return -1;
+        unlink(n); pushFront(n);
+        return n.val;
+    }
+    public void put(int key, int value) {
+        Node n = where.get(key);
+        if (n != null) { n.val = value; unlink(n); pushFront(n); return; }
+        if (where.size() == cap) { Node old = tail.prev; unlink(old); where.remove(old.key); }
+        n = new Node(key, value);
+        pushFront(n); where.put(key, n);
+    }
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(1) average per operation, O(capacity) space.',
+    testCases: [
+      { input: 'cap 2: put(1,1), put(2,2), get(1), put(3,3), get(2), put(4,4), get(1), get(3), get(4)', expected: '1, -1, -1, 3, 4', why: 'The LeetCode sequence' },
+      { input: 'cap 1: put(2,1), get(2), put(3,2), get(2), get(3)', expected: '1, -1, 2', why: 'Capacity 1 evicts every time' },
+      { input: 'cap 2: put(2,1), put(2,2), get(2)', expected: '2', why: 'Update without eviction' },
+    ],
+    takeawaysMd: 'When one structure cannot meet every operation\'s target, combine two and keep them in sync in every operation: here the map and the list change together.',
+  },
+
+  'count-primes': {
+    understandMd: 'Return how many prime numbers are strictly less than n.',
+    ioConstraintsMd: 'n from 0 to 5·10⁶. O(n √n) trial division is too slow at the top of the range.',
+    edgeCases: ['n = 0, 1 or 2 (answer 0: "strictly less than")', 'n = 3 (answer 1)', 'n a perfect square'],
+    bruteForceMd: 'For every number below n, test primality by trying divisors up to its square root.',
+    bruteComplexity: 'O(n √n): about 10¹⁰ operations for n = 5·10⁶.',
+    bottleneckMd: 'Each number is tested independently, repeating the same divisions. Instead, each prime can cross off all its multiples once.',
+    hints: [
+      'Instead of asking "is k prime?" for every k, can each prime eliminate the numbers it divides?',
+      'Sieve of Eratosthenes: mark multiples of each prime as composite; whatever stays unmarked is prime.',
+      'For a prime p, start crossing off at p², because smaller multiples k·p (k < p) were already crossed off by smaller primes. Stop the outer loop when p² ≥ n.',
+      'composite = [false]·n; for p in 2..: if p·p ≥ n break; if not composite[p]: for m in p·p, p·p + p, … < n: composite[m] = true; count unmarked in [2, n)',
+    ],
+    optimalMd: 'Sieve of Eratosthenes over [0, n). Outer loop while p·p < n (in 64-bit or as p ≤ (n − 1) / p), inner loop from p² in steps of p. Count the unmarked numbers from 2 to n − 1.',
+    code: [
+      cpp(`
+int countPrimes(int n) {
+    if (n < 3) return 0;
+    vector<bool> composite(n, false);
+    for (long long p = 2; p * p < n; ++p)
+        if (!composite[p])
+            for (long long m = p * p; m < n; m += p) composite[m] = true;
+    int count = 0;
+    for (int k = 2; k < n; ++k) if (!composite[k]) ++count;
+    return count;
+}`, 'C++'),
+      java(`
+public int countPrimes(int n) {
+    if (n < 3) return 0;
+    boolean[] composite = new boolean[n];
+    for (long p = 2; p * p < n; p++)
+        if (!composite[(int) p])
+            for (long m = p * p; m < n; m += p) composite[(int) m] = true;
+    int count = 0;
+    for (int k = 2; k < n; k++) if (!composite[k]) count++;
+    return count;
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n log log n) time, O(n) space.',
+    testCases: [
+      { input: '10', expected: '4', why: '2, 3, 5, 7' },
+      { input: '0', expected: '0', why: 'Empty range' },
+      { input: '2', expected: '0', why: 'Strictly less than 2' },
+      { input: '100', expected: '25', why: 'A known count' },
+    ],
+    takeawaysMd: 'When many queries repeat the same work (divisibility tests), invert the loop: let each prime do its work once for every number it affects.',
+  },
 };
