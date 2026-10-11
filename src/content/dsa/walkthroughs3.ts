@@ -450,4 +450,193 @@ public int networkDelayTime(int[][] times, int n, int k) {
     ],
     takeawaysMd: '"When does everyone receive it?" is the maximum over single-source shortest distances. Check reachability before taking the maximum.',
   },
+
+  'min-cost-to-connect-all-points': {
+    understandMd: 'Points on a plane can be connected pairwise at a cost equal to their Manhattan distance. Return the minimum total cost to connect all points (directly or indirectly).',
+    ioConstraintsMd: 'Up to 1000 points with coordinates in [−10⁶, 10⁶]; all points are distinct. The answer fits in a 32-bit int for the given limits.',
+    edgeCases: ['A single point (cost 0)', 'Two points', 'Points on a line', 'Large coordinates (distances up to 4·10⁶)'],
+    bruteForceMd: 'Generate all n(n−1)/2 edges, sort them, and run Kruskal with a DSU.',
+    bruteComplexity: 'O(n² log n) time and O(n²) memory (≈ 500 000 edges for n = 1000). It passes, but it is heavy.',
+    bottleneckMd: 'The graph is complete, so materialising and sorting every edge dominates. Prim with a plain array can find the cheapest edge out of the tree in O(n) per step without storing any edges.',
+    hints: [
+      'Connect all points with minimum total cost, no cycles needed. Which classic structure is that?',
+      'A minimum spanning tree over the complete graph whose edge weights are Manhattan distances.',
+      'With about n²/2 edges, prefer Prim with an O(n) scan per step over sorting all edges.',
+      'best[] = ∞, best[0] = 0; repeat n times: pick the unvisited u with the smallest best, add best[u], mark u, update best[v] = min(best[v], dist(u, v)) for unvisited v',
+    ],
+    optimalMd: 'Dense Prim: keep, for each point outside the tree, the cheapest connection to any point inside it. Each of the n rounds picks the closest outside point (O(n)) and relaxes the others against it (O(n)).',
+    code: [
+      cpp(`
+int minCostConnectPoints(vector<vector<int>>& p) {
+    int n = p.size(), total = 0;
+    vector<int> best(n, INT_MAX);
+    vector<bool> in(n, false);
+    best[0] = 0;
+    for (int it = 0; it < n; ++it) {
+        int u = -1;
+        for (int v = 0; v < n; ++v) if (!in[v] && (u == -1 || best[v] < best[u])) u = v;
+        in[u] = true;
+        total += best[u];
+        for (int v = 0; v < n; ++v)
+            if (!in[v]) best[v] = min(best[v], abs(p[u][0] - p[v][0]) + abs(p[u][1] - p[v][1]));
+    }
+    return total;
+}`, 'C++'),
+      java(`
+public int minCostConnectPoints(int[][] p) {
+    int n = p.length, total = 0;
+    int[] best = new int[n];
+    Arrays.fill(best, Integer.MAX_VALUE);
+    boolean[] in = new boolean[n];
+    best[0] = 0;
+    for (int it = 0; it < n; it++) {
+        int u = -1;
+        for (int v = 0; v < n; v++) if (!in[v] && (u == -1 || best[v] < best[u])) u = v;
+        in[u] = true;
+        total += best[u];
+        for (int v = 0; v < n; v++)
+            if (!in[v]) best[v] = Math.min(best[v], Math.abs(p[u][0] - p[v][0]) + Math.abs(p[u][1] - p[v][1]));
+    }
+    return total;
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n²) time, O(n) space.',
+    testCases: [
+      { input: '[[0,0],[2,2],[3,10],[5,2],[7,0]]', expected: '20', why: 'Edges 4 + 3 + 4 + 9' },
+      { input: '[[3,12],[-2,5],[-4,1]]', expected: '18', why: 'Negative coordinates' },
+      { input: '[[0,0]]', expected: '0', why: 'Nothing to connect' },
+    ],
+    takeawaysMd: 'For an implicit complete graph, the array version of Prim is O(V²) and needs no edge list: it beats Kruskal on dense graphs.',
+  },
+
+  'edit-distance': {
+    understandMd: 'Return the minimum number of single-character insertions, deletions and replacements needed to turn word1 into word2.',
+    ioConstraintsMd: 'Both strings have length up to 500 and contain lowercase letters. O(mn) = 250 000 states is fine.',
+    edgeCases: ['One string empty (answer = the other length)', 'Identical strings (0)', 'No common characters', 'One string is a subsequence of the other'],
+    bruteForceMd: 'Recursively compare the last characters; on a mismatch try all three operations.',
+    bruteComplexity: 'O(3^(m+n)) without memoisation.',
+    bottleneckMd: 'The recursion only ever asks about pairs of prefixes (i, j), and the same pair is reached through many different operation sequences. There are only (m + 1)(n + 1) such pairs.',
+    hints: [
+      'Look at the last characters of both strings. If they match, what is left to do?',
+      'Define dp[i][j] = the edit distance between the first i characters of word1 and the first j characters of word2.',
+      'If the last characters match: dp[i−1][j−1]. Otherwise the last operation was a delete, an insert or a replace: 1 + min of the three neighbouring cells.',
+      'dp[i][0] = i; dp[0][j] = j; dp[i][j] = a[i−1] == b[j−1] ? dp[i−1][j−1] : 1 + min(dp[i−1][j], dp[i][j−1], dp[i−1][j−1])',
+    ],
+    optimalMd: 'Fill the (m+1) × (n+1) table row by row; keep only two rows because each cell needs the row above and the cell to its left. The answer is dp[m][n].',
+    code: [
+      cpp(`
+int minDistance(string a, string b) {
+    int m = a.size(), n = b.size();
+    vector<int> prev(n + 1), cur(n + 1);
+    for (int j = 0; j <= n; ++j) prev[j] = j;
+    for (int i = 1; i <= m; ++i) {
+        cur[0] = i;
+        for (int j = 1; j <= n; ++j)
+            cur[j] = a[i - 1] == b[j - 1] ? prev[j - 1] : 1 + min({prev[j], cur[j - 1], prev[j - 1]});
+        swap(prev, cur);
+    }
+    return prev[n];
+}`, 'C++'),
+      java(`
+public int minDistance(String a, String b) {
+    int m = a.length(), n = b.length();
+    int[] prev = new int[n + 1], cur = new int[n + 1];
+    for (int j = 0; j <= n; j++) prev[j] = j;
+    for (int i = 1; i <= m; i++) {
+        cur[0] = i;
+        for (int j = 1; j <= n; j++)
+            cur[j] = a.charAt(i - 1) == b.charAt(j - 1) ? prev[j - 1] : 1 + Math.min(prev[j], Math.min(cur[j - 1], prev[j - 1]));
+        int[] t = prev; prev = cur; cur = t;
+    }
+    return prev[n];
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(mn) time, O(n) space.',
+    testCases: [
+      { input: '"horse", "ros"', expected: '3', why: 'Replace h→r, delete r, delete e' },
+      { input: '"intention", "execution"', expected: '5', why: 'Classic example' },
+      { input: '"", "abc"', expected: '3', why: 'Three inserts' },
+      { input: '"abc", "abc"', expected: '0', why: 'Identical' },
+    ],
+    takeawaysMd: 'Two-sequence problems use prefix pairs as states. Decide what the last operation was, and the recurrence writes itself.',
+  },
+
+  'word-search-ii': {
+    understandMd: 'Given a grid of letters and a list of words, return every word that can be traced through horizontally or vertically adjacent cells without reusing a cell within one word.',
+    ioConstraintsMd: 'Grid up to 12 × 12; up to 3·10⁴ words of length up to 10; all words distinct.',
+    edgeCases: ['A word that appears along two paths (report once)', 'Words that are prefixes of other words ("oa" and "oath")', 'A word longer than the number of cells', 'A 1 × 1 grid'],
+    bruteForceMd: 'Run the single-word grid DFS (Word Search I) for every word.',
+    bruteComplexity: 'O(W · R · C · 4 · 3^(L−1)): with 3·10⁴ words this times out.',
+    bottleneckMd: 'Words sharing a prefix redo the same grid exploration, and each separate search keeps exploring paths that match no word. A trie shares prefixes and tells the DFS immediately when the current path is a dead end.',
+    hints: [
+      'Many words share prefixes. How could you search for all of them in one pass over the grid?',
+      'Put the words in a trie. Walk the grid and the trie together: moving to a neighbouring cell means moving to the corresponding child node.',
+      'Stop as soon as the trie has no child for the next letter. Store the full word at its end node so you can report it when reached.',
+      'dfs(r, c, node): ch = grid[r][c]; nxt = node.child[ch]; if none return; if nxt.word: add it and clear it; mark cell; recurse on 4 neighbours; unmark',
+    ],
+    optimalMd: 'Build a trie of all words, storing each word at its end node. DFS from every cell, following trie children; mark cells as visited on the way down and restore them on the way back. Report a word when its node is reached, then clear it to avoid duplicates. Optionally prune trie nodes that have become empty.',
+    code: [
+      cpp(`
+struct Node { Node* c[26] = {}; string word; };
+void dfs(vector<vector<char>>& g, int r, int col, Node* node, vector<string>& out) {
+    char ch = g[r][col];
+    if (ch == '#' || !node->c[ch - 'a']) return;
+    node = node->c[ch - 'a'];
+    if (!node->word.empty()) { out.push_back(node->word); node->word.clear(); }
+    g[r][col] = '#';                                   // visited
+    int dr[] = {1, -1, 0, 0}, dc[] = {0, 0, 1, -1};
+    for (int k = 0; k < 4; ++k) {
+        int nr = r + dr[k], nc = col + dc[k];
+        if (nr >= 0 && nc >= 0 && nr < (int)g.size() && nc < (int)g[0].size()) dfs(g, nr, nc, node, out);
+    }
+    g[r][col] = ch;                                    // restore
+}
+vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+    Node* root = new Node();
+    for (auto& w : words) {
+        Node* n = root;
+        for (char ch : w) { if (!n->c[ch - 'a']) n->c[ch - 'a'] = new Node(); n = n->c[ch - 'a']; }
+        n->word = w;
+    }
+    vector<string> out;
+    for (int r = 0; r < (int)board.size(); ++r)
+        for (int c = 0; c < (int)board[0].size(); ++c) dfs(board, r, c, root, out);
+    return out;
+}`, 'C++'),
+      java(`
+static class Node { Node[] c = new Node[26]; String word; }
+private void dfs(char[][] g, int r, int col, Node node, List<String> out) {
+    char ch = g[r][col];
+    if (ch == '#' || node.c[ch - 'a'] == null) return;
+    node = node.c[ch - 'a'];
+    if (node.word != null) { out.add(node.word); node.word = null; }
+    g[r][col] = '#';
+    int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    for (int[] d : dirs) {
+        int nr = r + d[0], nc = col + d[1];
+        if (nr >= 0 && nc >= 0 && nr < g.length && nc < g[0].length) dfs(g, nr, nc, node, out);
+    }
+    g[r][col] = ch;
+}
+public List<String> findWords(char[][] board, String[] words) {
+    Node root = new Node();
+    for (String w : words) {
+        Node n = root;
+        for (char ch : w.toCharArray()) { if (n.c[ch - 'a'] == null) n.c[ch - 'a'] = new Node(); n = n.c[ch - 'a']; }
+        n.word = w;
+    }
+    List<String> out = new ArrayList<>();
+    for (int r = 0; r < board.length; r++)
+        for (int c = 0; c < board[0].length; c++) dfs(board, r, c, root, out);
+    return out;
+}`, 'Java'),
+    ],
+    finalComplexity: 'Worst case O(R · C · 4 · 3^(L−1)) for maximum word length L, but trie pruning makes it far faster; the trie takes O(total characters) space.',
+    testCases: [
+      { input: 'board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]', expected: '["eat","oath"] (any order)', why: 'Classic example' },
+      { input: 'board = [["a","b"],["c","d"]], words = ["abcb"]', expected: '[]', why: 'Would need to reuse a cell' },
+      { input: 'board = [["a","a"]], words = ["aaa"]', expected: '[]', why: 'Only two cells' },
+    ],
+    takeawaysMd: 'When many searches share prefixes, put the queries in a trie and do the expensive traversal once. Clear reported words to avoid duplicates.',
+  },
 };
