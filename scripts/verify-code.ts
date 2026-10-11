@@ -179,7 +179,10 @@ for (const q of MCQS) {
   if (q.verified === 'compiled' && q.code.expectedOutput === undefined) fail(`MCQ ${q.id}`, 'Marked "compiled" but has no expectedOutput to verify.');
 }
 for (const t of TOPICS) {
-  for (const sec of t.sections) for (const c of sec.code ?? []) syntaxCheck(`${t.id} › ${sec.id} (${c.lang})`, c);
+  for (const sec of t.sections) for (const c of sec.code ?? []) {
+    if (c.expectedOutput !== undefined && (c.lang === 'cpp' || c.lang === 'java')) runProgram(`${t.id} › ${sec.id} (${c.lang})`, c);
+    else syntaxCheck(`${t.id} › ${sec.id} (${c.lang})`, c);
+  }
   for (const c of t.revision.templates ?? []) syntaxCheck(`${t.id} › template (${c.lang})`, c);
 }
 for (const [slug, w] of Object.entries(WALKTHROUGHS)) for (const c of w.code) syntaxCheck(`walkthrough ${slug} (${c.lang})`, c);
