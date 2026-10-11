@@ -149,4 +149,134 @@ public double myPow(double x, int n) {
     ],
     takeawaysMd: 'Halving the problem gives logarithmic recursion depth. Watch for the asymmetric range of two\'s complement integers whenever you negate.',
   },
+
+  'validate-binary-search-tree': {
+    understandMd: "Decide whether a binary tree satisfies the BST rule: every key in a node's left subtree is strictly smaller than the node, and every key in its right subtree is strictly larger.",
+    ioConstraintsMd: 'Up to 10⁴ nodes; keys are 32-bit ints, including INT_MIN and INT_MAX. Duplicates make the tree invalid.',
+    edgeCases: ['A deep node violating an ancestor, e.g. root 5, left 4, and 4 has a right child 6', 'Keys equal to INT_MAX or INT_MIN', 'Duplicate keys, e.g. [2, 2, 2]', 'A single node'],
+    bruteForceMd: 'For every node, check that it is larger than the maximum of its left subtree and smaller than the minimum of its right subtree, computing those extremes by scanning the subtrees.',
+    bruteComplexity: 'O(n²) for a skewed tree (each node rescans its subtree).',
+    bottleneckMd: 'Subtree extremes are recomputed for every ancestor. Instead, push the constraint down: each node only needs to know the range its ancestors allow.',
+    hints: [
+      'Checking each node only against its two children is not enough. Which nodes constrain a given node?',
+      'Every ancestor imposes either a lower or an upper bound, depending on whether you went right or left from it.',
+      'Pass an open interval (lo, hi) down: the left child gets (lo, node), the right child gets (node, hi). Alternatively, the inorder sequence must be strictly increasing.',
+      'valid(n, lo, hi): if n is null return true; if not lo < n.val < hi return false; return valid(n.left, lo, n.val) and valid(n.right, n.val, hi). Use 64-bit bounds.',
+    ],
+    optimalMd: 'Depth-first search carrying the allowed range. The root may take any value; going left lowers the upper bound to the parent, going right raises the lower bound. 64-bit (or nullable) bounds avoid a false failure on INT_MAX/INT_MIN keys.',
+    code: [
+      cpp(`
+bool valid(TreeNode* n, long long lo, long long hi) {
+    if (!n) return true;
+    if (n->val <= lo || n->val >= hi) return false;
+    return valid(n->left, lo, n->val) && valid(n->right, n->val, hi);
+}
+bool isValidBST(TreeNode* root) { return valid(root, LLONG_MIN, LLONG_MAX); }`, 'C++'),
+      java(`
+public boolean isValidBST(TreeNode root) { return valid(root, Long.MIN_VALUE, Long.MAX_VALUE); }
+private boolean valid(TreeNode n, long lo, long hi) {
+    if (n == null) return true;
+    if (n.val <= lo || n.val >= hi) return false;
+    return valid(n.left, lo, n.val) && valid(n.right, n.val, hi);
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n) time, O(h) recursion stack.',
+    testCases: [
+      { input: '[2,1,3]', expected: 'true', why: 'A valid three-node BST' },
+      { input: '[5,1,4,null,null,3,6]', expected: 'false', why: '3 is in the right subtree of 5 but smaller than 5' },
+      { input: '[2147483647]', expected: 'true', why: 'INT_MAX must not fail with 32-bit bounds' },
+      { input: '[2,2,2]', expected: 'false', why: 'Duplicates violate the strict rule' },
+    ],
+    takeawaysMd: 'Tree invariants about whole subtrees become ranges passed down the recursion. Pick bound types wider than the key type.',
+  },
+
+  'insert-interval': {
+    understandMd: 'Given sorted, non-overlapping intervals and one new interval, insert it and merge as needed so the result is still sorted and non-overlapping.',
+    ioConstraintsMd: 'Up to 10⁴ intervals, sorted by start; endpoints up to 10⁵. Touching intervals (end == start) merge.',
+    edgeCases: ['Empty list', 'New interval before all others or after all others', 'New interval covering every existing one', 'Touching endpoints, e.g. [1,2] and new [2,3]'],
+    bruteForceMd: 'Append the new interval, sort everything, and run the standard merge.',
+    bruteComplexity: 'O(n log n) time.',
+    bottleneckMd: 'The input is already sorted; the sort throws that away. Only the intervals that overlap the new one change.',
+    hints: [
+      'The list is sorted and disjoint. Which existing intervals can possibly change?',
+      'Split the list into three parts: entirely before the new interval, overlapping it, entirely after it.',
+      'An interval is before if its end < new start; it overlaps while its start ≤ new end. Merge overlapping ones into the new interval with min/max.',
+      'copy while iv[i].end < s; while iv[i].start <= e: s = min(s, iv[i].start), e = max(e, iv[i].end); add [s, e]; copy the rest',
+    ],
+    optimalMd: 'One linear pass with three phases. The merged interval absorbs every overlapping interval by taking the minimum start and the maximum end. No sorting needed.',
+    code: [
+      cpp(`
+vector<vector<int>> insert(vector<vector<int>>& iv, vector<int>& nw) {
+    vector<vector<int>> out;
+    int i = 0, n = iv.size(), s = nw[0], e = nw[1];
+    while (i < n && iv[i][1] < s) out.push_back(iv[i++]);
+    while (i < n && iv[i][0] <= e) { s = min(s, iv[i][0]); e = max(e, iv[i][1]); ++i; }
+    out.push_back({s, e});
+    while (i < n) out.push_back(iv[i++]);
+    return out;
+}`, 'C++'),
+      java(`
+public int[][] insert(int[][] iv, int[] nw) {
+    List<int[]> out = new ArrayList<>();
+    int i = 0, n = iv.length, s = nw[0], e = nw[1];
+    while (i < n && iv[i][1] < s) out.add(iv[i++]);
+    while (i < n && iv[i][0] <= e) { s = Math.min(s, iv[i][0]); e = Math.max(e, iv[i][1]); i++; }
+    out.add(new int[] {s, e});
+    while (i < n) out.add(iv[i++]);
+    return out.toArray(new int[0][]);
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n) time, O(n) output space.',
+    testCases: [
+      { input: 'intervals = [[1,3],[6,9]], new = [2,5]', expected: '[[1,5],[6,9]]', why: 'Merges with one interval' },
+      { input: 'intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], new = [4,8]', expected: '[[1,2],[3,10],[12,16]]', why: 'Absorbs three intervals' },
+      { input: 'intervals = [], new = [5,7]', expected: '[[5,7]]', why: 'Empty input' },
+      { input: 'intervals = [[1,5]], new = [6,8]', expected: '[[1,5],[6,8]]', why: 'No overlap, appended after' },
+    ],
+    takeawaysMd: 'When the input is already sorted, look for a linear pass with phases instead of re-sorting.',
+  },
+
+  'jump-game-ii': {
+    understandMd: 'From index 0, each value says how far you may jump forward at most. Return the minimum number of jumps to reach the last index (it is always reachable).',
+    ioConstraintsMd: 'Up to 10⁴ elements, values up to 1000. O(n²) passes, but O(n) is expected.',
+    edgeCases: ['A single element (0 jumps)', 'The first jump reaches the end directly', 'Many 1s: [1, 1, 1, 1] needs n − 1 jumps', 'A large value in the middle that dominates'],
+    bruteForceMd: 'DP: best[i] = 1 + min over j < i with j + a[j] ≥ i of best[j].',
+    bruteComplexity: 'O(n²) time, O(n) space.',
+    bottleneckMd: 'The DP looks back at every j for every i. But the set of indices reachable in exactly k jumps is a contiguous range, so you can process whole ranges at once, like BFS levels.',
+    hints: [
+      'Which indices can you reach with exactly one jump? With two?',
+      'Those sets are contiguous ranges. Think of them as BFS levels.',
+      'While scanning the current range, track the farthest index reachable with one more jump. When you reach the end of the range, you must jump; the next range ends at that farthest index.',
+      'jumps = end = far = 0; for i in 0..n−2: far = max(far, i + a[i]); if i == end: jumps += 1; end = far',
+    ],
+    optimalMd: 'Greedy BFS: `end` marks the edge of the current level and `far` the edge of the next. Each time i reaches `end`, take one jump and move the edge to `far`. Stop before the last index so you never count a jump from it.',
+    code: [
+      cpp(`
+int jump(vector<int>& a) {
+    int jumps = 0, end = 0, far = 0;
+    for (int i = 0; i + 1 < (int)a.size(); ++i) {
+        far = max(far, i + a[i]);
+        if (i == end) { ++jumps; end = far; }
+    }
+    return jumps;
+}`, 'C++'),
+      java(`
+public int jump(int[] a) {
+    int jumps = 0, end = 0, far = 0;
+    for (int i = 0; i + 1 < a.length; i++) {
+        far = Math.max(far, i + a[i]);
+        if (i == end) { jumps++; end = far; }
+    }
+    return jumps;
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n) time, O(1) space.',
+    testCases: [
+      { input: '[2,3,1,1,4]', expected: '2', why: '0 → 1 → 4' },
+      { input: '[2,3,0,1,4]', expected: '2', why: 'A zero that must be jumped over' },
+      { input: '[0]', expected: '0', why: 'Already at the end' },
+      { input: '[1,1,1,1]', expected: '3', why: 'One level per index' },
+    ],
+    takeawaysMd: 'When the states reachable in k steps form a contiguous range, BFS collapses to two boundaries and becomes O(n).',
+  },
 };

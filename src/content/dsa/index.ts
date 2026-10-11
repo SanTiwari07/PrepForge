@@ -17,6 +17,9 @@ import * as backtracking from './backtracking';
 import * as kadane from './kadane';
 import * as fastSlow from './fast-slow-pointers';
 import * as recursion from './recursion';
+import * as bst from './bst';
+import * as intervals from './intervals';
+import * as greedy from './greedy';
 import { walkthroughs as w1 } from './walkthroughs';
 import { walkthroughs2 } from './walkthroughs2';
 import { walkthroughs3 } from './walkthroughs3';
@@ -24,7 +27,7 @@ import type { CoachWalkthrough } from '../schema';
 
 export const walkthroughs: Record<string, CoachWalkthrough> = { ...w1, ...walkthroughs2, ...walkthroughs3 };
 
-const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees, heaps, graphs, dp1d, backtracking, kadane, fastSlow, recursion];
+const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees, heaps, graphs, dp1d, backtracking, kadane, fastSlow, recursion, bst, intervals, greedy];
 
 export const topics: Topic[] = parts.map((p) => p.topic);
 export const mcqs: MCQ[] = parts.flatMap((p) => p.mcqs);
