@@ -34,12 +34,32 @@ const CAPS = {
   posix: compiles('#include <unistd.h>\n#include <sys/wait.h>\nint f() { return fork(); }\n'),
 };
 console.log(`toolchain: std threads ${CAPS.threads ? 'yes' : 'NO'}, POSIX headers ${CAPS.posix ? 'yes' : 'NO'}`);
-function missingCap(s: CodeSample): string | null {
+function needsCap(s: CodeSample): string | null {
   if (s.lang !== 'cpp') return null;
   if (!CAPS.threads && /#include\s*<(mutex|thread|condition_variable|shared_mutex|future)>|std::(mutex|thread|condition_variable)/.test(s.code)) return 'std threading';
   if (!CAPS.posix && /#include\s*<(unistd\.h|sys\/\w+\.h|pthread\.h)>/.test(s.code)) return 'POSIX headers';
   return null;
 }
+
+// Fallback for samples the local toolchain cannot build: a Linux g++ inside WSL (Windows).
+// Windows paths are translated to /mnt/<drive>/... for the WSL side.
+const WSL = process.platform === 'win32' && spawnSync('wsl', ['-e', 'g++', '--version'], { encoding: 'utf8' }).status === 0;
+if (WSL) console.log(`fallback for missing capabilities: WSL ${version('wsl', ['-e', 'g++', '--version'])}`);
+let viaWsl = 0;
+const toWsl = (p: string) => p.replace(/^([A-Za-z]):/, (_, d: string) => `/mnt/${d.toLowerCase()}`).replace(/\\/g, '/');
+const viaWslFor = (s: CodeSample) => WSL && needsCap(s) !== null;
+/** Run g++ locally, or in WSL (with -pthread) when the sample needs a capability the local g++ lacks. */
+function gxx(s: CodeSample, args: string[]) {
+  if (!viaWslFor(s)) return spawnSync('g++', args, { encoding: 'utf8' });
+  viaWsl += 1;
+  return spawnSync('wsl', ['-e', 'g++', '-pthread', ...args.map((a) => (/^[A-Za-z]:[\\/]/.test(a) ? toWsl(a) : a))], { encoding: 'utf8' });
+}
+function runExe(s: CodeSample, exe: string) {
+  if (viaWslFor(s)) return spawnSync('wsl', ['-e', toWsl(exe)], { encoding: 'utf8', timeout: 5000 });
+  return spawnSync(exe, { encoding: 'utf8', timeout: 5000 });
+}
+/** A capability that neither the local toolchain nor the WSL fallback provides (reported as SKIP). */
+const missingCap = (s: CodeSample) => (WSL ? null : needsCap(s));
 
 const norm = (s: string) => s.replace(/\r\n/g, '\n').trim();
 
@@ -57,9 +77,9 @@ function runProgram(where: string, s: CodeSample) {
   if (s.lang === 'cpp') {
     writeFileSync(join(dir, 'main.cpp'), s.code);
     const exe = join(dir, 'main.exe');
-    const c = spawnSync('g++', [`-std=${CPP_STD}`, '-O0', '-o', exe, join(dir, 'main.cpp')], { encoding: 'utf8' });
+    const c = gxx(s, [`-std=${CPP_STD}`, '-O0', '-o', exe, join(dir, 'main.cpp')]);
     if (c.status !== 0) return fail(where, c.stderr);
-    const r = spawnSync(exe, { encoding: 'utf8', timeout: 5000 });
+    const r = runExe(s, exe);
     if (norm(r.stdout) !== norm(s.expectedOutput!)) fail(where, `expected:\n${s.expectedOutput}\nactual:\n${r.stdout}`);
   } else {
     const cls = s.code.match(/public\s+class\s+(\w+)/)?.[1] ?? 'Main';
@@ -118,7 +138,7 @@ function syntaxCheck(where: string, s: CodeSample) {
     const file = join(dir, s.lang === 'cpp' ? 'x.cpp' : 'Snippet.java');
     writeFileSync(file, s.lang === 'cpp' ? CPP_FRAGMENT(s.code) : JAVA_FRAGMENT(s.code));
     const c = s.lang === 'cpp'
-      ? spawnSync('g++', [`-std=${CPP_STD}`, '-fsyntax-only', file], { encoding: 'utf8' })
+      ? gxx(s, [`-std=${CPP_STD}`, '-fsyntax-only', file])
       : spawnSync('javac', ['-Xlint:none', '-d', dir, file], { encoding: 'utf8' });
     if (c.status !== 0) fail(where, c.stderr);
     return;
@@ -126,7 +146,7 @@ function syntaxCheck(where: string, s: CodeSample) {
   if (s.lang === 'cpp') {
     const hasMain = /\bint\s+main\s*\(/.test(s.code);
     writeFileSync(join(dir, 'x.cpp'), (s.code.includes('#include') ? '' : CPP_PRELUDE + cppLeetCodeTypes(s.code)) + s.code + (hasMain ? '' : '\n'));
-    const c = spawnSync('g++', [`-std=${CPP_STD}`, '-fsyntax-only', join(dir, 'x.cpp')], { encoding: 'utf8' });
+    const c = gxx(s, [`-std=${CPP_STD}`, '-fsyntax-only', join(dir, 'x.cpp')]);
     if (c.status !== 0) fail(where, c.stderr);
   } else if (s.lang === 'java') {
     // A complete compilation unit has imports or a public top-level class; anything else
@@ -153,7 +173,7 @@ function expectFailure(where: string, s: CodeSample) {
     prefixLines = prefix.split('\n').length - 1;
     file = join(dir, 'x.cpp');
     writeFileSync(file, prefix + s.code + '\n');
-    res = spawnSync('g++', [`-std=${CPP_STD}`, '-fsyntax-only', file], { encoding: 'utf8' });
+    res = gxx(s, [`-std=${CPP_STD}`, '-fsyntax-only', file]);
   } else {
     const full = /^\s*import\s/m.test(s.code) || /^public\s+class\s+\w+/m.test(s.code);
     const cls = full ? (s.code.match(/public\s+class\s+(\w+)/)?.[1] ?? 'Snippet') : 'Snippet';
@@ -187,5 +207,5 @@ for (const t of TOPICS) {
 }
 for (const [slug, w] of Object.entries(WALKTHROUGHS)) for (const c of w.code) syntaxCheck(`walkthrough ${slug} (${c.lang})`, c);
 
-console.log(`\nChecked ${checked} code samples with C++ standard ${CPP_STD}: ${failures} failure(s), ${skipped} skipped (toolchain capability)`);
+console.log(`\nChecked ${checked} code samples with C++ standard ${CPP_STD} (${viaWsl} via WSL g++): ${failures} failure(s), ${skipped} skipped (toolchain capability)`);
 process.exit(failures ? 1 : 0);
