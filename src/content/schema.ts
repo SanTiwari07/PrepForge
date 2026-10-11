@@ -195,3 +195,21 @@ export interface SqlExercise {
   similarTo?: { title: string; url: string }[];
   verification: 'verified-sqlite' | 'verified-mysql' | 'needs-validation';
 }
+
+// Content is split for loading (what_to_do.md B13): this lightweight metadata ships in the main
+// bundle via src/content/index.generated.ts; full lessons, MCQs and walkthroughs load per module.
+export interface TopicMeta extends Omit<Topic, 'sections' | 'interviewQuestions' | 'revision' | 'resources' | 'recognition'> {
+  sectionIds: string[];
+  counts: { interviewQuestions: number; flashcards: number };
+}
+
+export type McqMeta = Pick<MCQ, 'id' | 'topicIds' | 'moduleId' | 'type' | 'difficulty' | 'verified'> & {
+  /** First ~90 characters of the stem, markdown stripped; used by search. */
+  title: string;
+};
+
+export interface ContentPack {
+  topics: Topic[];
+  mcqs: MCQ[];
+  walkthroughs?: Record<string, CoachWalkthrough>;
+}

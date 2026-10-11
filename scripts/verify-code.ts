@@ -7,7 +7,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { MCQS, TOPICS, WALKTHROUGHS } from '../src/content/registry';
+import { MCQS, TOPICS, WALKTHROUGHS } from '../src/content/all';
 import type { CodeSample } from '../src/content/schema';
 
 const work = mkdtempSync(join(tmpdir(), 'prepforge-verify-'));

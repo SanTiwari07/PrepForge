@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { MCQ_BY_ID, PROBLEM_BY_SLUG, SQL_EXERCISE_BY_ID, TOPIC_BY_ID, topicTitle } from '@/content/registry';
+import { PROBLEM_BY_SLUG, SQL_EXERCISE_BY_ID, TOPIC_BY_ID, modulesOfMcqs, topicTitle } from '@/content/registry';
+import { getMcq, useModules } from '@/content/loader';
+import { PackStatus } from '@/components/PackStatus';
 import { useStore } from '@/store/store';
 import { isMcqCorrect } from '@/engine/scoring';
 import { formatDuration } from '@/engine/dates';
@@ -14,6 +16,9 @@ export default function OaResults() {
   const a = useStore((s) => s.assessments.find((x) => x.id === id));
   const history = useStore((s) => s.assessments.filter((x) => x.result && x.config.preset === a?.config.preset && x.id !== id));
   const [filter, setFilter] = useState<'all' | 'wrong'>('wrong');
+  const modules = modulesOfMcqs((a?.items ?? []).filter((it) => it.kind === 'mcq').map((it) => it.refId));
+  const pack = useModules(modules);
+  if (a?.result && pack !== 'ready') return <PackStatus state={pack} modules={modules} />;
   if (!a || !a.result) return <EmptyState title="No results for this assessment" action={<Link to="/oa" className="btn btn--primary">OA centre</Link>} />;
   const r = a.result;
   const prev = history.sort((x, y) => y.startedAt.localeCompare(x.startedAt))[0];
@@ -25,7 +30,7 @@ export default function OaResults() {
     const ans = a.answers[it.id];
     if (it.kind === 'coding') return null;
     if (it.kind === 'sql') return ans?.sqlPassed === true;
-    const q = MCQ_BY_ID.get(it.refId);
+    const q = getMcq(it.refId);
     return q ? isMcqCorrect(q, ans?.selected) : false;
   };
 
@@ -81,7 +86,7 @@ export default function OaResults() {
                 <span className="xsmall muted">{formatDuration(a.timePerItem[it.id] ?? 0)}</span>
               </summary>
               <div className="disclosure__body">
-                {it.kind === 'mcq' && MCQ_BY_ID.get(it.refId) && <McqView q={MCQ_BY_ID.get(it.refId)!} selected={ans?.selected ?? []} onToggle={() => {}} revealed />}
+                {it.kind === 'mcq' && getMcq(it.refId) && <McqView q={getMcq(it.refId)!} selected={ans?.selected ?? []} onToggle={() => {}} revealed />}
                 {it.kind === 'sql' && (() => {
                   const ex = SQL_EXERCISE_BY_ID.get(it.refId)!;
                   return (

@@ -1,5 +1,5 @@
 // Evidence-based mastery, kept separate from completion. See what_to_do.md Section 7.1.
-import type { Difficulty, MCQ, Problem, SqlExercise, Topic } from '@/content/schema';
+import type { Difficulty, MCQ, Problem, SqlExercise, TopicMeta } from '@/content/schema';
 import type { PersistedState, ProblemAttempt } from '@/store/types';
 
 export type MasteryLevel = 'not-started' | 'learning' | 'practising' | 'proficient' | 'interview-ready';
@@ -19,7 +19,7 @@ export interface TopicMastery {
 }
 
 export interface ContentIndex {
-  mcqById: Map<string, MCQ>;
+  mcqById: Map<string, Pick<MCQ, 'id' | 'moduleId' | 'difficulty'>>;
   problemBySlug: Map<string, Problem>;
   sqlById: Map<string, SqlExercise>;
 }
@@ -43,10 +43,13 @@ export function confidenceFor(n: number): Confidence {
   return 'high';
 }
 
-export function computeTopicMastery(topic: Topic, s: PersistedState, idx: ContentIndex): TopicMastery {
+/** The parts of a topic the mastery engine reads. */
+export type MasteryTopic = Pick<TopicMeta, 'id' | 'mcqIds' | 'problemIds' | 'mastery' | 'sectionIds'>;
+
+export function computeTopicMastery(topic: MasteryTopic, s: PersistedState, idx: ContentIndex): TopicMastery {
   const tp = s.topicProgress[topic.id];
-  const totalSections = topic.sections.length;
-  const completionPct = totalSections ? Math.round((100 * (tp?.sectionsRead.filter((x) => topic.sections.some((sec) => sec.id === x)).length ?? 0)) / totalSections) : 0;
+  const totalSections = topic.sectionIds.length;
+  const completionPct = totalSections ? Math.round((100 * (tp?.sectionsRead.filter((x) => topic.sectionIds.includes(x)).length ?? 0)) / totalSections) : 0;
 
   // MCQ evidence: first-seen answers only (performance on unseen questions).
   const topicMcqs = new Set(topic.mcqIds);

@@ -3,7 +3,7 @@
 // (research/*.verified.json), because leetcode.com pages return 403 to scripts.
 // Usage: npm run check:links
 import { spawnSync } from 'node:child_process';
-import { TOPICS } from '../src/content/registry';
+import { TOPICS } from '../src/content/all';
 import { COMPANIES } from '../src/content/companies';
 
 type Where = string;

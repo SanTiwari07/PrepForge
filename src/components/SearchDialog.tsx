@@ -20,7 +20,7 @@ export function SearchDialog({ onClose }: { onClose: () => void }) {
     ...TOPICS.map((t) => ({ id: t.id, kind: 'topic' as const, title: t.title, subtitle: `${MODULE_BY_ID.get(t.moduleId)?.shortTitle} · ${t.status === 'planned' ? 'Planned' : 'Topic'}`, href: `/learn/${t.moduleId}/${t.id}`, keywords: `${t.summary} ${(t.subtopics ?? []).join(' ')}` })),
     ...PROBLEMS.map((p) => ({ id: p.slug, kind: 'problem' as const, title: p.title, subtitle: `Problem · ${p.difficulty} · #${p.leetcodeId}`, href: `/problems/${p.slug}`, keywords: `${p.patterns.join(' ')} ${p.leetcodeId}` })),
     ...SQL_EXERCISES.map((e) => ({ id: e.id, kind: 'sql' as const, title: e.title, subtitle: `SQL exercise · ${e.difficulty}`, href: `/sql/exercises/${e.id}` })),
-    ...MCQS.map((m) => ({ id: m.id, kind: 'mcq' as const, title: m.stemMd.replace(/[`*_]/g, '').slice(0, 90), subtitle: `MCQ · ${m.type}`, href: `/practice/mcq?ids=${encodeURIComponent(m.id)}` })),
+    ...MCQS.map((m) => ({ id: m.id, kind: 'mcq' as const, title: m.title, subtitle: `MCQ · ${m.type}`, href: `/practice/mcq?ids=${encodeURIComponent(m.id)}` })),
     ...notes.map((n) => ({ id: n.id, kind: 'note' as const, title: n.title || 'Untitled note', subtitle: 'Note', href: '/notes', keywords: n.body.slice(0, 200) })),
   ], [notes]);
 

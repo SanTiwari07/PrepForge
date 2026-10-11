@@ -1,4 +1,4 @@
-import { MCQS, PROBLEMS, SQL_EXERCISES, TOPICS, WALKTHROUGHS } from '@/content/registry';
+import { MCQS, PROBLEMS, SQL_EXERCISES, TOPICS, WALKTHROUGH_SET } from '@/content/registry';
 import { COMPANIES } from '@/content/companies';
 import { PageHeader } from '@/components/ui';
 
@@ -11,7 +11,7 @@ export default function AboutPage() {
         <h2>Current content (counted live from the app)</h2>
         <ul>
           <li>{TOPICS.length} topics in the curriculum; <strong>{complete}</strong> have complete lessons. The rest are marked “Planned”.</li>
-          <li>{PROBLEMS.length} DSA problems verified against LeetCode; {Object.keys(WALKTHROUGHS).length} have authored coach walkthroughs, the rest have pattern-level guidance.</li>
+          <li>{PROBLEMS.length} DSA problems verified against LeetCode; {WALKTHROUGH_SET.size} have authored coach walkthroughs, the rest have pattern-level guidance.</li>
           <li>{MCQS.length} MCQs with explanations; {MCQS.filter((m) => m.verified === 'compiled').length} code-output questions were compiled and run to confirm the answer.</li>
           <li>{SQL_EXERCISES.length} auto-graded SQL exercises.</li>
           <li>{COMPANIES.length} company pages; {COMPANIES.filter((c) => c.facts.length).length} include facts verified from official sources.</li>

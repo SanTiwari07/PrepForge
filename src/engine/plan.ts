@@ -1,5 +1,5 @@
 // Daily plan generator. See what_to_do.md Section 7.4. Deterministic for a given day and state.
-import type { Difficulty, Problem, Topic } from '@/content/schema';
+import type { Difficulty, Problem, TopicMeta as Topic } from '@/content/schema';
 import type { PersistedState } from '@/store/types';
 import { dueCards } from './revision';
 import type { TopicMastery } from './mastery';

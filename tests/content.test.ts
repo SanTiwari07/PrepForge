@@ -1,6 +1,6 @@
 // Content integrity validator (what_to_do.md Section 11). Runs in `npm test`.
 import { describe, expect, it } from 'vitest';
-import { MCQS, PROBLEMS, PROBLEM_BY_SLUG, TOPICS, TOPIC_BY_ID, WALKTHROUGHS, SQL_EXERCISES } from '@/content/registry';
+import { MCQS, PROBLEMS, PROBLEM_BY_SLUG, TOPICS, TOPIC_BY_ID, WALKTHROUGHS, SQL_EXERCISES } from '@/content/all';
 import { CATALOG } from '@/content/catalog';
 import { COMPANIES } from '@/content/companies';
 

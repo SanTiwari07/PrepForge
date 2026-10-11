@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Bookmark, BookmarkCheck, ExternalLink, Eye, Lightbulb, Pause, Play, PlayCircle, Timer } from 'lucide-react';
-import { PROBLEM_BY_SLUG, TOPIC_BY_ID, WALKTHROUGHS } from '@/content/registry';
+import { PROBLEM_BY_SLUG, WALKTHROUGH_SET } from '@/content/registry';
+import { getFullTopic, getWalkthrough, useModules } from '@/content/loader';
+import { PackStatus } from '@/components/PackStatus';
 import type { CoachWalkthrough, Problem, Topic } from '@/content/schema';
 import { emptyProblemProgress, useStore } from '@/store/store';
 import type { CoachStage, ErrorCategory, ProblemOutcome } from '@/store/types';
@@ -69,12 +71,14 @@ export default function CoachPage() {
   const [notes, setLocalNotes] = useState(pp.notes);
   const startedRef = useRef(false);
 
-  const wt: CoachWalkthrough | undefined = WALKTHROUGHS[slug];
-  const topic = problem ? TOPIC_BY_ID.get(problem.primaryTopicId) : undefined;
+  const pack = useModules(['dsa']);
+  const wt: CoachWalkthrough | undefined = pack === 'ready' ? getWalkthrough(slug) : undefined;
+  const topic = problem && pack === 'ready' ? getFullTopic(problem.primaryTopicId) : undefined;
   const hints = useMemo(() => (problem ? (wt ? wt.hints : patternHints(problem, topic)) : null), [problem, wt, topic]);
 
   useEffect(() => { setLocalNotes(pp.notes); }, [pp.notes]);
   if (!problem || !hints) return <NotFound />;
+  if (pack !== 'ready') return <div className="stack"><PageHeader crumbs={[{ to: '/problems', label: 'Problem bank' }]} title={problem.title} /><PackStatus state={pack} modules={['dsa']} /></div>;
 
   const startIfNeeded = () => { if (!startedRef.current) { startedRef.current = true; setRunning(true); } };
   const limitSec = problem.estMinutes * 60;
@@ -112,7 +116,7 @@ export default function CoachPage() {
 
         {!wt && (
           <Callout tone="info" title="Pattern guidance (no authored walkthrough yet)">
-            Hints for this problem are generated from its topic and tags, not written for this specific problem. Authored walkthroughs exist for {Object.keys(WALKTHROUGHS).length} problems so far.
+            Hints for this problem are generated from its topic and tags, not written for this specific problem. Authored walkthroughs exist for {WALKTHROUGH_SET.size} problems so far.
           </Callout>
         )}
 

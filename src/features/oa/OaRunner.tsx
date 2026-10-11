@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ExternalLink, Flag, Play } from 'lucide-react';
-import { MCQ_BY_ID, PROBLEM_BY_SLUG, SQL_DATASET_BY_ID, SQL_EXERCISE_BY_ID } from '@/content/registry';
+import { PROBLEM_BY_SLUG, SQL_DATASET_BY_ID, SQL_EXERCISE_BY_ID, modulesOfMcqs } from '@/content/registry';
+import { getMcq, loadedMcqs, useModules } from '@/content/loader';
+import { PackStatus } from '@/components/PackStatus';
 import { useStore } from '@/store/store';
 import type { AssessmentAttempt, AssessmentItem } from '@/store/types';
 import { formatClock } from '@/engine/dates';
@@ -20,6 +22,14 @@ export default function OaRunner() {
   const navigate = useNavigate();
   if (!attempt) return <EmptyState title="Assessment not found" action={<Link to="/oa" className="btn btn--primary">Back to OA centre</Link>} />;
   if (attempt.submittedAt) return <EmptyState title="This assessment was already submitted" action={<button className="btn btn--primary" onClick={() => navigate(`/oa/results/${id}`)}>View results</button>} />;
+  return <RunnerGate attempt={attempt} />;
+}
+
+/** Loads the packs holding the assessment's MCQs before the runner (and its auto-submit) mounts. */
+function RunnerGate({ attempt }: { attempt: AssessmentAttempt }) {
+  const modules = modulesOfMcqs(attempt.items.filter((it) => it.kind === 'mcq').map((it) => it.refId));
+  const state = useModules(modules);
+  if (state !== 'ready') return <PackStatus state={state} modules={modules} />;
   return <Runner attempt={attempt} />;
 }
 
@@ -43,11 +53,11 @@ function Runner({ attempt }: { attempt: AssessmentAttempt }) {
     // Record first-seen evidence for MCQs answered in the assessment.
     for (const it of final.items) {
       if (it.kind !== 'mcq') continue;
-      const q = MCQ_BY_ID.get(it.refId);
+      const q = getMcq(it.refId);
       const sel = final.answers[it.id]?.selected;
       if (q && sel?.length) recordMcq({ mcqId: q.id, selected: sel, correct: isMcqCorrect(q, sel), timeSec: final.timePerItem[it.id] ?? 0, context: 'oa' }, it.topicId);
     }
-    finish(attempt.id, { submittedAt, result: scoreAssessment(final, MCQ_BY_ID) });
+    finish(attempt.id, { submittedAt, result: scoreAssessment(final, loadedMcqs()) });
     navigate(`/oa/results/${attempt.id}`, { replace: true });
   }, [attempt.id, finish, navigate, recordMcq]);
 
@@ -148,7 +158,7 @@ function isAnswered(a: AssessmentAttempt, it: AssessmentItem): boolean {
 }
 
 function McqItem({ attempt, item, onAnswer }: { attempt: AssessmentAttempt; item: AssessmentItem; onAnswer: (sel: string[]) => void }) {
-  const q = MCQ_BY_ID.get(item.refId);
+  const q = getMcq(item.refId);
   if (!q) return <p>Question unavailable.</p>;
   const sel = attempt.answers[item.id]?.selected ?? [];
   return (

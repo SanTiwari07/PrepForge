@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { PlayCircle, Search } from 'lucide-react';
-import { PROBLEMS, TOPIC_BY_ID, WALKTHROUGHS, topicsOf } from '@/content/registry';
+import { PROBLEMS, TOPIC_BY_ID, WALKTHROUGH_SET, topicsOf } from '@/content/registry';
 import type { Difficulty, ProblemList } from '@/content/schema';
 import { useStore } from '@/store/store';
 import { LIST_LABEL } from '@/content/lists';
@@ -35,14 +35,14 @@ export default function ProblemsPage() {
       if (diff && p.difficulty !== diff) return false;
       if (list && !p.lists.includes(list)) return false;
       if (hidePremium && p.premium) return false;
-      if (coach === 'authored' && !WALKTHROUGHS[p.slug]) return false;
+      if (coach === 'authored' && !WALKTHROUGH_SET.has(p.slug)) return false;
       const st = progress[p.slug]?.status ?? 'todo';
       if (status && st !== status) return false;
       if (needle && !(`${p.title} ${p.leetcodeId} ${p.patterns.join(' ')}`.toLowerCase().includes(needle))) return false;
       return true;
     }).sort((a, b) => {
       const order = { easy: 0, medium: 1, hard: 2 };
-      return (Number(!!WALKTHROUGHS[b.slug]) - Number(!!WALKTHROUGHS[a.slug])) || (order[a.difficulty] - order[b.difficulty]) || a.leetcodeId - b.leetcodeId;
+      return (Number(!!WALKTHROUGH_SET.has(b.slug)) - Number(!!WALKTHROUGH_SET.has(a.slug))) || (order[a.difficulty] - order[b.difficulty]) || a.leetcodeId - b.leetcodeId;
     });
   }, [q, topic, diff, list, status, coach, hidePremium, progress]);
 
@@ -97,7 +97,7 @@ export default function ProblemsPage() {
                   <tr key={p.slug}>
                     <td data-label="Problem">
                       <Link to={`/problems/${p.slug}`} className="strong" style={{ color: 'var(--ink)' }}>{p.title}</Link>
-                      <span className="xsmall muted" style={{ display: 'block' }}>#{p.leetcodeId}{WALKTHROUGHS[p.slug] ? ' · Authored walkthrough' : ' · Pattern guidance'}{p.videoUrl ? ' · ' : ''}{p.videoUrl && <PlayCircle size={11} aria-label="Video available" style={{ display: 'inline', verticalAlign: '-1px' }} />}</span>
+                      <span className="xsmall muted" style={{ display: 'block' }}>#{p.leetcodeId}{WALKTHROUGH_SET.has(p.slug) ? ' · Authored walkthrough' : ' · Pattern guidance'}{p.videoUrl ? ' · ' : ''}{p.videoUrl && <PlayCircle size={11} aria-label="Video available" style={{ display: 'inline', verticalAlign: '-1px' }} />}</span>
                     </td>
                     <td data-label="Topic"><span className="small">{TOPIC_BY_ID.get(p.primaryTopicId)?.title}</span></td>
                     <td data-label="Difficulty"><DifficultyBadge d={p.difficulty} /></td>

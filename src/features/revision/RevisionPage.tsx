@@ -4,7 +4,10 @@ import { Trash2 } from 'lucide-react';
 import { useStore } from '@/store/store';
 import type { ReviewCard } from '@/store/types';
 import { dueCards, upcomingCounts } from '@/engine/revision';
-import { MCQ_BY_ID, PROBLEM_BY_SLUG, SQL_EXERCISE_BY_ID, TOPIC_BY_ID, topicTitle } from '@/content/registry';
+import { PROBLEM_BY_SLUG, SQL_EXERCISE_BY_ID, TOPIC_BY_ID, topicTitle } from '@/content/registry';
+import { getFullTopic, getMcq, useModules } from '@/content/loader';
+import { PackStatus } from '@/components/PackStatus';
+import type { ModuleId } from '@/content/schema';
 import { Markdown } from '@/components/Markdown';
 import { Badge, EmptyState, PageHeader, Stat } from '@/components/ui';
 import { McqView } from '@/features/mcq/McqView';
@@ -15,7 +18,7 @@ import { relativeDay } from '@/engine/dates';
 function cardContent(c: ReviewCard): { front: string; back?: string; href?: string; title: string } {
   if (c.kind === 'flashcard' || c.kind === 'interview-q') {
     const [topicId, localId] = [c.refId.slice(0, c.refId.lastIndexOf(':')), c.refId.slice(c.refId.lastIndexOf(':') + 1)];
-    const t = TOPIC_BY_ID.get(topicId);
+    const t = getFullTopic(topicId);
     if (c.kind === 'flashcard') {
       const f = t?.revision.flashcards.find((x) => x.id === localId);
       return { title: t?.title ?? topicId, front: f?.front ?? 'Card not found', back: f?.backMd };
@@ -47,6 +50,9 @@ export default function RevisionPage() {
   const all = Object.values(cards);
   const due = useMemo(() => dueCards(all), [all]);
   const upcoming = useMemo(() => upcomingCounts(all, 7), [all]);
+  // Card text (flashcards, interview answers, MCQ bodies) lives in the module packs.
+  const modules = useMemo(() => [...new Set(all.map((c) => TOPIC_BY_ID.get(c.topicId)?.moduleId).filter((m): m is ModuleId => !!m))], [all]);
+  const pack = useModules(modules);
 
   const startSession = (ids: string[]) => { setSession(ids); setIdx(0); setFlipped(false); setMcqSel([]); setMcqRevealed(false); };
   const advance = () => {
@@ -55,13 +61,15 @@ export default function RevisionPage() {
     setIdx(idx + 1); setFlipped(false); setMcqSel([]); setMcqRevealed(false);
   };
 
+  if (pack !== 'ready') return <div className="stack-lg"><PageHeader title="Revision" /><PackStatus state={pack} modules={modules} /></div>;
+
   if (session) {
     const card = cards[session[idx]];
     if (!card) {
       return <EmptyState title="This item was removed" action={<button className="btn btn--primary" onClick={advance}>Continue</button>} />;
     }
     const c = cardContent(card);
-    const q = card.kind === 'mcq' ? MCQ_BY_ID.get(card.refId) : undefined;
+    const q = card.kind === 'mcq' ? getMcq(card.refId) : undefined;
     return (
       <div className="stack-lg">
         <PageHeader eyebrow={`Review ${idx + 1} of ${session.length}`} title={c.title} actions={<button className="btn btn--secondary" onClick={() => setSession(null)}>End session</button>} />

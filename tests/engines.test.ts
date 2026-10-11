@@ -5,7 +5,7 @@ import { compareResults } from '@/engine/sqlCompare';
 import { scoreAssessment, isMcqCorrect } from '@/engine/scoring';
 import { computeTopicMastery, type ContentIndex } from '@/engine/mastery';
 import { emptyState, emptyProblemProgress } from '@/store/store';
-import type { MCQ, Problem, Topic } from '@/content/schema';
+import type { MCQ, Problem, TopicMeta } from '@/content/schema';
 import type { AssessmentAttempt } from '@/store/types';
 import { currentStreak, longestStreak } from '@/engine/stats';
 
@@ -121,11 +121,11 @@ describe('assessment scoring', () => {
 });
 
 describe('mastery', () => {
-  const topic: Topic = {
+  const topic: TopicMeta = {
     id: 't1', moduleId: 'dsa', title: 'T', summary: '', level: 'core', status: 'complete', estMinutes: 10, prerequisites: [], related: [], objectives: [],
-    sections: [{ id: 's1', kind: 'concept', title: '', bodyMd: '' }, { id: 's2', kind: 'concept', title: '', bodyMd: '' }],
-    mcqIds: ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'], interviewQuestions: [], problemIds: ['p1', 'p2'], revision: { notesMd: '', flashcards: [] },
-    mastery: { testSize: 4, testMinutes: 5, passPct: 80, minIndependentSolves: 1, minMediumIndependent: 1, retentionDays: 7 }, resources: [],
+    sectionIds: ['s1', 's2'], counts: { interviewQuestions: 0, flashcards: 0 },
+    mcqIds: ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'], problemIds: ['p1', 'p2'],
+    mastery: { testSize: 4, testMinutes: 5, passPct: 80, minIndependentSolves: 1, minMediumIndependent: 1, retentionDays: 7 },
   };
   const prob = (slug: string, d: Problem['difficulty']): Problem => ({ slug, leetcodeId: 1, title: slug, difficulty: d, premium: false, url: '', lists: [], topicIds: ['t1'], primaryTopicId: 't1', patterns: [], estMinutes: 10 });
   const idx: ContentIndex = { mcqById: new Map(), problemBySlug: new Map([['p1', prob('p1', 'easy')], ['p2', prob('p2', 'medium')]]), sqlById: new Map() };

@@ -31,7 +31,7 @@ describe('daily plan', () => {
   });
   it('targets a weak topic when application evidence is poor', () => {
     const s = emptyState();
-    s.topicProgress['dsa.two-pointers'] = { sectionsRead: TOPIC_BY_ID.get('dsa.two-pointers')!.sections.map((x) => x.id), masteryTests: [] };
+    s.topicProgress['dsa.two-pointers'] = { sectionsRead: TOPIC_BY_ID.get('dsa.two-pointers')!.sectionIds, masteryTests: [] };
     const bad = { at: '2026-10-01T00:00:00Z', durationSec: 900, hintsUsed: 4, solutionViewed: true, outcome: 'after-solution' as const, errorCategories: ['pattern-not-identified' as const], timed: false, firstSeen: true };
     for (const slug of ['3sum', 'container-with-most-water', 'valid-palindrome']) s.problemProgress[slug] = { ...emptyProblemProgress(), status: 'solved', attempts: [bad] };
     const plan = buildDailyPlan({ state: s, topicById: TOPIC_BY_ID, topics: TOPICS, mastery: masteryOf(s), problemBySlug: PROBLEM_BY_SLUG, minutes: 120, now: '2026-10-11' });

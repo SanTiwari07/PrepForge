@@ -12,7 +12,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          if (id.includes('/src/content/')) return 'content';
+          // Module packs (lessons, MCQs, walkthroughs) load on demand, one chunk each; the
+          // metadata index, problem bank and SQL exercises ship eagerly (src/content/loader.ts).
+          const pack = id.match(/\/src\/content\/(dsa|sql|dbms|oop-cpp|oop-java|cn|os|system-design|devops|core-cs)\//);
+          if (pack && !/\/sql\/(datasets|exercises)\.ts$/.test(id)) return `pack-${pack[1]}`;
+          if (id.includes('/src/content/problems/')) return 'content-problems';
+          if (id.includes('/src/content/')) return 'content-index';
           if (id.includes('node_modules/highlight.js')) return 'hljs';
           if (id.includes('node_modules/react')) return 'react';
           return undefined;

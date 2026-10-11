@@ -2,7 +2,9 @@ import { displayOptions } from './optionOrder';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, Bookmark, BookmarkCheck, RotateCcw } from 'lucide-react';
 import type { MCQ } from '@/content/schema';
-import { MCQ_BY_ID } from '@/content/registry';
+import { modulesOfMcqs } from '@/content/registry';
+import { getMcq, useModules } from '@/content/loader';
+import { PackStatus } from '@/components/PackStatus';
 import { useStore } from '@/store/store';
 import type { McqContext } from '@/store/types';
 import { isMcqCorrect } from '@/engine/scoring';
@@ -16,10 +18,20 @@ export interface SessionResult { correct: number; total: number; durationSec: nu
  * Practice mode: instant feedback per question.
  * Test mode: no feedback until submitted, optional time limit, review at the end.
  */
-export function McqSession({ ids, mode = 'practice', context = 'practice', timeLimitSec, onFinish, title }: {
+interface SessionProps {
   ids: string[]; mode?: 'practice' | 'test'; context?: McqContext; timeLimitSec?: number; onFinish?: (r: SessionResult) => void; title?: string;
-}) {
-  const questions = useMemo(() => ids.map((id) => MCQ_BY_ID.get(id)).filter((q): q is MCQ => !!q), [ids]);
+}
+
+export function McqSession(props: SessionProps) {
+  const modules = useMemo(() => modulesOfMcqs(props.ids), [props.ids]);
+  const state = useModules(modules);
+  if (state !== 'ready') return <PackStatus state={state} modules={modules} />;
+  return <LoadedSession {...props} />;
+}
+
+/** Rendered once the packs holding these MCQs have loaded (so a test timer starts after loading). */
+function LoadedSession({ ids, mode = 'practice', context = 'practice', timeLimitSec, onFinish, title }: SessionProps) {
+  const questions = useMemo(() => ids.map((id) => getMcq(id)).filter((q): q is MCQ => !!q), [ids]);
   const recordMcq = useStore((s) => s.recordMcq);
   const toggleBookmark = useStore((s) => s.toggleBookmark);
   const bookmarks = useStore((s) => s.bookmarks);

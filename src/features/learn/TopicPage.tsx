@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Bookmark, BookmarkCheck, CheckCircle2, Circle, ExternalLink, Plus } from 'lucide-react';
 import { MODULE_BY_ID, PROBLEM_BY_SLUG, SQL_EXERCISE_BY_ID, TOPIC_BY_ID, MCQ_BY_ID } from '@/content/registry';
-import type { Topic } from '@/content/schema';
+import type { Topic, TopicMeta } from '@/content/schema';
 import { useStore } from '@/store/store';
 import { useMasteryMap } from '@/hooks/useDerived';
 import { Markdown } from '@/components/Markdown';
@@ -13,6 +13,8 @@ import { McqSession } from '@/features/mcq/McqSession';
 import { formatDuration } from '@/engine/dates';
 import { Flashcards } from '@/features/revision/Flashcards';
 import NotFound from '@/features/NotFound';
+import { getFullTopic, useModules } from '@/content/loader';
+import { PackStatus } from '@/components/PackStatus';
 
 const TABS = ['learn', 'practice', 'mcqs', 'interview', 'revise', 'mastery', 'resources'] as const;
 type Tab = (typeof TABS)[number];
@@ -20,17 +22,19 @@ const TAB_LABEL: Record<Tab, string> = { learn: 'Learn', practice: 'Practice', m
 
 export default function TopicPage() {
   const { moduleId, topicId } = useParams();
-  const topic = TOPIC_BY_ID.get(topicId ?? '');
+  const meta = TOPIC_BY_ID.get(topicId ?? '');
+  const pack = useModules(meta ? [meta.moduleId] : []);
+  const topic = meta && pack === 'ready' ? getFullTopic(meta.id) : undefined;
   const [params, setParams] = useSearchParams();
   const tab = (TABS.includes(params.get('tab') as Tab) ? params.get('tab') : 'learn') as Tab;
   const visitTopic = useStore((s) => s.visitTopic);
-  useEffect(() => { if (topic) visitTopic(topic.id); }, [topic, visitTopic]);
+  useEffect(() => { if (meta) visitTopic(meta.id); }, [meta, visitTopic]);
   const mastery = useMasteryMap();
-  if (!topic || topic.moduleId !== moduleId) return <NotFound />;
-  const mod = MODULE_BY_ID.get(topic.moduleId)!;
-  const m = mastery.get(topic.id)!;
+  if (!meta || meta.moduleId !== moduleId) return <NotFound />;
+  const mod = MODULE_BY_ID.get(meta.moduleId)!;
+  const m = mastery.get(meta.id)!;
 
-  const counts: Partial<Record<Tab, number>> = { practice: topic.problemIds.length, mcqs: topic.mcqIds.length, interview: topic.interviewQuestions.length };
+  const counts: Partial<Record<Tab, number>> = { practice: meta.problemIds.length, mcqs: meta.mcqIds.length, interview: meta.counts.interviewQuestions };
   const setTab = (t: Tab) => setParams(t === 'learn' ? {} : { tab: t }, { replace: true });
 
   return (
@@ -38,10 +42,10 @@ export default function TopicPage() {
       <div className="topic-main">
         <PageHeader
           crumbs={[{ to: '/learn', label: 'Learn' }, { to: `/learn/${mod.id}`, label: mod.shortTitle }]}
-          eyebrow={`${mod.shortTitle} · ${topic.level}`}
-          title={topic.title}
-          lead={topic.summary}
-          actions={<><StatusBadge status={topic.status} /><LevelBadge level={m.level} /></>}
+          eyebrow={`${mod.shortTitle} · ${meta.level}`}
+          title={meta.title}
+          lead={meta.summary}
+          actions={<><StatusBadge status={meta.status} /><LevelBadge level={m.level} /></>}
         />
         <div className="tabs" role="tablist" aria-label="Topic sections">
           {TABS.map((t) => (
@@ -51,13 +55,14 @@ export default function TopicPage() {
           ))}
         </div>
         <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`}>
-          {tab === 'learn' && <LearnTab topic={topic} />}
-          {tab === 'practice' && <PracticeTab topic={topic} />}
-          {tab === 'mcqs' && (topic.mcqIds.length ? <McqSession ids={topic.mcqIds} title={topic.title} /> : <EmptyState title="No MCQs yet">MCQs for this topic are planned.</EmptyState>)}
-          {tab === 'interview' && <InterviewTab topic={topic} />}
-          {tab === 'revise' && <ReviseTab topic={topic} />}
-          {tab === 'mastery' && <MasteryTab topic={topic} />}
-          {tab === 'resources' && <ResourcesTab topic={topic} />}
+          {!topic && <PackStatus state={pack} modules={[meta.moduleId]} />}
+          {topic && tab === 'learn' && <LearnTab topic={topic} />}
+          {topic && tab === 'practice' && <PracticeTab topic={topic} />}
+          {topic && tab === 'mcqs' && (topic.mcqIds.length ? <McqSession ids={topic.mcqIds} title={topic.title} /> : <EmptyState title="No MCQs yet">MCQs for this topic are planned.</EmptyState>)}
+          {topic && tab === 'interview' && <InterviewTab topic={topic} />}
+          {topic && tab === 'revise' && <ReviseTab topic={topic} />}
+          {topic && tab === 'mastery' && <MasteryTab topic={topic} />}
+          {topic && tab === 'resources' && <ResourcesTab topic={topic} />}
         </div>
       </div>
       <aside className="topic-rail" aria-label="Topic progress">
@@ -76,12 +81,12 @@ export default function TopicPage() {
           </ul>
           {m.studiedButCannotApply && <Callout tone="warning">You have read most of this topic, but your problem results are weak. Practise easier problems with the coach.</Callout>}
         </div>
-        <TopicNotes topic={topic} />
-        {topic.prerequisites.length > 0 && (
+        <TopicNotes topic={meta} />
+        {meta.prerequisites.length > 0 && (
           <div className="card card--compact">
             <h2 className="eyebrow mb-2">Prerequisites</h2>
             <ul className="list-plain small stack-sm">
-              {topic.prerequisites.map((p) => { const t = TOPIC_BY_ID.get(p); return t ? <li key={p}><Link to={`/learn/${t.moduleId}/${t.id}`}>{t.title}</Link> <LevelBadge level={mastery.get(p)!.level} /></li> : null; })}
+              {meta.prerequisites.map((p) => { const t = TOPIC_BY_ID.get(p); return t ? <li key={p}><Link to={`/learn/${t.moduleId}/${t.id}`}>{t.title}</Link> <LevelBadge level={mastery.get(p)!.level} /></li> : null; })}
             </ul>
           </div>
         )}
@@ -335,7 +340,7 @@ function ResourcesTab({ topic }: { topic: Topic }) {
   );
 }
 
-function TopicNotes({ topic }: { topic: Topic }) {
+function TopicNotes({ topic }: { topic: TopicMeta }) {
   const noteId = `topic:${topic.id}`;
   const note = useStore((s) => s.notes.find((n) => n.id === noteId));
   const upsert = useStore((s) => s.upsertNote);

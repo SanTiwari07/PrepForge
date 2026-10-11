@@ -1,6 +1,8 @@
 // Transparent placement-readiness model. See what_to_do.md Section 7.3.
 // Scores summarise preparation evidence; they never predict hiring outcomes.
 import type { MCQ, ModuleId, Problem } from '@/content/schema';
+
+type McqTags = Pick<MCQ, 'moduleId'>;
 import type { PersistedState } from '@/store/types';
 import { attemptCredit, confidenceFor, type Confidence, MIN_EVIDENCE } from './mastery';
 
@@ -25,7 +27,7 @@ function recencyWeight(at: string, now: number): number {
 }
 
 function mcqDimension(
-  s: PersistedState, mcqById: Map<string, MCQ>, modules: ModuleId[], now: number,
+  s: PersistedState, mcqById: Map<string, McqTags>, modules: ModuleId[], now: number,
 ): { score: number | null; n: number; correct: number } {
   let num = 0;
   let den = 0;
@@ -45,7 +47,7 @@ function mcqDimension(
 }
 
 export function computeReadiness(
-  s: PersistedState, mcqById: Map<string, MCQ>, problemBySlug: Map<string, Problem>, nowDate: Date = new Date(),
+  s: PersistedState, mcqById: Map<string, McqTags>, problemBySlug: Map<string, Problem>, nowDate: Date = new Date(),
 ): Dimension[] {
   const now = nowDate.getTime();
   const dims: Dimension[] = [];
