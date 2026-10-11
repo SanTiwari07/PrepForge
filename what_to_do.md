@@ -9,7 +9,8 @@
 |---|---|
 | Product name | **PrepForge** (the working name "PlacementOS" was replaced at the user's request) |
 | Repository | `https://github.com/SanTiwari07/PrepForge.git` (public), branch `main`, local folder `D:\Projects\PlacementResource` |
-| Last updated | 2026-10-11 (session 1: audit and roadmap; no application code written yet) |
+| Last updated | 2026-10-11 (session 1: audit, roadmap, and the SQL/DBMS college + placement plan; no application code written yet) |
+| Open decision | **D-SQL-1:** how to store college materials, given the repo is public (Section 17). Blocks Phase 5A/5B imports only |
 | Current phase | Phase 0, Repository setup (not started) |
 | Overall status | Planning complete. Verified research data in `research/`. Application not yet implemented. |
 
@@ -59,6 +60,7 @@ Never tick a box for a feature that only exists as a mockup.
 1. Phase 0: scaffold Vite + React + TypeScript, tooling, design tokens, and CI scripts.
 2. Phase 1: app shell, routing, persistence store, content schema and validator, content renderer.
 3. Phase 2: the DSA learning loop end to end (topic page → MCQs → problem bank → Problem-Solving Coach → attempt logging → dashboard v1), using the first five DSA topics as the pilot.
+4. Ask the learner for decision D-SQL-1 and for the missing college materials in Section 8.2.3, so Phase 5 is not blocked when it starts. Phase 5 (SQL/DBMS) may be pulled forward to follow Phase 2 directly if college exams are near.
 
 ---
 
@@ -207,6 +209,8 @@ Mobile adds a bottom bar with Today · Learn · Practice · Revise · More.
 | `/practice/mcq` | Custom MCQ session builder and runner |
 | `/sql/lab` | SQL playground with dataset picker |
 | `/sql/exercises/:id` | Auto-graded SQL exercise |
+| `/learn/sql-dbms/college` | College Exam mode: unit → topic → question type → difficulty; practice papers; lab and viva drills |
+| `/learn/sql-dbms/college/:questionId` | One college question with source, solution and verification status |
 | `/oa` | OA Centre: presets, custom builder, history |
 | `/oa/run/:attemptId` | Assessment runner (full-screen, timer) |
 | `/oa/results/:attemptId` | Results and review |
@@ -216,7 +220,7 @@ Mobile adds a bottom bar with Today · Learn · Practice · Revise · More.
 | `/notes` | Notes and bookmarks |
 | `/companies`, `/companies/:companyId` | Company tracks |
 | `/analytics` | Readiness model with evidence |
-| `/tools/:toolId` | CPU scheduling, page replacement, subnet calculator, FD closure / candidate keys, Big-O growth |
+| `/tools/:toolId` | CPU scheduling, page replacement, subnet calculator, FD toolkit (closure, keys, superkeys, NF, lossless, dependency preservation), relational algebra evaluator, schedule / serialisability analyser, B+ tree visualiser, Big-O growth |
 | `/settings` | Settings and data management |
 | `*` | 404 page with search and links |
 
@@ -390,6 +394,59 @@ interface AssessmentAttempt { id: string; config: AssessmentConfig; startedAt: s
 `firstSeen` is the key field for evidence quality: performance on **unseen** items
 carries the most weight in mastery and readiness.
 
+### 6.3 SQL/DBMS and college-material extensions (see Section 8.2)
+
+```ts
+type Provenance2 = 'college-official' | 'college-slides' | 'learner-solution'
+  | 'derived-notes' | 'ai-generated' | 'prepforge-original' | 'external';
+type Verification = 'verified-mysql' | 'verified-sqlite' | 'verified-algorithm'
+  | 'official-answer' | 'needs-validation' | 'disputed';
+type Unit = 'I' | 'II' | 'III' | 'IV' | 'V' | 'VI';   // provisional until the official syllabus arrives
+
+interface SourceDocument {           // one per audited file (Section 8.2.2)
+  id: string;                        // e.g. 'src.a1-official'
+  title: string; provenance: Provenance2; academicYear?: string;
+  localPathHint: string;             // where it was found; never a public URL
+  contentStatus: 'extracted' | 'needs-transcription' | 'not-inspected' | 'excluded';
+  notes?: string;
+}
+
+interface CollegeQuestion {
+  id: string;                        // 'clg.a1.q05', 'clg.lab3.l2.q07'
+  sourceId: string; sourceRef: string;   // e.g. 'Question 5', 'Level 2 #7', 'slide 37'
+  originalText: string;              // verbatim; stored in the private content folder (decision D-SQL-1)
+  unit?: Unit; topicIds: string[];
+  qType: 'mcq' | 'mcq-multi' | 'numerical' | 'short' | 'long' | 'query' | 'ddl'
+       | 'lab-observation' | 'viva';
+  difficulty: Difficulty; marks?: number;
+  options?: { id: string; text: string }[];
+  officialAnswer?: string;           // as given by the college, if any
+  answer: { finalMd: string; stepsMd: string; keyPoints?: string[] };  // keyPoints = self-marking rubric
+  sql?: { mysql: string; sqlite?: string; exerciseId?: string };       // links to an auto-graded SqlExercise
+  sheetNotes?: string[];             // ambiguities or schema issues in the original question
+  verification: Verification; verificationNote?: string;
+}
+
+interface SqlDataset { id: string; title: string; schemaSql: string; seedSql: string;
+  hidden?: { id: string; purpose: string; seedSql: string }[] }  // edge-case variants used in grading
+
+// SqlExercise (6.1) is extended with:
+//   engine: 'sqlite-ok' | 'mysql-only'; referenceMysql: string; referenceSqlite?: string;
+//   expectedMysqlOutput?: string[][];  // captured by scripts/verify-sql-mysql.mjs
+//   provenance: Provenance2; collegeQuestionId?: string; verification: Verification;
+//   similarTo?: string[];              // links between college, original and external items
+
+// User progress for SQL/DBMS is tracked in SEPARATE slices (never merged into one bar):
+//   theoryProgress[topicId]            sections read and revision notes reviewed (completion only)
+//   mcqAttempts[]                      (6.2)
+//   sqlAttempts[]: { exerciseId, at, sql, passedVisible, passedHidden: string[],
+//                    failedHidden: string[], hintsUsed, durationSec, errorCategories }
+//   collegeProgress[questionId]: { status: 'todo' | 'attempted' | 'done',
+//                    selfScore?: number, keyPointsHit?: string[], autoGraded?: boolean,
+//                    correct?: boolean, bookmarked: boolean, notes: string }
+//   reviewCards (6.2), with kinds extended by 'college-question' | 'sql-exercise'
+```
+
 ---
 
 ## 7. Core engines
@@ -556,52 +613,316 @@ Additional interview topics
 
 **Default roadmap order:** complexity → stl-collections → arrays-strings → hashing → two-pointers → sliding-window → prefix-sums → kadane → binary-search → stacks-queues → monotonic-stack-queue → linked-lists → fast-slow → recursion → binary-trees → bst → heaps → backtracking → intervals → greedy → graphs → topological-sort → dsu → shortest-paths → dp-1d → dp-2d → tries → bit-manipulation → matrix → sorting/divide-conquer → design-ds → math → mst → implementation → (advanced track) fenwick-segment, dp-advanced, advanced-graphs, string-matching, advanced-patterns.
 
-### 8.2 SQL and DBMS
+### 8.2 SQL and DBMS: one module for college exams, the DBMS lab, and placements
 
-**Features:** the sql.js lab (dataset picker, schema browser, result grid, error messages,
-query history); auto-graded exercises (compare the learner's result set with the reference
-query's result set on the same seeded DB: column count, row multiset, and order when
-`orderMatters`; float tolerance 1e-6; NULL-aware; column names ignored unless specified);
-wrong-approach explanations; timed SQL sets; flashcards; links to LeetCode SQL 50
-(verified list in `research/sql-50.verified.json`), HackerRank SQL and StrataScratch.
-**Never** show a "passed" state that was not produced by real execution.
+> **Goal:** PrepForge must be the learner's *single* resource for (a) the college DBMS theory
+> exams, (b) the DBMS laboratory (MySQL practicals, write-ups, orals), and (c) placement SQL
+> and DBMS interviews and OAs. Every topic connects theory → college questions → MCQs →
+> practical SQL → interview questions → revision, and each of these is tracked **separately**.
 
-**Datasets (original, seeded SQL):** `company` (employees, departments, salaries, managers),
-`shop` (customers, orders, order_items, products, payments), `events` (users, logins,
-sessions, with dates for consecutive-days and gaps problems), `school` (students, courses,
-enrollments, grades), `ledger` (accounts, transactions for running totals).
+#### 8.2.1 College context (verified from the learner's files on 2026-10-11)
 
-**SQL curriculum:**
-- [ ] `sql.select-basics` (F): SELECT, WHERE, ORDER BY, LIMIT, DISTINCT, filtering, LIKE, IN, BETWEEN
-- [ ] `sql.null-handling` (F): three-valued logic, IS NULL, COALESCE/IFNULL, NULL in aggregates and joins, `NOT IN` with NULLs
-- [ ] `sql.aggregation` (F): COUNT/SUM/AVG/MIN/MAX, GROUP BY, HAVING vs WHERE, COUNT(*) vs COUNT(col)
-- [ ] `sql.joins` (C): INNER, LEFT, RIGHT, FULL (with emulation), CROSS, anti-join and semi-join patterns, join row multiplication
-- [ ] `sql.self-joins` (C): manager/employee, pairs, comparing rows
-- [ ] `sql.subqueries` (C): scalar, IN, correlated, EXISTS/NOT EXISTS, derived tables
-- [ ] `sql.cte` (C): WITH, multiple CTEs, recursive CTEs (hierarchies, number series)
-- [ ] `sql.window-functions` (C): OVER, PARTITION BY, ORDER BY, frames, ROW_NUMBER/RANK/DENSE_RANK, LAG/LEAD, NTILE, FIRST_VALUE
-- [ ] `sql.case-conditional-agg` (C): CASE, conditional aggregation, pivoting
-- [ ] `sql.date-string-functions` (C): date arithmetic (SQLite vs MySQL), string functions, regex (dialect notes)
-- [ ] `sql.set-operations` (C): UNION vs UNION ALL, INTERSECT, EXCEPT
-- [ ] `sql.patterns` (C): duplicates, Nth highest, top-N per group, consecutive records and gaps-and-islands, running totals, moving averages, retention and cohorts, year-over-year
-- [ ] `sql.indexes-plans` (A): B-tree indexes, composite index and leftmost prefix, covering index, EXPLAIN / EXPLAIN QUERY PLAN, sargability
-- [ ] `sql.transactions` (A): BEGIN/COMMIT/ROLLBACK, isolation levels and anomalies (dirty read, non-repeatable read, phantom), practical examples
-- [ ] `sql.optimisation` (A): avoiding correlated subqueries, join order intuition, pagination (keyset vs offset)
+| Fact | Value | Source |
+|---|---|---|
+| Institute / programme | PICT Pune (autonomous, affiliated to SPPU), T.Y. B.Tech E&TC, AY 2026-27, Semester V | `UG_TY_BTech_ENTC_26-27_Mar26.pdf`; official Assignment 1 header |
+| Course | **Database Management Systems (DBMS)**, course code **0505163**, part of Multidisciplinary Minor **MD-6 Software Development**, Sem V. 2 hrs/week lecture, 2 credits. Evaluation: **CIE 20 + ISE 20 + ESE 60 = 100** | `MDM_All_2025.pdf` (MD-6 scheme table) |
+| Lab | **DBMS Laboratory (DBMSL)**, course code **0505263**: 2 hrs/week practical, 1 credit, **25 marks** (term work) | `MDM_All_2025.pdf` |
+| Lab software | **MySQL 8.0** (the lab write-up explicitly says "MySQL Database"). MySQL Server 8.0 and Workbench 8.0 are installed on the learner's PC | lab write-up template; `C:\Program Files\MySQL` |
+| Instructor's unit plan (from slides) | Unit I Introduction to DBMS (7 h) · Unit II Relational Database Design (7 h) · Unit III Basics of SQL (8 h) · Unit IV Database Transactions Management (8 h) · Unit V Parallel Databases (7 h) · Unit VI Distributed Databases (8 h) | `Unit 1-Introduction of dbms (1).pptx`, slide 3 |
+| Textbooks named on slides | Silberschatz, Korth, Sudarshan, *Database System Concepts* (6th ed.); C. J. Date et al., *An Introduction to Database Systems* | slides 7 |
 
-**DBMS theory:**
-- [ ] `dbms.er-modelling` (F): entities, relationships, cardinality, weak entities, ER → relational mapping
-- [ ] `dbms.relational-algebra` (F): σ, π, ⋈, ∪, −, ×, ρ, division; SQL equivalents
-- [ ] `dbms.keys-constraints` (F): super, candidate, primary, alternate, foreign keys; integrity constraints
-- [ ] `dbms.functional-dependencies` (C): FDs, Armstrong's axioms, **attribute closure**, **candidate key finding**, minimal cover (with interactive tool)
-- [ ] `dbms.normalisation` (C): anomalies, 1NF, 2NF, 3NF, BCNF, lossless decomposition, dependency preservation
-- [ ] `dbms.transactions-acid` (C): ACID, schedules, conflict and view serialisability, precedence graphs, recoverability
-- [ ] `dbms.concurrency-control` (C): 2PL and strict 2PL, timestamp ordering, MVCC, locks and deadlocks (detection, prevention)
-- [ ] `dbms.indexing-btrees` (C): dense/sparse, clustered/non-clustered, B-tree vs B+ tree, hashing indexes
-- [ ] `dbms.query-processing` (A): parsing, optimisation, join algorithms (nested loop, hash, sort-merge), cost intuition
-- [ ] `dbms.storage-architecture` (A): pages, buffer pool, WAL, recovery (ARIES intuition), DB architecture
-- [ ] `dbms.replication-partitioning` (A): leader-follower, replication lag, horizontal vs vertical partitioning, sharding keys
+> **Conflict to resolve (needs the official syllabus):** slide 2 of the instructor deck shows
+> an older scheme (3 hrs/week, In-Sem 30 / End-Sem 70, Oral 25), which disagrees with the
+> AY 2026-27 MD-6 scheme above (2 hrs/week, CIE 20 / ISE 20 / ESE 60, lab TW 25). The 6-unit
+> plan is therefore **provisional**. Until the official 0505163 syllabus is provided, the app
+> labels units "Unit plan from instructor slides; confirm against official syllabus".
 
-**Tool:** `/tools/fd-closure`, an attribute closure and candidate key calculator with step display.
+#### 8.2.2 Audit of college materials found on the learner's PC
+
+None of these files were inside the repository; they were found by a filename scan of
+Desktop and Downloads. They were read in place and **nothing has been copied into the repo**
+(see decision D-SQL-1 below).
+
+| ID | File (location) | Provenance class | What it contains | Extraction status |
+|---|---|---|---|---|
+| `src.syllabus-etc` | `Desktop/College Study Material/TY/UG_TY_BTech_ENTC_26-27_Mar26.pdf` | Official college | TY E&TC syllabus. DBMS appears **only** in the MDM domain listing; there is **no DBMS unit-wise syllabus** | Text extracted |
+| `src.mdm-2025` | `.../TY/MDM_All_2025.pdf` | Official college | MDM syllabi for **SY** courses plus the MD-6 scheme table listing DBMS 0505163 / DBMSL 0505263 marks and credits. **No DBMS unit details** | Text extracted |
+| `src.slides-u1-intro` | `.../TY/DBMS/Unit 1-Introduction of dbms (1).pptx` (81 slides) | Instructor slides | Data and database concepts, types of databases, file system vs DBMS, SQL vs NoSQL products, embedded/static vs dynamic SQL, applications, purpose of database systems, 3-level architecture and data abstraction, instances and schemas, file-server / 2-tier / 3-tier architecture, DBA functions, data models (hierarchical, network, relational, ER, OO), relational terms (relation, tuple, attribute, domain, degree, cardinality), procedural vs non-procedural languages, DDL/DML/DCL, Codd's rules 0–12, functional dependencies, Armstrong's axioms (reflexive, augmentation, transitivity, union, decomposition, pseudo-transitivity), FD types | Text extracted; several slides are image-only (19–22, 31–32, 73) |
+| `src.slides-u1-ra` | `.../TY/DBMS/Unit 1- Relational algebra.pptx` (61 slides) | Instructor slides | σ, π, ρ, ∪, ∩, −, ×, ÷, composite expressions, SQL joins (inner, natural, θ, left/right/full outer), tuple relational calculus (quantifiers, SQL↔TRC), domain relational calculus (title only). **Embedded exercises:** slide 23 (tuple count over P, Q, R; the expression is an image), slide 37 (maximum size of r1 ⋈ r2 given keys and tuple counts), slides 58–59 (convert SQL to TRC) | Text extracted; slide 23 needs visual transcription |
+| `src.a1-official` | `Downloads/TY_DBMS_Assignment_Solution_M2.pdf` | **Official college (instructor solutions)** | **DBMS theory Assignment 1**, AY 2026-27 Sem V, all TY divisions: **17 questions with official solutions** on FDs, closure, keys, superkey counting, normal forms, lossless and dependency-preserving decomposition | Q1–Q9 text extracted (arrow symbols "→" are lost in extraction). **Q10–Q17 statements and the table instances in Q7, Q8 and Q14 are images**, so visual transcription is needed. Official answers captured as text for Q1–9, 11, 12, 14, 16, 17 |
+| `src.a1-explained` | `Downloads/DBMS_Solutions_Explained.pdf` | Derived study notes (not official; origin unknown, possibly AI-assisted) | Step-by-step re-solutions of the same 17 questions, including text versions of Q10–17 | Text extracted. Use as a cross-check only |
+| `src.a1-notes` | `Downloads/DBMS_Theory_Notes.pdf` | Derived study notes | "Normalization crash notes": closure, keys, superkey counting, NF tests, lossless and dependency preservation, with a method map for Q1–Q17 | Text extracted. Cross-check only |
+| `src.chatgpt-notes` | `.../TY/ChatGPT - DBMS.pdf` | **AI-generated** (ChatGPT export) | Module 1 notes: purpose of DB systems, relational integrity, relational algebra, ER model, mapping cardinalities | Text extracted. **Unverified**; never shown as authoritative |
+| `src.lab-a2-sheet` | `Desktop/College Study Material/DBMS LAB work/Assignment 2_DDL.docx` | Official college (lab sheet) | **Lab Assignment 2: DDL**, about 20 tasks across Create (Department, Course, Student with PK/FK/auto-increment/NOT NULL/CHECK), Describe, Drop vs Truncate, ALTER (ADD/MODIFY/DROP/RENAME on Faculty, add FK), INSERT variants, sequence/auto-increment, SELECT all, Views (E&TC students; id, name, DOB, age; insert/update through single- and multi-table views), Index (EXPLAIN on f_name and S_ID; clustered vs non-clustered; create index and re-EXPLAIN) | Fully extracted |
+| `src.lab-a2-writeup` | `.../DBMS LAB work/W_Assignment No. 2.docx` | Official college (write-up template, T.E. E&TCE, AY 2026-27) | Aim, objectives, theory on SQL objects, DDL/DML/DCL/TCL comparison table, CREATE/ALTER/VIEW/INDEX/SEQUENCE/SYNONYM syntax, constraints table, MySQL notes (no SYNONYM, AUTO_INCREMENT vs Oracle sequences, `LAST_INSERT_ID()`) | Fully extracted → source of **lab viva / short-answer** questions |
+| `src.lab-a2-scan` | `.../DBMS LAB work/dbms Assignment 2.pdf` | Unknown (scanned, no text layer, 3.2 MB) | Probably a printed copy of the sheet or a submission | **Not inspected visually yet** |
+| `src.lab-a3-sheet` | `.../DBMS LAB work/Assignment 3_sql_query_for_students.docx` | Official college (lab sheet) | **Lab Assignment 3: "Database of Institute"**, 7 tables (Department, Course, Student, Faculty, Examination, Employee_account, Student_account), min 10 rows each, then **71 query prompts**: Level 1 Basic (14), Level 2 Intermediate (12), Level 3 Advanced (13), Level 4 Real-life (15), UPDATE and DELETE / referential-integrity experiments (17) | Fully extracted |
+| `src.user-a2-sql`, `src.user-a3-sql` | `.../DBMS LAB work/assignment_2_dbms.sql`, `assignment_3_dbms.sql` (identical copies in `Desktop/Coding/MySql/`) | **Learner's own solutions** | A2: schema + DDL demos (partial coverage of the sheet). A3: schema with 5 departments, 7 courses, 8 students, and answers to Levels 1–4; **no UPDATE/DELETE section** | Fully read; statically reviewed (see 8.2.4) |
+| `src.user-a2-doc`, `src.user-a3-doc` | `.../DBMS LAB work/<learner-name> Assignment 2.docx` (23 items, 23 screenshots), `<learner-name> Assignment 3.docx` (417 lines, 85 screenshots) | **Learner's own submissions** | A3 submission **does** include the 16 UPDATE/DELETE answers, on a different dataset from the `.sql` file | Text extracted; screenshots not inspected |
+| `src.user-other-sql` | `Desktop/Coding/MySql/college_work.sql`, `sample.sql`, `first_hackathon.sql`; `assignment_4_dbms.sql` (**0 bytes**) | Learner's own | Variants of the college schema; a hackathon table; an empty Assignment 4 file | Read |
+| — | `.../DBMS LAB work/DBMS2_Assignment_2_Submission.docx`, `DBMS_Assignment_3_Submission.docx` | **A classmate's submissions** (another student's name and roll number) | — | **Excluded** from import for privacy. Not to be used |
+
+#### 8.2.3 Missing college materials (the learner needs to provide these)
+
+Do **not** invent their contents. Until they arrive, the related app sections show "Awaiting
+college material" with this list.
+
+1. [ ] **Official AY 2026-27 syllabus for DBMS 0505163**: unit titles, unit contents, hours, course outcomes, textbooks (resolves the scheme conflict in 8.2.1)
+2. [ ] **Official DBMS Lab 0505263 syllabus / list of experiments**: the full assignment list, especially **Lab Assignment 1** and **Assignments 4+** (`assignment_4_dbms.sql` is empty and no sheet was found)
+3. [ ] **Slides or notes for Units II–VI** (only the two Unit I decks exist locally)
+4. [ ] **Question papers**: previous CIE, ISE and ESE DBMS papers (PICT autonomous; SPPU papers as a fallback) and the **exam pattern** (marks per question, MCQ vs descriptive split, duration)
+5. [ ] **Course question bank (QB)**, if the department issues one (a `CC QB.pdf` exists for Cloud Computing, so a DBMS QB may exist too)
+6. [ ] **Lab oral/viva question list**, if provided by the instructor
+7. [ ] **Further theory assignments** (Assignment 2 onward), or the unsolved question copy of Assignment 1, if different
+8. [ ] A text or clearer copy of `dbms Assignment 2.pdf` (currently a scan), or confirmation that it duplicates `Assignment 2_DDL.docx`
+
+#### 8.2.4 College question bank: mapping of audited questions
+
+Each college item becomes one `CollegeQuestion` record (Section 6.3) with: the original text
+(verbatim, stored privately per D-SQL-1), source file and question number, unit, topic(s),
+question type, difficulty, marks if known, the official answer if present, PrepForge's own
+step-by-step solution, MySQL solution (and SQLite variant) for query items, and a
+**verification status**.
+
+**A. Official theory Assignment 1 (`src.a1-official`, 17 items).** All are MCQ or numerical,
+Unit II (provisional).
+
+| Q | Topic | Type | Official answer (as extracted) | Status |
+|---|---|---|---|---|
+| 1 | Prime attributes from FDs | MCQ | (c) | Official answer; re-derive with the closure tool |
+| 2 | Lossless decomposition | MCQ | (c) | Official; **re-check**: the extracted solution says the "primary key … is FileCount", which must be validated against the FDs once the arrows are transcribed |
+| 3 | Number of superkeys | MCQ, numerical | (b) 6 | Official; matches the derived notes |
+| 4 | Lossless + dependency preserving | MCQ | (b) | Official |
+| 5 | Highest normal form | MCQ | (a) 1NF | Official |
+| 6 | Candidate keys + highest NF | Numerical | 3 keys, 3NF | Official |
+| 7 | FDs that hold on an instance | MCQ (multi) | (b), (c) | Official; table is an image |
+| 8 | Impossible candidate key after an insert | MCQ (multi) | (b), (d) | Official; table is an image |
+| 9 | Pseudo-transitivity | MCQ | (c) | Official |
+| 10 | Guaranteed FDs (closure) | MCQ | not captured (image); derived notes say (b) | **Needs transcription** |
+| 11 | Possible candidate keys | MCQ (multi) | (b), (d) | Official; statement is an image |
+| 12 | Highest NF | Numerical | 1NF | Official; statement is an image |
+| 13 | Non-prime attributes | MCQ | not captured | **Needs transcription** |
+| 14 | FDs on an instance | MCQ | (d) | Official; statement is an image |
+| 15 | Lossless decomposition | MCQ | not captured | **Needs transcription** |
+| 16 | Highest NF | Numerical | 1NF | Official; statement is an image |
+| 17 | Highest NF | Numerical | 2NF | Official; statement is an image |
+
+**B. Instructor slide exercises (`src.slides-u1-ra`).** Slide 23 tuple-count question
+(needs visual transcription); slide 37 maximum size of r1 ⋈ r2; slides 58–59 SQL ↔ TRC
+conversions. Unit I, topics `dbms.relational-algebra` and `dbms.relational-calculus`.
+
+**C. Lab Assignment 2, DDL (`src.lab-a2-sheet`, about 20 tasks)** → topics `sql.ddl-objects`,
+`sql.views`, `sql.indexes-plans`, `sql.dml`. Most tasks are **MySQL-specific** (`DESCRIBE`,
+`MODIFY`, `AUTO_INCREMENT`, `EXPLAIN` output, `SHOW INDEX`, clustered vs secondary indexes in
+InnoDB), so they are verified in MySQL 8.0 (Section 8.2.7), not in the browser. Observation
+tasks ("insert/update through a view and comment") become guided experiments with the
+expected MySQL behaviour and error codes recorded.
+
+**D. Lab write-up theory (`src.lab-a2-writeup`)** → about 15 short-answer / viva questions:
+DDL vs DML vs DCL vs TCL; constraint types; view updatability rules; index trade-offs
+(faster SELECT, slower INSERT/UPDATE); clustered (PRIMARY) vs secondary indexes; AUTO_INCREMENT
+vs Oracle SEQUENCE; `LAST_INSERT_ID()`; why MySQL has no SYNONYM and the alternatives; DROP vs
+TRUNCATE vs DELETE.
+
+**E. Lab Assignment 3, Institute DB (`src.lab-a3-sheet`, 71 prompts)** → auto-graded SQL
+exercises on a **PrepForge-authored "Institute" dataset** that implements the sheet's 7-table
+schema with at least 10 rows per table **and deliberate edge cases** (a department with no
+students, a course with no exams, failing marks below 40 and below 20, NULL
+`total_amount`, NULL tax, fee rows for 2023–2025, ties for top scorer and youngest student,
+duplicate courses, students sharing totals). Topic mapping:
+
+| Sheet section | Count | Main topics |
+|---|---|---|
+| Level 1 Basic | 14 | `sql.select-basics`, `sql.null-handling`, `sql.date-string-functions` |
+| Level 2 Intermediate | 12 | `sql.aggregation`, `sql.joins` |
+| Level 3 Advanced | 13 | `sql.subqueries` (correlated, ANY/ALL), `sql.patterns` (relational division, top-N per group), `sql.joins` |
+| Level 4 Real-life | 15 | multi-join aggregation, `sql.case-conditional-agg`, NOT EXISTS, division ("all 3 years") |
+| UPDATE / DELETE / integrity | 17 | `sql.dml`, `sql.ddl-objects` (FK, ON DELETE/UPDATE CASCADE), `dbms.keys-constraints` (insert/update/delete anomalies) |
+
+**Sheet issues to surface in the app (not silently fixed).** Show each as a "Sheet note"
+with the assumption PrepForge uses:
+
+1. `Faculty` has no salary column; salary is in `Employee_account(E_no)`. Faculty-salary prompts must join on `E_no`.
+2. The net-salary formula mentions **Allowance**, which is not in the `Employee_account` schema.
+3. `Faculty` has **no City column**, so "students who share the same city as at least one faculty member" is unanswerable without a schema extension. Offer the extension (`Faculty.city`) as an explicit assumption.
+4. `Faculty.Course_Id` is single-valued, so "faculty teaching more than one course" is always empty under the given schema. Use it as a normalisation lesson (a `Teaches` relation).
+5. "Delete the S_Name and Mumbai from Student table" is ambiguous. The sheet's sample table (S_ID, S_Name, City) suggests "delete the student Verma who lives in Mumbai".
+6. "After the year 2000" and "joined after 2020" are ambiguous date boundaries; teach both readings.
+7. "More than **any** faculty in another department" is ambiguous in English (`> ANY` vs `> ALL`); teach both.
+8. Typos in the sheet (`Groos_Salary`, `Tution_fee`, `Enrollement_no`, `Date of Joning`) are preserved in the original text; PrepForge's dataset uses clean names with a mapping note.
+
+**Static review of the learner's own A3 answers** (`src.user-a3-sql` and `src.user-a3-doc`).
+These findings come from reading, **not execution**; they are marked *needs validation*
+until run on MySQL 8.0 against the edge-case dataset. They are high-value "common mistakes"
+content.
+
+| Prompt | Learner's approach | Likely problem |
+|---|---|---|
+| Students born after the year 2000 | `dob > '2000-01-01'` | Includes students born during 2000; use `dob >= '2001-01-01'` or `YEAR(dob) > 2000` |
+| Each department and number of students; departments and number of courses; courses with fewer than 5 students | `INNER JOIN … GROUP BY` | Drops groups with zero rows; use `LEFT JOIN` and `COUNT(child.id)` |
+| Students along with number of failed courses | `WHERE marks < 40 … GROUP BY` | Students with zero failures disappear; use conditional aggregation `SUM(marks < 40)` / `SUM(CASE …)` with `LEFT JOIN` |
+| Students who paid exactly the same total as another student | `GROUP BY total_amount HAVING COUNT(*) > 1` over all years | Can match the same student across different years; compare distinct `s_id`s (self-join or window count) |
+| Departments where no student failed | Inner join, `HAVING MIN(marks) >= 40` | Excludes departments with no exam rows; decide semantics and teach `NOT EXISTS` |
+| Delete all exam records of a student who scored < 20 in **all** courses | `DELETE FROM Examination WHERE Marks < 20` | Deletes individual low rows, not students whose *every* mark is < 20; correct form uses `GROUP BY s_id HAVING MAX(marks) < 20`, wrapped in a derived table to avoid MySQL error 1093 |
+| Departments with ≥ 1 faculty and ≥ 10 students | Joins Student × Course × Faculty with `COUNT(DISTINCT …)` | Correct with `DISTINCT`, but a good example of join row multiplication; show the pre-aggregation alternative |
+
+Also: the learner's A3 dataset has fewer than the required 10 rows per table and only one
+fee year, so several prompts return empty results and cannot demonstrate correctness. That
+is why hidden edge-case datasets exist (8.2.6).
+
+#### 8.2.5 Curriculum (unit-mapped, with relevance tags)
+
+Tags: **[CT]** college theory · **[CL]** college lab · **[PL]** placement. Units follow the
+provisional instructor plan. Each topic hub links its notes, college questions, MCQs,
+practical exercises, interview questions and revision material.
+
+**Unit I: Introduction to DBMS** (provisional)
+- [ ] `dbms.intro` [CT]: data vs information, database, DBMS, file system vs DBMS (redundancy, inconsistency, access difficulty, isolation, integrity, atomicity, concurrent-access anomalies, security), applications, types of databases, SQL vs NoSQL families, DBA roles
+- [ ] `dbms.architecture` [CT]: 3-level architecture and data abstraction, physical and logical data independence, instances vs schemas, file-server / 2-tier / 3-tier architectures, DBMS components (query processor, storage manager)
+- [ ] `dbms.data-models` [CT]: hierarchical, network, relational, ER, object-oriented and object-relational models, with comparisons
+- [ ] `dbms.relational-model` [CT][PL]: relation, tuple, attribute, domain, degree, cardinality, schema vs instance, relational integrity (domain, entity, referential, enterprise constraints), **Codd's rules 0–12**
+- [ ] `dbms.languages` [CT][CL]: DDL, DML (procedural vs non-procedural), DCL, TCL; embedded/static vs dynamic SQL
+- [ ] `dbms.er-modelling` [CT][PL]: entities and attribute types (simple/composite, single/multi-valued, derived, key), relationship sets and degree, mapping cardinalities, participation, weak entities, EER (specialisation, generalisation, aggregation), **ER → relational mapping**, ER design exercises (institute, bank, library, hospital)
+- [ ] `dbms.keys-constraints` [CT][CL][PL]: super, candidate, primary, alternate, foreign and composite keys; prime attributes; integrity constraints; insert/update/delete anomalies
+- [ ] `dbms.relational-algebra` [CT][PL]: σ, π, ρ, ∪, ∩, −, ×, ⋈ (natural, θ, equi), outer joins, ÷ (division for "for all" queries), composite expressions, tuple-count reasoning (e.g., maximum size of r1 ⋈ r2), RA ↔ SQL
+- [ ] `dbms.relational-calculus` [CT]: TRC and DRC, quantifiers, safety, SQL ↔ TRC conversion
+
+**Unit II: Relational Database Design** (provisional; official Assignment 1 maps here)
+- [ ] `dbms.functional-dependencies` [CT][PL]: FD definition, trivial/non-trivial, transitive, multivalued; Armstrong's axioms and derived rules (union, decomposition, pseudo-transitivity); **checking FDs on a table instance**; **attribute closure**; F⁺; equivalence of FD sets; canonical / minimal cover
+- [ ] `dbms.keys-from-fds` [CT][PL]: candidate keys via closure, the "never on the right-hand side" shortcut, prime vs non-prime attributes, **counting superkeys** (inclusion-exclusion), candidate keys of an instance
+- [ ] `dbms.normalisation` [CT][PL]: anomalies, 1NF, 2NF, 3NF, BCNF, 4NF and 5NF (exam depth); **finding the highest normal form**; 3NF synthesis and BCNF decomposition algorithms
+- [ ] `dbms.decomposition` [CT]: lossless-join test (binary common-attribute-is-a-key test; tableau/chase for n-ary), dependency preservation
+
+**Unit III: Basics of SQL** (provisional; Lab Assignments 2 and 3 map here)
+- [ ] `sql.ddl-objects` [CL][CT]: CREATE / ALTER (ADD, MODIFY, DROP, RENAME) / DROP / TRUNCATE / RENAME; data types; constraints (NOT NULL, UNIQUE, PK, FK, CHECK, DEFAULT); AUTO_INCREMENT vs Oracle SEQUENCE; SYNONYM (Oracle) and MySQL alternatives; DESCRIBE / SHOW
+- [ ] `sql.views` [CL][CT]: creating views; updatable-view rules; insert/update through single- vs multi-table views; WITH CHECK OPTION; dropping views
+- [ ] `sql.dml` [CL][PL]: INSERT variants, UPDATE, DELETE; referential actions (CASCADE, SET NULL, RESTRICT); MySQL error 1093 and the derived-table workaround; safe-update habits
+- [ ] `sql.dcl-tcl` [CL][CT]: GRANT/REVOKE; COMMIT / ROLLBACK / SAVEPOINT; autocommit
+- [ ] `sql.select-basics` [CL][PL]: SELECT, WHERE, ORDER BY, LIMIT, DISTINCT, LIKE, IN, BETWEEN, aliases
+- [ ] `sql.null-handling` [CL][PL]: three-valued logic, IS NULL, COALESCE/IFNULL, NULLs in aggregates and joins, the `NOT IN` + NULL trap
+- [ ] `sql.aggregation` [CL][PL]: aggregate functions, GROUP BY, HAVING vs WHERE, COUNT(*) vs COUNT(col), zero-count groups
+- [ ] `sql.joins` [CL][PL]: INNER, LEFT, RIGHT, FULL (MySQL emulation via UNION), CROSS, natural; anti-joins and semi-joins; join row multiplication
+- [ ] `sql.self-joins` [CL][PL]: comparing rows, pairs, hierarchies
+- [ ] `sql.subqueries` [CL][PL]: scalar, IN, **correlated**, EXISTS / NOT EXISTS, ANY / ALL, derived tables
+- [ ] `sql.set-operations` [CT][PL]: UNION vs UNION ALL, INTERSECT and EXCEPT (MySQL 8.0.31+; emulation for older versions)
+- [ ] `sql.cte` [PL]: WITH, multiple CTEs, recursive CTEs
+- [ ] `sql.window-functions` [PL]: OVER, PARTITION BY, frames, ROW_NUMBER / RANK / DENSE_RANK, LAG / LEAD, NTILE, running totals, moving averages
+- [ ] `sql.case-conditional-agg` [CL][PL]: CASE, conditional aggregation, pivoting
+- [ ] `sql.date-string-functions` [CL][PL]: date arithmetic and extraction (MySQL vs SQLite), string functions, LIKE vs REGEXP
+- [ ] `sql.patterns` [CL][PL]: duplicates, Nth highest, top-N per group, **relational division in SQL** ("appeared for all courses", "paid in all 3 years"), consecutive records and gaps-and-islands, retention, year-over-year
+- [ ] `sql.stored-programs` [CL]: stored procedures, functions, triggers, cursors (MySQL). **Likely lab content; confirm with the lab syllabus.** MySQL-only (the browser engine cannot run them)
+- [ ] `dbms.connectivity` [CL]: JDBC / Python connector basics (the course outcomes on the slides mention database connectivity in a project)
+
+**Unit IV: Database Transactions Management** (provisional)
+- [ ] `dbms.transactions-acid` [CT][PL]: transaction concept, states, ACID, schedules
+- [ ] `dbms.serialisability` [CT][PL]: conflict serialisability (precedence graph), view serialisability, recoverable / cascadeless / strict schedules
+- [ ] `dbms.concurrency-control` [CT][PL]: lock-based protocols (shared/exclusive; basic, strict and rigorous 2PL), timestamp ordering and Thomas's write rule, validation-based protocols, MVCC, multiple granularity (intro)
+- [ ] `dbms.deadlocks` [CT][PL]: wait-for graph, prevention (wait-die, wound-wait), detection, recovery, starvation
+- [ ] `dbms.recovery` [CT]: failure classification, log-based recovery (deferred and immediate), checkpoints, shadow paging, ARIES (intuition)
+- [ ] `sql.transactions-isolation` [CL][PL]: practical isolation levels and anomalies (dirty read, non-repeatable read, phantom) demonstrated in MySQL
+
+**Unit V: Parallel Databases** (provisional, per slides)
+- [ ] `dbms.parallel-db` [CT]: shared-memory, shared-disk, shared-nothing and hierarchical architectures; speed-up and scale-up; I/O parallelism (round-robin, hash and range partitioning); inter-query, intra-query, intra-operation and inter-operation parallelism; parallel sort and join
+
+**Unit VI: Distributed Databases** (provisional, per slides)
+- [ ] `dbms.distributed-db` [CT][PL]: homogeneous vs heterogeneous systems; replication and fragmentation (horizontal, vertical); transparency; distributed transactions; **two-phase commit** (3PC intro); distributed concurrency control and deadlock; distributed query processing (semi-join); links to CAP and System Design
+
+**Storage, indexing and query processing** (placement core; may or may not be in the college syllabus)
+- [ ] `dbms.indexing-btrees` [PL][CT?]: ordered indices, dense vs sparse, primary vs secondary, multilevel indices, B-tree vs B+ tree (search and insert), static and dynamic hashing; InnoDB clustered index (links to Lab Assignment 2)
+- [ ] `sql.indexes-plans` [CL][PL]: composite indexes and the leftmost prefix, covering indexes, `EXPLAIN` in MySQL vs `EXPLAIN QUERY PLAN` in SQLite, sargability
+- [ ] `dbms.query-processing` [PL]: query processing steps, join algorithms (nested-loop, hash, sort-merge), equivalence rules and heuristic optimisation, cost intuition
+- [ ] `sql.optimisation` [PL]: rewriting correlated subqueries, keyset vs offset pagination, avoiding functions on indexed columns
+
+#### 8.2.6 Practice system
+
+**Question families (kept separate; each has its own progress):**
+
+1. **Theory notes:** sections read and revision notes reviewed. Completion only; never counts as mastery.
+2. **MCQs:** concept, syntax, output-prediction (given tables, what does this query return), find-the-bug, normalisation and FD numericals, transactions and schedules. **Targets:** ≥ 300 SQL/DBMS MCQs across topics (≥ 8 per DBMS topic, ≥ 6 per SQL topic), plus every college MCQ.
+3. **Practical SQL exercises (auto-graded):** **Targets:** ≥ 150 exercises, made up of all 71 Lab A3 prompts, the executable Lab A2 tasks, and ≥ 60 PrepForge-original exercises covering beginner → advanced (filtering, aggregation, joins, self joins, subqueries, correlated subqueries, CTEs, window functions, ranking, conditional aggregation, dates, duplicates, gaps-and-islands, division, interview-style).
+4. **College questions:** short-answer, long-answer, numerical and query items from 8.2.4, organised **by unit → topic → question type → difficulty**, with the official answer when available.
+5. **Interview questions:** ≥ 80 SQL/DBMS questions with model answers (e.g., "WHERE vs HAVING", "clustered vs non-clustered", "why is NOT IN dangerous with NULLs", "explain isolation levels", "normalise this table").
+6. **Revision:** flashcards and cards created from wrong answers (Section 7.2).
+
+**Every exercise record** contains: schema (tables, columns, keys); a sample dataset; the
+expected output (generated by running the reference query, never hand-typed);
+**hidden edge-case datasets** (NULLs, ties, empty groups, duplicates) used in grading;
+hints (progressive); a step-by-step explanation; a MySQL solution plus an SQLite variant when
+they differ; wrong-approach notes (with the actual wrong output it produces); an external
+equivalent link if one exists; and a verification status (8.2.7).
+
+**Grading:** compare result sets on the visible dataset **and** every hidden dataset (column
+count; row multiset; order only when the prompt demands it; numeric tolerance 1e-6; NULL-aware;
+column names ignored unless required). The UI shows which dataset failed and a diff of the
+rows, so an inner-join zero-count bug is caught and explained.
+
+**Theory answers:** numerical items (closure, candidate keys, superkey count, highest NF,
+lossless / dependency-preserving checks, serialisability) are **auto-graded by algorithm**
+using structured input (e.g., enter candidate keys as attribute sets; the FD engine computes
+the truth). Short and long answers use a model answer plus a **key-point checklist**, with
+self-marking labelled "self-assessed".
+
+**Interactive tools (real computation, unit-tested):**
+- FD toolkit: attribute closure with steps, candidate keys, prime attributes, superkey count, minimal cover, highest NF with the violating FDs, lossless-join test (binary and tableau), dependency preservation
+- Relational algebra evaluator over small tables (σ, π, ρ, ∪, ∩, −, ×, ⋈, ÷) with a step-by-step trace
+- Schedule analyser: precedence graph, conflict serialisability, recoverability and cascadelessness classification
+- Deadlock / wait-for-graph drill; 2PL and timestamp-ordering step simulator
+- ER → relational mapping exercises (choose tables, keys and FKs; auto-checked against the reference mapping)
+- B+ tree insertion visualiser (order configurable)
+
+**Placement question banks (verified, de-duplicated):**
+
+| Bank | Verified data | Use |
+|---|---|---|
+| LeetCode SQL 50 | `research/sql-50.verified.json`: 50 problems, all free, LeetCode's own grouping | Linked practice list mapped to topics; each gets an original PrepForge hint ladder and approach notes (no copied statements) |
+| LeetCode Database problems | `research/leetcode-database.verified.json`: 323 problems (105 free: 55 E, 39 M, 11 H); **55 free problems beyond SQL 50** (23 E, 22 M, 10 H) | Curate the 55 free extras into topics (window functions, gaps-and-islands, hard patterns); premium ones listed only as "Premium" without detail |
+| HackerRank SQL | Domain page `https://www.hackerrank.com/domains/sql` (HTTP 200; real 404s, so per-challenge URLs are HTTP-verifiable) | Curated beginner/intermediate set, each URL checked |
+| StrataScratch, DataLemur | Home and question pages HTTP-verifiable (real 404s) | Interview-style practice; only free questions linked; each URL checked |
+| SQLZoo, PostgreSQL Exercises | HTTP 200 | Extra drills for joins and aggregation |
+| Theory references | Silberschatz book site `https://db-book.com/` (200), CMU 15-445 `https://15445.courses.cs.cmu.edu/` (200), NPTEL DBMS `https://nptel.ac.in/courses/106105175` (200), GeeksforGeeks DBMS `https://www.geeksforgeeks.org/dbms/dbms/` (200), MySQL 8.0 Reference Manual `https://dev.mysql.com/doc/refman/8.0/en/` (returns 403 to bots; official, marked `httpVerifiable: false`), SQLite docs `https://www.sqlite.org/lang.html` (200) | Resource lists per topic |
+
+De-duplication rule: one canonical record per external problem (keyed by platform + slug).
+College items and PrepForge-original items are separate records even when similar; they are
+linked with `similarTo`.
+
+#### 8.2.7 Execution engines and verification of solutions
+
+| Engine | Where | Used for | Label shown to the learner |
+|---|---|---|---|
+| **sql.js (SQLite WASM) in a Web Worker** | In the app | Running and grading portable SELECT/DML exercises; `PRAGMA foreign_keys = ON` for FK and cascade demos | "Executed in your browser (SQLite)" |
+| **MySQL 8.0** | Offline build step: `scripts/verify-sql-mysql.mjs` against a disposable Docker `mysql:8.0` container (a generated throwaway password lives in a git-ignored `.env.local`), or the learner's local MySQL 8.0 if they prefer | Verifying every MySQL reference solution and expected output, and MySQL-only lab tasks (DESCRIBE, MODIFY, AUTO_INCREMENT, EXPLAIN, SHOW INDEX, error 1093, stored programs, isolation levels) | "Expected output verified on MySQL 8.0 (not executed in your browser)" |
+
+Verification statuses (shown on every item):
+
+- `verified-mysql`: reference solution executed on MySQL 8.0 and output captured.
+- `verified-sqlite`: executed in SQLite; the result matches MySQL or the dialect difference is noted.
+- `verified-algorithm`: the theory answer is computed by the FD, schedule or RA engine and matches.
+- `official-answer`: matches the college's official solution.
+- `needs-validation`: not yet verified (default for imported and learner-authored content).
+- `disputed`: PrepForge's derivation disagrees with the source; both are shown with reasoning.
+
+Never display "Correct" or "Passed" for anything not produced by a real execution or a
+deterministic check.
+
+#### 8.2.8 Learning experience and features
+
+- **Topic hub** per topic with tabs: Notes · College Questions · MCQs · Practice SQL · Interview · Revise · Resources. Each tab shows its own progress.
+- **College Exam mode** (`/learn/sql-dbms/college`): browse by **Unit → Topic → Question type (MCQ / short / long / numerical / query / viva) → Difficulty**; unit coverage; weak units; exam date countdowns (learner-entered CIE, ISE, ESE and practical/oral dates).
+- **Practice tests:** unit tests (CIE-style), mixed ISE/ESE-style mock papers, lab practical mocks (timed query sets on the Institute DB), and viva drills. Paper formats are **configurable templates labelled "format assumed"** until real question papers are provided (8.2.3 item 4).
+- **SQL editor:** schema browser, sample-data preview, run (Ctrl+Enter), formatted result grid, readable errors, query history, reset dataset, dialect switch notes, and a "Check answer" button for exercises.
+- **Topic quizzes and timed tests** via the OA engine (Section 8.10) with SQL items auto-graded.
+- **Hints** (progressive), answer review with explanations, **bookmarks**, **incorrect-question tracking** (feeds revision and the mistake journal, with SQL-specific error categories: wrong join type, missing zero-count groups, NULL mishandling, wrong grouping level, row multiplication, date-boundary error, dialect error), and progress persistence.
+- **Placement view:** the same topics filtered to [PL] with LeetCode / HackerRank / StrataScratch lists and interview questions.
+
+#### 8.2.9 Acceptance criteria for the SQL/DBMS module
+
+1. Every topic in 8.2.5 is either Complete (Section 11 minimums plus a link to at least one item in each relevant family) or explicitly Planned.
+2. All 17 Assignment 1 questions, all 71 Lab A3 prompts, the Lab A2 tasks and the slide exercises exist as `CollegeQuestion` records mapped to source, unit, topic, type and difficulty, each with a solution and a verification status. None is `needs-validation` at release, except items awaiting transcription or missing materials.
+3. Every SQL reference solution is `verified-mysql`, and every in-app exercise is also `verified-sqlite` or carries an explicit dialect note.
+4. Grading catches the learner's documented mistakes in 8.2.4 (unit tests use those exact wrong queries and must fail on a hidden dataset).
+5. The FD, RA and schedule tools reproduce the official answers of Assignment 1 (or flag them `disputed` with reasoning).
+6. Theory, MCQ, practical, college-question and revision progress are stored and displayed separately and survive a reload.
+7. The missing-materials list (8.2.3) is visible in the app until resolved.
 
 ### 8.3 OOP in C++ and 8.4 OOP in Java
 
@@ -933,7 +1254,7 @@ Priority: **P0** = core learning loop / must-have, **P1** = important, **P2** = 
 Each phase lists dependencies and acceptance criteria. Do not start a phase whose
 dependencies are unmet.
 
-### Phase R: Audit and research (session 1) — DONE
+### Phase R: Audit and research (session 1; core done, some items blocked)
 
 - [x] Audit the repository (greenfield; only `DESIGN.md`; not a git repo)
 - [x] Check the local toolchain (Node 22, g++ 6.3, Java 23, Python 3.13)
@@ -942,6 +1263,9 @@ dependencies are unmet.
 - [x] Establish the link-verification method (LeetCode via GraphQL; GFG via HTTP; NeetCode not HTTP-verifiable)
 - [x] Verify Google and Amazon hiring-process facts from official pages (Section 8.11)
 - [x] Write this roadmap (`what_to_do.md`) and `research/README.md`
+- [x] Audit college SQL/DBMS materials on the learner's PC (none were in the repo): syllabus PDFs, Unit I slides, official theory Assignment 1 with solutions, Lab Assignment 2 and 3 sheets and write-up, learner's own SQL and submissions, derived and AI-generated notes. Inventory and mapping in Section 8.2.2–8.2.4
+- [x] Verify the LeetCode Database problem list (323 problems, 105 free) → `research/leetcode-database.verified.json`; HTTP-check HackerRank, StrataScratch, DataLemur, SQLZoo, pgexercises, db-book, CMU 15-445, NPTEL, GFG, SQLite docs
+- [ ] (BLOCKED: awaiting learner) Missing college materials listed in Section 8.2.3
 - [ ] (BLOCKED: guide is a PDF download; needs user permission) Meta Full Loop guide
 - [ ] Research Apple, Netflix, Zscaler, Microsoft and other company pages from official sources (P1, can run in parallel with Phases 1–6)
 - [ ] Map A2Z items that link to GFG or other non-LeetCode sites (P2)
@@ -1019,18 +1343,56 @@ Depends on: Phases 2–3 (needs the MCQ pool, problems and engines).
 
 **Acceptance:** a 20-question mixed OA can be taken, refreshed mid-way without loss, auto-submitted at time-out, and scored exactly (verified by unit tests on scoring and an e2e test).
 
-### Phase 5: SQL and DBMS (P0)
+### Phase 5: SQL and DBMS, college and placement (P0)
 
-Depends on: Phase 1 (and Phase 4 for SQL items in OAs).
+Depends on: Phase 1 (engines and UI primitives); Phase 2 (MCQ engine); Phase 4 for SQL items
+inside OAs. Full specification: Section 8.2. Sub-phases are ordered by priority.
 
-- [ ] sql.js in a Web Worker, with timeout and lazy loading; dataset seeds; schema browser; result grid; error display
-- [ ] `sqlCompare.ts` result-set comparison + tests (ordering, NULLs, floats, duplicates)
-- [ ] SQL Lab page; exercise page with hints, auto-grading, explanations and wrong-approach notes
-- [ ] SQL curriculum content (Section 8.2), with ≥ 40 auto-graded exercises in total
-- [ ] DBMS theory content plus the FD closure / candidate key tool
-- [ ] LeetCode SQL 50 linked practice list (from the verified JSON), mapped to topics
+**5A. Data and verification infrastructure (P0)**
+- [ ] (BLOCKED: needs the learner's answer to decision D-SQL-1) Create the private college-content folder (`content-private/college/`, git-ignored) and a loader that includes it when present and shows "college material not loaded" otherwise
+- [ ] `SourceDocument` registry for all audited files (8.2.2), with status flags
+- [ ] Institute dataset: 7-table schema from Lab A3, ≥ 10 rows per table, plus hidden edge-case variants (8.2.4 E). MySQL DDL and SQLite DDL kept in sync
+- [ ] Placement datasets (`company`, `shop`, `events`, `school`, `ledger`) with hidden edge-case variants
+- [ ] `scripts/verify-sql-mysql.mjs`: starts or uses a disposable Docker `mysql:8.0`, loads datasets, runs every reference solution, captures expected output, records the MySQL version; fails CI on any mismatch
+- [ ] sql.js Web Worker engine (lazy-loaded, 3 s timeout, `PRAGMA foreign_keys = ON`, reset per run)
+- [ ] `sqlCompare.ts` + unit tests (order, NULLs, floats, duplicates, column-name policy), including tests that the learner's documented wrong queries (8.2.4) **fail** on the hidden datasets
 
-**Acceptance:** wrong queries never show as correct; a reference-equivalent query with different column order or row order (when order doesn't matter) passes; infinite recursive CTEs are terminated by the timeout.
+**5B. College question bank (P0)**
+- [ ] Transcribe official Assignment 1 Q1–Q17 into `CollegeQuestion` records (render PDF pages to images for Q7, Q8 and Q10–Q17; restore "→" arrows), with official answers, PrepForge step-by-step solutions and verification by the FD engine
+- [ ] Import Lab A2 tasks (about 20) and write-up viva questions (about 15) with MySQL solutions and expected behaviour; verify on MySQL
+- [ ] Import all 71 Lab A3 prompts with original text, sheet notes, MySQL and SQLite solutions, and expected outputs; verify on MySQL
+- [ ] Import slide exercises (slide 23 after visual transcription, slide 37, slides 58–59)
+- [ ] Learner-solution review: attach the learner's own answers (from their `.sql` files and submissions) as "Your submitted answer", with execution-based feedback; confirm or retract each static-review finding in 8.2.4 by running it
+- [ ] Inspect `dbms Assignment 2.pdf` (scanned) visually and record what it is
+
+**5C. Theory content (P0 for Units I–IV, P1 for V–VI)**
+- [ ] Notes for every topic in 8.2.5 meeting Section 11 (definitions, syntax, worked examples, diagrams for architecture / ER / B+ trees / schedules, common mistakes, revision notes, ≥ 5 flashcards)
+- [ ] MCQ bank: ≥ 300 SQL/DBMS MCQs with explanations, misconceptions, topic, difficulty and provenance
+- [ ] Interview question bank: ≥ 80 with model answers
+- [ ] Long-answer model answers with key-point checklists for the main exam topics (Codd's rules, 3-level architecture, file system vs DBMS, normal forms with examples, ACID, 2PL, deadlock handling, 2PC, parallel DB architectures, …)
+
+**5D. Practical SQL (P0)**
+- [ ] SQL editor page (schema browser, run, result grid, errors, history, reset, dialect notes)
+- [ ] Exercise page (hints, check answer on visible + hidden datasets with row diff, explanation, wrong-approach notes, bookmarks, notes)
+- [ ] ≥ 60 PrepForge-original exercises, beginner → advanced, covering every SQL topic in 8.2.5
+- [ ] LeetCode SQL 50 list mapped to topics, with original hint ladders; curate the 55 free extra LeetCode Database problems; HackerRank, StrataScratch and DataLemur curated lists with link checks
+
+**5E. Interactive tools (P1)**
+- [ ] FD toolkit + unit tests reproducing Assignment 1 answers
+- [ ] Relational algebra evaluator + tests
+- [ ] Schedule / serialisability analyser + 2PL and timestamp-ordering drills + tests
+- [ ] ER → relational mapping exercises; B+ tree visualiser
+
+**5F. College Exam mode and tests (P0 once 5B exists)**
+- [ ] Unit → topic → type → difficulty browser with separate progress per family
+- [ ] Unit tests, ISE/ESE-style mock papers (template labelled "format assumed" until real papers exist), timed lab-practical mocks, viva drills
+- [ ] Exam date countdowns and a weak-unit summary on the dashboard
+- [ ] "Missing college materials" panel (8.2.3), visible until resolved
+
+**Acceptance:** all criteria in Section 8.2.9 are met. In addition: a wrong query never shows
+as correct; a reference-equivalent query with a different column or row order (when order
+doesn't matter) passes; infinite recursive CTEs are stopped by the timeout; every displayed
+expected output came from a real execution.
 
 ### Phase 6: OOP in C++ and Java (P0)
 
@@ -1166,7 +1528,12 @@ The project is complete only when **all** of these are verified:
 | B7 | No AI API configured | No interactive AI coach | Deterministic coach in v1; optional proxy in Phase 11 |
 | B8 | localStorage is per-browser and per-device | Progress is not synced; clearing site data deletes it | Export/import JSON; warn in Settings; optional cloud sync (Phase 11) |
 | B9 | The Meta Full Loop guide is a PDF download | Meta rounds unverified | Ask the user before downloading; label as unverified meanwhile |
-| B10 | sql.js uses SQLite, while LeetCode uses MySQL (or other dialects) | Some functions differ | Portable SQL in exercises + explicit dialect notes |
+| B10 | sql.js uses SQLite, while the college lab and LeetCode use MySQL | Some syntax and behaviour differ; MySQL-only tasks can't run in the browser | Dual reference solutions; every MySQL solution verified offline on MySQL 8.0 (Docker); clear "where it was executed" labels (Section 8.2.7) |
+| B11 | The official DBMS 0505163 unit-wise syllabus and the lab experiment list are missing | Unit mapping is provisional; possible uncovered syllabus items | Use the instructor's 6-unit plan, labelled provisional; learner to provide (8.2.3) |
+| B12 | The instructor slides show an older exam scheme (30/70 + oral 25) that conflicts with the AY 2026-27 MD-6 scheme (20/20/60, lab TW 25) | Practice-paper formats are uncertain | Configurable paper templates labelled "format assumed" until question papers arrive |
+| B13 | Assignment 1 Q10–Q17 and the table instances in Q7, Q8 and Q14 are images; PDF text extraction also drops "→" | Requires manual visual transcription | Render pages to images and transcribe; cross-check with the derived notes; verify with the FD engine |
+| B14 | **The repository is public**, and college sheets are institutional material containing the learner's identity in submissions | Committing them may expose personal data or third-party content | Decision D-SQL-1 pending; nothing from college files has been committed (only metadata, short labels and PrepForge's own analysis) |
+| B15 | Learner's A3 answers were reviewed statically only | Findings in 8.2.4 might be wrong in edge cases | Mark them `needs-validation`; confirm by MySQL execution in Phase 5B |
 
 ---
 
@@ -1185,6 +1552,12 @@ The project is complete only when **all** of these are verified:
 | 2026-10-11 | SM-2 variant for spaced repetition | Well understood, deterministic, easy to unit-test; FSRS can replace it later behind the same interface |
 | 2026-10-11 | Evidence-based mastery separate from completion; readiness shows evidence and confidence | Spec: reading must not equal interview-ready; no arbitrary percentages |
 | 2026-10-11 | DSA is built first and used as the pilot for every engine | Highest-priority gap (unfamiliar OA questions) |
+| 2026-10-11 | SQL/DBMS becomes a self-contained module serving college theory, the DBMS lab and placements, with units, relevance tags and separate progress families | User requirement (single preparation resource) |
+| 2026-10-11 | MySQL 8.0 is the reference dialect for SQL solutions (college lab and LeetCode both use it); SQLite (sql.js) runs in the browser | College lab uses MySQL; no practical in-browser MySQL exists |
+| 2026-10-11 | Grade SQL on visible **and hidden edge-case datasets** | Catches the learner's actual mistake patterns (zero-count groups, NULLs, date boundaries) |
+| 2026-10-11 | Classmate's submissions are excluded from all imports | Privacy |
+| 2026-10-11 | Derived and AI-generated notes are cross-references only, never authoritative | Unknown provenance |
+| **PENDING** | **D-SQL-1: storage of college materials.** Options: (A) keep verbatim college content in a git-ignored `content-private/college/` loaded only in local builds, with the public repo holding mappings and PrepForge's own solutions (**recommended**); (B) make the GitHub repo private and commit everything; (C) commit to the public repo (not recommended: personal data and institutional material) | Repo is public (B14). Awaiting the learner's choice |
 
 ---
 
@@ -1193,3 +1566,4 @@ The project is complete only when **all** of these are verified:
 | Session | Date | Summary |
 |---|---|---|
 | 1 | 2026-10-11 | Audited the repo (greenfield). Verified 383 DSA problems + SQL 50 via LeetCode GraphQL and NeetCode/A2Z sources (saved in `research/`). Verified Google and Amazon hiring facts from official pages. Created this roadmap. Renamed the product to PrepForge, initialised git, and pushed to `SanTiwari07/PrepForge`. **No application code written** (per the user's instruction). Next: Phase 0. |
+| 1b | 2026-10-11 | Expanded SQL/DBMS into a college + placement module (Section 8.2, Section 6.3, Phase 5). Audited the college files on the learner's PC (not in the repo): official Assignment 1 (17 Q with solutions), Lab A2 (DDL, about 20 tasks) and A3 (71 prompts), Unit I slides, syllabus PDFs (no DBMS unit syllabus), the learner's own SQL and submissions. Static review found likely bugs in several of the learner's A3 answers (to be validated by execution). Verified the LeetCode Database list (323; 105 free). Listed missing materials (8.2.3). Opened decision D-SQL-1. No app code written. |

@@ -1,0 +1,3855 @@
+[
+ {
+  "id": 175,
+  "slug": "combine-two-tables",
+  "title": "Combine Two Tables",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/combine-two-tables/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 176,
+  "slug": "second-highest-salary",
+  "title": "Second Highest Salary",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/second-highest-salary/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 177,
+  "slug": "nth-highest-salary",
+  "title": "Nth Highest Salary",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/nth-highest-salary/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 178,
+  "slug": "rank-scores",
+  "title": "Rank Scores",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/rank-scores/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 180,
+  "slug": "consecutive-numbers",
+  "title": "Consecutive Numbers",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/consecutive-numbers/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 181,
+  "slug": "employees-earning-more-than-their-managers",
+  "title": "Employees Earning More Than Their Managers",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/employees-earning-more-than-their-managers/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 182,
+  "slug": "duplicate-emails",
+  "title": "Duplicate Emails",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/duplicate-emails/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 183,
+  "slug": "customers-who-never-order",
+  "title": "Customers Who Never Order",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/customers-who-never-order/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 184,
+  "slug": "department-highest-salary",
+  "title": "Department Highest Salary",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/department-highest-salary/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 185,
+  "slug": "department-top-three-salaries",
+  "title": "Department Top Three Salaries",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/department-top-three-salaries/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 196,
+  "slug": "delete-duplicate-emails",
+  "title": "Delete Duplicate Emails",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/delete-duplicate-emails/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 197,
+  "slug": "rising-temperature",
+  "title": "Rising Temperature",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/rising-temperature/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 262,
+  "slug": "trips-and-users",
+  "title": "Trips and Users",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/trips-and-users/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 511,
+  "slug": "game-play-analysis-i",
+  "title": "Game Play Analysis I",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/game-play-analysis-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 512,
+  "slug": "game-play-analysis-ii",
+  "title": "Game Play Analysis II",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/game-play-analysis-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 534,
+  "slug": "game-play-analysis-iii",
+  "title": "Game Play Analysis III",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/game-play-analysis-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 550,
+  "slug": "game-play-analysis-iv",
+  "title": "Game Play Analysis IV",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/game-play-analysis-iv/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 569,
+  "slug": "median-employee-salary",
+  "title": "Median Employee Salary",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/median-employee-salary/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 570,
+  "slug": "managers-with-at-least-5-direct-reports",
+  "title": "Managers with at Least 5 Direct Reports",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/managers-with-at-least-5-direct-reports/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 571,
+  "slug": "find-median-given-frequency-of-numbers",
+  "title": "Find Median Given Frequency of Numbers",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-median-given-frequency-of-numbers/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 574,
+  "slug": "winning-candidate",
+  "title": "Winning Candidate",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/winning-candidate/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 577,
+  "slug": "employee-bonus",
+  "title": "Employee Bonus",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/employee-bonus/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 578,
+  "slug": "get-highest-answer-rate-question",
+  "title": "Get Highest Answer Rate Question",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/get-highest-answer-rate-question/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 579,
+  "slug": "find-cumulative-salary-of-an-employee",
+  "title": "Find Cumulative Salary of an Employee",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-cumulative-salary-of-an-employee/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 580,
+  "slug": "count-student-number-in-departments",
+  "title": "Count Student Number in Departments",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/count-student-number-in-departments/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 584,
+  "slug": "find-customer-referee",
+  "title": "Find Customer Referee",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/find-customer-referee/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 585,
+  "slug": "investments-in-2016",
+  "title": "Investments in 2016",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/investments-in-2016/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 586,
+  "slug": "customer-placing-the-largest-number-of-orders",
+  "title": "Customer Placing the Largest Number of Orders",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/customer-placing-the-largest-number-of-orders/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 595,
+  "slug": "big-countries",
+  "title": "Big Countries",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/big-countries/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 596,
+  "slug": "classes-with-at-least-5-students",
+  "title": "Classes With at Least 5 Students",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/classes-with-at-least-5-students/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 597,
+  "slug": "friend-requests-i-overall-acceptance-rate",
+  "title": "Friend Requests I: Overall Acceptance Rate",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/friend-requests-i-overall-acceptance-rate/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 601,
+  "slug": "human-traffic-of-stadium",
+  "title": "Human Traffic of Stadium",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/human-traffic-of-stadium/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 602,
+  "slug": "friend-requests-ii-who-has-the-most-friends",
+  "title": "Friend Requests II: Who Has the Most Friends",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/friend-requests-ii-who-has-the-most-friends/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 603,
+  "slug": "consecutive-available-seats",
+  "title": "Consecutive Available Seats",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/consecutive-available-seats/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 607,
+  "slug": "sales-person",
+  "title": "Sales Person",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/sales-person/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 608,
+  "slug": "tree-node",
+  "title": "Tree Node",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/tree-node/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 610,
+  "slug": "triangle-judgement",
+  "title": "Triangle Judgement",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/triangle-judgement/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 612,
+  "slug": "shortest-distance-in-a-plane",
+  "title": "Shortest Distance in a Plane",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/shortest-distance-in-a-plane/",
+  "leetcodeTags": [
+   "database",
+   "nearest-pair-of-points"
+  ]
+ },
+ {
+  "id": 613,
+  "slug": "shortest-distance-in-a-line",
+  "title": "Shortest Distance in a Line",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/shortest-distance-in-a-line/",
+  "leetcodeTags": [
+   "database",
+   "nearest-pair-of-points"
+  ]
+ },
+ {
+  "id": 614,
+  "slug": "second-degree-follower",
+  "title": "Second Degree Follower",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/second-degree-follower/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 615,
+  "slug": "average-salary-departments-vs-company",
+  "title": "Average Salary: Departments VS Company",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/average-salary-departments-vs-company/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 618,
+  "slug": "students-report-by-geography",
+  "title": "Students Report By Geography",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/students-report-by-geography/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 619,
+  "slug": "biggest-single-number",
+  "title": "Biggest Single Number",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/biggest-single-number/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 620,
+  "slug": "not-boring-movies",
+  "title": "Not Boring Movies",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/not-boring-movies/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 626,
+  "slug": "exchange-seats",
+  "title": "Exchange Seats",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/exchange-seats/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 627,
+  "slug": "swap-sex-of-employees",
+  "title": "Swap Sex of Employees",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/swap-sex-of-employees/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1045,
+  "slug": "customers-who-bought-all-products",
+  "title": "Customers Who Bought All Products",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/customers-who-bought-all-products/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1050,
+  "slug": "actors-and-directors-who-cooperated-at-least-three-times",
+  "title": "Actors and Directors Who Cooperated At Least Three Times",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/actors-and-directors-who-cooperated-at-least-three-times/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1068,
+  "slug": "product-sales-analysis-i",
+  "title": "Product Sales Analysis I",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/product-sales-analysis-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1069,
+  "slug": "product-sales-analysis-ii",
+  "title": "Product Sales Analysis II",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/product-sales-analysis-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1070,
+  "slug": "product-sales-analysis-iii",
+  "title": "Product Sales Analysis III",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/product-sales-analysis-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1075,
+  "slug": "project-employees-i",
+  "title": "Project Employees I",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/project-employees-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1076,
+  "slug": "project-employees-ii",
+  "title": "Project Employees II",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/project-employees-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1077,
+  "slug": "project-employees-iii",
+  "title": "Project Employees III",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/project-employees-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1082,
+  "slug": "sales-analysis-i",
+  "title": "Sales Analysis I",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/sales-analysis-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1083,
+  "slug": "sales-analysis-ii",
+  "title": "Sales Analysis II",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/sales-analysis-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1084,
+  "slug": "sales-analysis-iii",
+  "title": "Sales Analysis III",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/sales-analysis-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1097,
+  "slug": "game-play-analysis-v",
+  "title": "Game Play Analysis V",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/game-play-analysis-v/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1098,
+  "slug": "unpopular-books",
+  "title": "Unpopular Books",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/unpopular-books/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1107,
+  "slug": "new-users-daily-count",
+  "title": "New Users Daily Count",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/new-users-daily-count/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1112,
+  "slug": "highest-grade-for-each-student",
+  "title": "Highest Grade For Each Student",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/highest-grade-for-each-student/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1113,
+  "slug": "reported-posts",
+  "title": "Reported Posts",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/reported-posts/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1126,
+  "slug": "active-businesses",
+  "title": "Active Businesses",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/active-businesses/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1127,
+  "slug": "user-purchase-platform",
+  "title": "User Purchase Platform",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/user-purchase-platform/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1132,
+  "slug": "reported-posts-ii",
+  "title": "Reported Posts II",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/reported-posts-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1141,
+  "slug": "user-activity-for-the-past-30-days-i",
+  "title": "User Activity for the Past 30 Days I",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/user-activity-for-the-past-30-days-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1142,
+  "slug": "user-activity-for-the-past-30-days-ii",
+  "title": "User Activity for the Past 30 Days II",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/user-activity-for-the-past-30-days-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1148,
+  "slug": "article-views-i",
+  "title": "Article Views I",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/article-views-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1149,
+  "slug": "article-views-ii",
+  "title": "Article Views II",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/article-views-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1158,
+  "slug": "market-analysis-i",
+  "title": "Market Analysis I",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/market-analysis-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1159,
+  "slug": "market-analysis-ii",
+  "title": "Market Analysis II",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/market-analysis-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1164,
+  "slug": "product-price-at-a-given-date",
+  "title": "Product Price at a Given Date",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/product-price-at-a-given-date/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1173,
+  "slug": "immediate-food-delivery-i",
+  "title": "Immediate Food Delivery I",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/immediate-food-delivery-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1174,
+  "slug": "immediate-food-delivery-ii",
+  "title": "Immediate Food Delivery II",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/immediate-food-delivery-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1179,
+  "slug": "reformat-department-table",
+  "title": "Reformat Department Table",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/reformat-department-table/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1193,
+  "slug": "monthly-transactions-i",
+  "title": "Monthly Transactions I",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/monthly-transactions-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1194,
+  "slug": "tournament-winners",
+  "title": "Tournament Winners",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/tournament-winners/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1204,
+  "slug": "last-person-to-fit-in-the-bus",
+  "title": "Last Person to Fit in the Bus",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/last-person-to-fit-in-the-bus/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1205,
+  "slug": "monthly-transactions-ii",
+  "title": "Monthly Transactions II",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/monthly-transactions-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1211,
+  "slug": "queries-quality-and-percentage",
+  "title": "Queries Quality and Percentage",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/queries-quality-and-percentage/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1212,
+  "slug": "team-scores-in-football-tournament",
+  "title": "Team Scores in Football Tournament",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/team-scores-in-football-tournament/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1225,
+  "slug": "report-contiguous-dates",
+  "title": "Report Contiguous Dates",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/report-contiguous-dates/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1241,
+  "slug": "number-of-comments-per-post",
+  "title": "Number of Comments per Post",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/number-of-comments-per-post/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1251,
+  "slug": "average-selling-price",
+  "title": "Average Selling Price",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/average-selling-price/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1264,
+  "slug": "page-recommendations",
+  "title": "Page Recommendations",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/page-recommendations/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1270,
+  "slug": "all-people-report-to-the-given-manager",
+  "title": "All People Report to the Given Manager",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/all-people-report-to-the-given-manager/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1280,
+  "slug": "students-and-examinations",
+  "title": "Students and Examinations",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/students-and-examinations/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1285,
+  "slug": "find-the-start-and-end-number-of-continuous-ranges",
+  "title": "Find the Start and End Number of Continuous Ranges",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-the-start-and-end-number-of-continuous-ranges/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1294,
+  "slug": "weather-type-in-each-country",
+  "title": "Weather Type in Each Country",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/weather-type-in-each-country/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1303,
+  "slug": "find-the-team-size",
+  "title": "Find the Team Size",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-the-team-size/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1308,
+  "slug": "running-total-for-different-genders",
+  "title": "Running Total for Different Genders",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/running-total-for-different-genders/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1321,
+  "slug": "restaurant-growth",
+  "title": "Restaurant Growth",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/restaurant-growth/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1322,
+  "slug": "ads-performance",
+  "title": "Ads Performance",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/ads-performance/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1327,
+  "slug": "list-the-products-ordered-in-a-period",
+  "title": "List the Products Ordered in a Period",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/list-the-products-ordered-in-a-period/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1336,
+  "slug": "number-of-transactions-per-visit",
+  "title": "Number of Transactions per Visit",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/number-of-transactions-per-visit/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1341,
+  "slug": "movie-rating",
+  "title": "Movie Rating",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/movie-rating/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1350,
+  "slug": "students-with-invalid-departments",
+  "title": "Students With Invalid Departments",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/students-with-invalid-departments/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1355,
+  "slug": "activity-participants",
+  "title": "Activity Participants",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/activity-participants/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1364,
+  "slug": "number-of-trusted-contacts-of-a-customer",
+  "title": "Number of Trusted Contacts of a Customer",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/number-of-trusted-contacts-of-a-customer/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1369,
+  "slug": "get-the-second-most-recent-activity",
+  "title": "Get the Second Most Recent Activity",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/get-the-second-most-recent-activity/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1378,
+  "slug": "replace-employee-id-with-the-unique-identifier",
+  "title": "Replace Employee ID With The Unique Identifier",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1384,
+  "slug": "total-sales-amount-by-year",
+  "title": "Total Sales Amount by Year",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/total-sales-amount-by-year/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1393,
+  "slug": "capital-gainloss",
+  "title": "Capital Gain/Loss",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/capital-gainloss/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1398,
+  "slug": "customers-who-bought-products-a-and-b-but-not-c",
+  "title": "Customers Who Bought Products A and B but Not C",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/customers-who-bought-products-a-and-b-but-not-c/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1407,
+  "slug": "top-travellers",
+  "title": "Top Travellers",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/top-travellers/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1412,
+  "slug": "find-the-quiet-students-in-all-exams",
+  "title": "Find the Quiet Students in All Exams",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-the-quiet-students-in-all-exams/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1421,
+  "slug": "npv-queries",
+  "title": "NPV Queries",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/npv-queries/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1435,
+  "slug": "create-a-session-bar-chart",
+  "title": "Create a Session Bar Chart",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/create-a-session-bar-chart/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1440,
+  "slug": "evaluate-boolean-expression",
+  "title": "Evaluate Boolean Expression",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/evaluate-boolean-expression/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1445,
+  "slug": "apples-oranges",
+  "title": "Apples & Oranges",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/apples-oranges/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1454,
+  "slug": "active-users",
+  "title": "Active Users",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/active-users/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1459,
+  "slug": "rectangles-area",
+  "title": "Rectangles Area",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/rectangles-area/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1468,
+  "slug": "calculate-salaries",
+  "title": "Calculate Salaries",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/calculate-salaries/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1479,
+  "slug": "sales-by-day-of-the-week",
+  "title": "Sales by Day of the Week",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/sales-by-day-of-the-week/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1484,
+  "slug": "group-sold-products-by-the-date",
+  "title": "Group Sold Products By The Date",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/group-sold-products-by-the-date/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1495,
+  "slug": "friendly-movies-streamed-last-month",
+  "title": "Friendly Movies Streamed Last Month",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/friendly-movies-streamed-last-month/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1501,
+  "slug": "countries-you-can-safely-invest-in",
+  "title": "Countries You Can Safely Invest In",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/countries-you-can-safely-invest-in/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1511,
+  "slug": "customer-order-frequency",
+  "title": "Customer Order Frequency",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/customer-order-frequency/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1517,
+  "slug": "find-users-with-valid-e-mails",
+  "title": "Find Users With Valid E-Mails",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/find-users-with-valid-e-mails/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1527,
+  "slug": "patients-with-a-condition",
+  "title": "Patients With a Condition",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/patients-with-a-condition/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1532,
+  "slug": "the-most-recent-three-orders",
+  "title": "The Most Recent Three Orders",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-most-recent-three-orders/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1543,
+  "slug": "fix-product-name-format",
+  "title": "Fix Product Name Format",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/fix-product-name-format/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1549,
+  "slug": "the-most-recent-orders-for-each-product",
+  "title": "The Most Recent Orders for Each Product",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-most-recent-orders-for-each-product/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1555,
+  "slug": "bank-account-summary",
+  "title": "Bank Account Summary",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/bank-account-summary/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1565,
+  "slug": "unique-orders-and-customers-per-month",
+  "title": "Unique Orders and Customers Per Month",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/unique-orders-and-customers-per-month/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1571,
+  "slug": "warehouse-manager",
+  "title": "Warehouse Manager",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/warehouse-manager/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1581,
+  "slug": "customer-who-visited-but-did-not-make-any-transactions",
+  "title": "Customer Who Visited but Did Not Make Any Transactions",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1587,
+  "slug": "bank-account-summary-ii",
+  "title": "Bank Account Summary II",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/bank-account-summary-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1596,
+  "slug": "the-most-frequently-ordered-products-for-each-customer",
+  "title": "The Most Frequently Ordered Products for Each Customer",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-most-frequently-ordered-products-for-each-customer/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1607,
+  "slug": "sellers-with-no-sales",
+  "title": "Sellers With No Sales",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/sellers-with-no-sales/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1613,
+  "slug": "find-the-missing-ids",
+  "title": "Find the Missing IDs",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-the-missing-ids/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1623,
+  "slug": "all-valid-triplets-that-can-represent-a-country",
+  "title": "All Valid Triplets That Can Represent a Country",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/all-valid-triplets-that-can-represent-a-country/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1633,
+  "slug": "percentage-of-users-attended-a-contest",
+  "title": "Percentage of Users Attended a Contest",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/percentage-of-users-attended-a-contest/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1635,
+  "slug": "hopper-company-queries-i",
+  "title": "Hopper Company Queries I",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/hopper-company-queries-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1645,
+  "slug": "hopper-company-queries-ii",
+  "title": "Hopper Company Queries II",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/hopper-company-queries-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1651,
+  "slug": "hopper-company-queries-iii",
+  "title": "Hopper Company Queries III",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/hopper-company-queries-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1661,
+  "slug": "average-time-of-process-per-machine",
+  "title": "Average Time of Process per Machine",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/average-time-of-process-per-machine/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1667,
+  "slug": "fix-names-in-a-table",
+  "title": "Fix Names in a Table",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/fix-names-in-a-table/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1677,
+  "slug": "products-worth-over-invoices",
+  "title": "Product's Worth Over Invoices",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/products-worth-over-invoices/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1683,
+  "slug": "invalid-tweets",
+  "title": "Invalid Tweets",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/invalid-tweets/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1693,
+  "slug": "daily-leads-and-partners",
+  "title": "Daily Leads and Partners",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/daily-leads-and-partners/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1699,
+  "slug": "number-of-calls-between-two-persons",
+  "title": "Number of Calls Between Two Persons",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/number-of-calls-between-two-persons/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1709,
+  "slug": "biggest-window-between-visits",
+  "title": "Biggest Window Between Visits",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/biggest-window-between-visits/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1715,
+  "slug": "count-apples-and-oranges",
+  "title": "Count Apples and Oranges",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/count-apples-and-oranges/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1729,
+  "slug": "find-followers-count",
+  "title": "Find Followers Count",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/find-followers-count/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1731,
+  "slug": "the-number-of-employees-which-report-to-each-employee",
+  "title": "The Number of Employees Which Report to Each Employee",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1741,
+  "slug": "find-total-time-spent-by-each-employee",
+  "title": "Find Total Time Spent by Each Employee",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-total-time-spent-by-each-employee/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1747,
+  "slug": "leetflex-banned-accounts",
+  "title": "Leetflex Banned Accounts",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/leetflex-banned-accounts/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1757,
+  "slug": "recyclable-and-low-fat-products",
+  "title": "Recyclable and Low Fat Products",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/recyclable-and-low-fat-products/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1767,
+  "slug": "find-the-subtasks-that-did-not-execute",
+  "title": "Find the Subtasks That Did Not Execute",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-the-subtasks-that-did-not-execute/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1777,
+  "slug": "products-price-for-each-store",
+  "title": "Product's Price for Each Store",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/products-price-for-each-store/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1783,
+  "slug": "grand-slam-titles",
+  "title": "Grand Slam Titles",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/grand-slam-titles/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1789,
+  "slug": "primary-department-for-each-employee",
+  "title": "Primary Department for Each Employee",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/primary-department-for-each-employee/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1795,
+  "slug": "rearrange-products-table",
+  "title": "Rearrange Products Table",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/rearrange-products-table/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1809,
+  "slug": "ad-free-sessions",
+  "title": "Ad-Free Sessions",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/ad-free-sessions/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1811,
+  "slug": "find-interview-candidates",
+  "title": "Find Interview Candidates",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-interview-candidates/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1821,
+  "slug": "find-customers-with-positive-revenue-this-year",
+  "title": "Find Customers With Positive Revenue this Year",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-customers-with-positive-revenue-this-year/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1831,
+  "slug": "maximum-transaction-each-day",
+  "title": "Maximum Transaction Each Day",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/maximum-transaction-each-day/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1841,
+  "slug": "league-statistics",
+  "title": "League Statistics",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/league-statistics/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1843,
+  "slug": "suspicious-bank-accounts",
+  "title": "Suspicious Bank Accounts",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/suspicious-bank-accounts/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1853,
+  "slug": "convert-date-format",
+  "title": "Convert Date Format",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/convert-date-format/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1867,
+  "slug": "orders-with-maximum-quantity-above-average",
+  "title": "Orders With Maximum Quantity Above Average",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/orders-with-maximum-quantity-above-average/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1873,
+  "slug": "calculate-special-bonus",
+  "title": "Calculate Special Bonus",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/calculate-special-bonus/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1875,
+  "slug": "group-employees-of-the-same-salary",
+  "title": "Group Employees of the Same Salary",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/group-employees-of-the-same-salary/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1890,
+  "slug": "the-latest-login-in-2020",
+  "title": "The Latest Login in 2020",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-latest-login-in-2020/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1892,
+  "slug": "page-recommendations-ii",
+  "title": "Page Recommendations II",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/page-recommendations-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1907,
+  "slug": "count-salary-categories",
+  "title": "Count Salary Categories",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/count-salary-categories/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1917,
+  "slug": "leetcodify-friends-recommendations",
+  "title": "Leetcodify Friends Recommendations",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/leetcodify-friends-recommendations/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1919,
+  "slug": "leetcodify-similar-friends",
+  "title": "Leetcodify Similar Friends",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/leetcodify-similar-friends/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1934,
+  "slug": "confirmation-rate",
+  "title": "Confirmation Rate",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/confirmation-rate/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1939,
+  "slug": "users-that-actively-request-confirmation-messages",
+  "title": "Users That Actively Request Confirmation Messages",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/users-that-actively-request-confirmation-messages/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1949,
+  "slug": "strong-friendship",
+  "title": "Strong Friendship",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/strong-friendship/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1951,
+  "slug": "all-the-pairs-with-the-maximum-number-of-common-followers",
+  "title": "All the Pairs With the Maximum Number of Common Followers",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/all-the-pairs-with-the-maximum-number-of-common-followers/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1965,
+  "slug": "employees-with-missing-information",
+  "title": "Employees With Missing Information",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/employees-with-missing-information/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1972,
+  "slug": "first-and-last-call-on-the-same-day",
+  "title": "First and Last Call On the Same Day",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/first-and-last-call-on-the-same-day/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1978,
+  "slug": "employees-whose-manager-left-the-company",
+  "title": "Employees Whose Manager Left the Company",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/employees-whose-manager-left-the-company/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1988,
+  "slug": "find-cutoff-score-for-each-school",
+  "title": "Find Cutoff Score for Each School",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-cutoff-score-for-each-school/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 1990,
+  "slug": "count-the-number-of-experiments",
+  "title": "Count the Number of Experiments",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/count-the-number-of-experiments/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2004,
+  "slug": "the-number-of-seniors-and-juniors-to-join-the-company",
+  "title": "The Number of Seniors and Juniors to Join the Company",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-number-of-seniors-and-juniors-to-join-the-company/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2010,
+  "slug": "the-number-of-seniors-and-juniors-to-join-the-company-ii",
+  "title": "The Number of Seniors and Juniors to Join the Company II",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-number-of-seniors-and-juniors-to-join-the-company-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2020,
+  "slug": "number-of-accounts-that-did-not-stream",
+  "title": "Number of Accounts That Did Not Stream",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/number-of-accounts-that-did-not-stream/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2026,
+  "slug": "low-quality-problems",
+  "title": "Low-Quality Problems",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/low-quality-problems/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2041,
+  "slug": "accepted-candidates-from-the-interviews",
+  "title": "Accepted Candidates From the Interviews",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/accepted-candidates-from-the-interviews/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2051,
+  "slug": "the-category-of-each-member-in-the-store",
+  "title": "The Category of Each Member in the Store",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-category-of-each-member-in-the-store/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2066,
+  "slug": "account-balance",
+  "title": "Account Balance",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/account-balance/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2072,
+  "slug": "the-winner-university",
+  "title": "The Winner University",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-winner-university/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2082,
+  "slug": "the-number-of-rich-customers",
+  "title": "The Number of Rich Customers",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-number-of-rich-customers/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2084,
+  "slug": "drop-type-1-orders-for-customers-with-type-0-orders",
+  "title": "Drop Type 1 Orders for Customers With Type 0 Orders",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/drop-type-1-orders-for-customers-with-type-0-orders/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2112,
+  "slug": "the-airport-with-the-most-traffic",
+  "title": "The Airport With the Most Traffic",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-airport-with-the-most-traffic/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2118,
+  "slug": "build-the-equation",
+  "title": "Build the Equation",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/build-the-equation/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2142,
+  "slug": "the-number-of-passengers-in-each-bus-i",
+  "title": "The Number of Passengers in Each Bus I",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-number-of-passengers-in-each-bus-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2153,
+  "slug": "the-number-of-passengers-in-each-bus-ii",
+  "title": "The Number of Passengers in Each Bus II",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-number-of-passengers-in-each-bus-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2159,
+  "slug": "order-two-columns-independently",
+  "title": "Order Two Columns Independently",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/order-two-columns-independently/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2173,
+  "slug": "longest-winning-streak",
+  "title": "Longest Winning Streak",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/longest-winning-streak/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2175,
+  "slug": "the-change-in-global-rankings",
+  "title": "The Change in Global Rankings",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-change-in-global-rankings/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2199,
+  "slug": "finding-the-topic-of-each-post",
+  "title": "Finding the Topic of Each Post",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/finding-the-topic-of-each-post/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2205,
+  "slug": "the-number-of-users-that-are-eligible-for-discount",
+  "title": "The Number of Users That Are Eligible for Discount",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-number-of-users-that-are-eligible-for-discount/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2228,
+  "slug": "users-with-two-purchases-within-seven-days",
+  "title": "Users With Two Purchases Within Seven Days",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/users-with-two-purchases-within-seven-days/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2230,
+  "slug": "the-users-that-are-eligible-for-discount",
+  "title": "The Users That Are Eligible for Discount",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-users-that-are-eligible-for-discount/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2238,
+  "slug": "number-of-times-a-driver-was-a-passenger",
+  "title": "Number of Times a Driver Was a Passenger",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/number-of-times-a-driver-was-a-passenger/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2252,
+  "slug": "dynamic-pivoting-of-a-table",
+  "title": "Dynamic Pivoting of a Table",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/dynamic-pivoting-of-a-table/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2253,
+  "slug": "dynamic-unpivoting-of-a-table",
+  "title": "Dynamic Unpivoting of a Table",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/dynamic-unpivoting-of-a-table/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2292,
+  "slug": "products-with-three-or-more-orders-in-two-consecutive-years",
+  "title": "Products With Three or More Orders in Two Consecutive Years",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/products-with-three-or-more-orders-in-two-consecutive-years/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2298,
+  "slug": "tasks-count-in-the-weekend",
+  "title": "Tasks Count in the Weekend",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/tasks-count-in-the-weekend/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2308,
+  "slug": "arrange-table-by-gender",
+  "title": "Arrange Table by Gender",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/arrange-table-by-gender/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2314,
+  "slug": "the-first-day-of-the-maximum-recorded-degree-in-each-city",
+  "title": "The First Day of the Maximum Recorded Degree in Each City",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/the-first-day-of-the-maximum-recorded-degree-in-each-city/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2324,
+  "slug": "product-sales-analysis-iv",
+  "title": "Product Sales Analysis IV",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/product-sales-analysis-iv/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2329,
+  "slug": "product-sales-analysis-v",
+  "title": "Product Sales Analysis V",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/product-sales-analysis-v/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2339,
+  "slug": "all-the-matches-of-the-league",
+  "title": "All the Matches of the League",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/all-the-matches-of-the-league/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2346,
+  "slug": "compute-the-rank-as-a-percentage",
+  "title": "Compute the Rank as a Percentage",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/compute-the-rank-as-a-percentage/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2356,
+  "slug": "number-of-unique-subjects-taught-by-each-teacher",
+  "title": "Number of Unique Subjects Taught by Each Teacher",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": true,
+  "url": "https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2362,
+  "slug": "generate-the-invoice",
+  "title": "Generate the Invoice",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/generate-the-invoice/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2372,
+  "slug": "calculate-the-influence-of-each-salesperson",
+  "title": "Calculate the Influence of Each Salesperson",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/calculate-the-influence-of-each-salesperson/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2377,
+  "slug": "sort-the-olympic-table",
+  "title": "Sort the Olympic Table",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/sort-the-olympic-table/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2388,
+  "slug": "change-null-values-in-a-table-to-the-previous-value",
+  "title": "Change Null Values in a Table to the Previous Value",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/change-null-values-in-a-table-to-the-previous-value/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2394,
+  "slug": "employees-with-deductions",
+  "title": "Employees With Deductions",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/employees-with-deductions/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2474,
+  "slug": "customers-with-strictly-increasing-purchases",
+  "title": "Customers With Strictly Increasing Purchases",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/customers-with-strictly-increasing-purchases/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2480,
+  "slug": "form-a-chemical-bond",
+  "title": "Form a Chemical Bond",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/form-a-chemical-bond/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2494,
+  "slug": "merge-overlapping-events-in-the-same-hall",
+  "title": "Merge Overlapping Events in the Same Hall",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/merge-overlapping-events-in-the-same-hall/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2504,
+  "slug": "concatenate-the-name-and-the-profession",
+  "title": "Concatenate the Name and the Profession",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/concatenate-the-name-and-the-profession/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2668,
+  "slug": "find-latest-salaries",
+  "title": "Find Latest Salaries",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-latest-salaries/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2669,
+  "slug": "count-artist-occurrences-on-spotify-ranking-list",
+  "title": "Count Artist Occurrences On Spotify Ranking List",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/count-artist-occurrences-on-spotify-ranking-list/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2686,
+  "slug": "immediate-food-delivery-iii",
+  "title": "Immediate Food Delivery III",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/immediate-food-delivery-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2687,
+  "slug": "bikes-last-time-used",
+  "title": "Bikes Last Time Used ",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/bikes-last-time-used/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2688,
+  "slug": "find-active-users",
+  "title": "Find Active Users",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-active-users/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2701,
+  "slug": "consecutive-transactions-with-increasing-amounts",
+  "title": "Consecutive Transactions with Increasing Amounts",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/consecutive-transactions-with-increasing-amounts/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2720,
+  "slug": "popularity-percentage",
+  "title": "Popularity Percentage",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/popularity-percentage/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2738,
+  "slug": "count-occurrences-in-text",
+  "title": "Count Occurrences in Text",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/count-occurrences-in-text/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2752,
+  "slug": "customers-with-maximum-number-of-transactions-on-consecutive-days",
+  "title": "Customers with Maximum Number of Transactions on Consecutive Days",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/customers-with-maximum-number-of-transactions-on-consecutive-days/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2783,
+  "slug": "flight-occupancy-and-waitlist-analysis",
+  "title": "Flight Occupancy and Waitlist Analysis",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/flight-occupancy-and-waitlist-analysis/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2793,
+  "slug": "status-of-flight-tickets",
+  "title": "Status of Flight Tickets",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/status-of-flight-tickets/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 2820,
+  "slug": "election-results",
+  "title": "Election Results",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/election-results/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 2837,
+  "slug": "total-traveled-distance",
+  "title": "Total Traveled Distance",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/total-traveled-distance/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2853,
+  "slug": "highest-salaries-difference",
+  "title": "Highest Salaries Difference",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/highest-salaries-difference/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2854,
+  "slug": "rolling-average-steps",
+  "title": "Rolling Average Steps",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/rolling-average-steps/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2893,
+  "slug": "calculate-orders-within-each-interval",
+  "title": "Calculate Orders Within Each Interval",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/calculate-orders-within-each-interval/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2922,
+  "slug": "market-analysis-iii",
+  "title": "Market Analysis III",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/market-analysis-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2978,
+  "slug": "symmetric-coordinates",
+  "title": "Symmetric Coordinates",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/symmetric-coordinates/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2984,
+  "slug": "find-peak-calling-hours-for-each-city",
+  "title": "Find Peak Calling Hours for Each City",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-peak-calling-hours-for-each-city/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2985,
+  "slug": "calculate-compressed-mean",
+  "title": "Calculate Compressed Mean",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/calculate-compressed-mean/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2986,
+  "slug": "find-third-transaction",
+  "title": "Find Third Transaction",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-third-transaction/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2987,
+  "slug": "find-expensive-cities",
+  "title": "Find Expensive Cities",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-expensive-cities/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2988,
+  "slug": "manager-of-the-largest-department",
+  "title": "Manager of the Largest Department",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/manager-of-the-largest-department/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2989,
+  "slug": "class-performance",
+  "title": "Class Performance",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/class-performance/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2990,
+  "slug": "loan-types",
+  "title": "Loan Types",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/loan-types/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2991,
+  "slug": "top-three-wineries",
+  "title": "Top Three Wineries ",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/top-three-wineries/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2993,
+  "slug": "friday-purchases-i",
+  "title": "Friday Purchases I",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/friday-purchases-i/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2994,
+  "slug": "friday-purchases-ii",
+  "title": "Friday Purchases II ",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/friday-purchases-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 2995,
+  "slug": "viewers-turned-streamers",
+  "title": "Viewers Turned Streamers",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/viewers-turned-streamers/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3050,
+  "slug": "pizza-toppings-cost-analysis",
+  "title": "Pizza Toppings Cost Analysis",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/pizza-toppings-cost-analysis/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3051,
+  "slug": "find-candidates-for-data-scientist-position",
+  "title": "Find Candidates for Data Scientist Position",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-candidates-for-data-scientist-position/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3052,
+  "slug": "maximize-items",
+  "title": "Maximize Items",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/maximize-items/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3053,
+  "slug": "classifying-triangles-by-lengths",
+  "title": "Classifying Triangles by Lengths",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/classifying-triangles-by-lengths/",
+  "leetcodeTags": [
+   "database",
+   "polygons"
+  ]
+ },
+ {
+  "id": 3054,
+  "slug": "binary-tree-nodes",
+  "title": "Binary Tree Nodes",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/binary-tree-nodes/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3055,
+  "slug": "top-percentile-fraud",
+  "title": "Top Percentile Fraud",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/top-percentile-fraud/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3056,
+  "slug": "snaps-analysis",
+  "title": "Snaps Analysis",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/snaps-analysis/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3057,
+  "slug": "employees-project-allocation",
+  "title": "Employees Project Allocation",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/employees-project-allocation/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3058,
+  "slug": "friends-with-no-mutual-friends",
+  "title": "Friends With No Mutual Friends",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/friends-with-no-mutual-friends/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3059,
+  "slug": "find-all-unique-email-domains",
+  "title": "Find All Unique Email Domains",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-all-unique-email-domains/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3060,
+  "slug": "user-activities-within-time-bounds",
+  "title": "User Activities within Time Bounds",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/user-activities-within-time-bounds/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3061,
+  "slug": "calculate-trapping-rain-water",
+  "title": "Calculate Trapping Rain Water",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/calculate-trapping-rain-water/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3087,
+  "slug": "find-trending-hashtags",
+  "title": "Find Trending Hashtags",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-trending-hashtags/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3089,
+  "slug": "find-bursty-behavior",
+  "title": "Find Bursty Behavior",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-bursty-behavior/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3103,
+  "slug": "find-trending-hashtags-ii",
+  "title": "Find Trending Hashtags II ",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-trending-hashtags-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3118,
+  "slug": "friday-purchase-iii",
+  "title": "Friday Purchase III ",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/friday-purchase-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3124,
+  "slug": "find-longest-calls",
+  "title": "Find Longest Calls",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-longest-calls/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3126,
+  "slug": "server-utilization-time",
+  "title": "Server Utilization Time",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/server-utilization-time/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3140,
+  "slug": "consecutive-available-seats-ii",
+  "title": "Consecutive Available Seats II",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/consecutive-available-seats-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3150,
+  "slug": "invalid-tweets-ii",
+  "title": "Invalid Tweets II",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/invalid-tweets-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3156,
+  "slug": "employee-task-duration-and-concurrent-tasks",
+  "title": "Employee Task Duration and Concurrent Tasks",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/employee-task-duration-and-concurrent-tasks/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3166,
+  "slug": "calculate-parking-fees-and-duration",
+  "title": "Calculate Parking Fees and Duration",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/calculate-parking-fees-and-duration/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3172,
+  "slug": "second-day-verification",
+  "title": "Second Day Verification",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/second-day-verification/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3182,
+  "slug": "find-top-scoring-students",
+  "title": "Find Top Scoring Students",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-top-scoring-students/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3188,
+  "slug": "find-top-scoring-students-ii",
+  "title": "Find Top Scoring Students II",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-top-scoring-students-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3198,
+  "slug": "find-cities-in-each-state",
+  "title": "Find Cities in Each State",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-cities-in-each-state/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3204,
+  "slug": "bitwise-user-permissions-analysis",
+  "title": "Bitwise User Permissions Analysis",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/bitwise-user-permissions-analysis/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3214,
+  "slug": "year-on-year-growth-rate",
+  "title": "Year on Year Growth Rate",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/year-on-year-growth-rate/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3220,
+  "slug": "odd-and-even-transactions",
+  "title": "Odd and Even Transactions",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/odd-and-even-transactions/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3230,
+  "slug": "customer-purchasing-behavior-analysis",
+  "title": "Customer Purchasing Behavior Analysis",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/customer-purchasing-behavior-analysis/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3236,
+  "slug": "ceo-subordinate-hierarchy",
+  "title": "CEO Subordinate Hierarchy",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/ceo-subordinate-hierarchy/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3246,
+  "slug": "premier-league-table-ranking",
+  "title": "Premier League Table Ranking",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/premier-league-table-ranking/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3252,
+  "slug": "premier-league-table-ranking-ii",
+  "title": "Premier League Table Ranking II",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/premier-league-table-ranking-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3262,
+  "slug": "find-overlapping-shifts",
+  "title": "Find Overlapping Shifts",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-overlapping-shifts/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3268,
+  "slug": "find-overlapping-shifts-ii",
+  "title": "Find Overlapping Shifts II",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-overlapping-shifts-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3278,
+  "slug": "find-candidates-for-data-scientist-position-ii",
+  "title": "Find Candidates for Data Scientist Position II",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-candidates-for-data-scientist-position-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3293,
+  "slug": "calculate-product-final-price",
+  "title": "Calculate Product Final Price",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/calculate-product-final-price/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3308,
+  "slug": "find-top-performing-driver",
+  "title": "Find Top Performing Driver",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-top-performing-driver/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3322,
+  "slug": "premier-league-table-ranking-iii",
+  "title": "Premier League Table Ranking III",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/premier-league-table-ranking-iii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3328,
+  "slug": "find-cities-in-each-state-ii",
+  "title": "Find Cities in Each State II",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-cities-in-each-state-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3338,
+  "slug": "second-highest-salary-ii",
+  "title": "Second Highest Salary II",
+  "difficulty": "Medium",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/second-highest-salary-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3358,
+  "slug": "books-with-null-ratings",
+  "title": "Books with NULL Ratings",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/books-with-null-ratings/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3368,
+  "slug": "first-letter-capitalization",
+  "title": "First Letter Capitalization",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/first-letter-capitalization/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3374,
+  "slug": "first-letter-capitalization-ii",
+  "title": "First Letter Capitalization II",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/first-letter-capitalization-ii/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3384,
+  "slug": "team-dominance-by-pass-success",
+  "title": "Team Dominance by Pass Success",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/team-dominance-by-pass-success/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3390,
+  "slug": "longest-team-pass-streak",
+  "title": "Longest Team Pass Streak",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/longest-team-pass-streak/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3401,
+  "slug": "find-circular-gift-exchange-chains",
+  "title": "Find Circular Gift Exchange Chains",
+  "difficulty": "Hard",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-circular-gift-exchange-chains/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3415,
+  "slug": "find-products-with-three-consecutive-digits",
+  "title": "Find Products with Three Consecutive Digits ",
+  "difficulty": "Easy",
+  "premium": true,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-products-with-three-consecutive-digits/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3421,
+  "slug": "find-students-who-improved",
+  "title": "Find Students Who Improved",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-students-who-improved/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3436,
+  "slug": "find-valid-emails",
+  "title": "Find Valid Emails",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-valid-emails/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3451,
+  "slug": "find-invalid-ip-addresses",
+  "title": "Find Invalid IP Addresses",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-invalid-ip-addresses/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3465,
+  "slug": "find-products-with-valid-serial-numbers",
+  "title": "Find Products with Valid Serial Numbers",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-products-with-valid-serial-numbers/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3475,
+  "slug": "dna-pattern-recognition",
+  "title": "DNA Pattern Recognition ",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/dna-pattern-recognition/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3482,
+  "slug": "analyze-organization-hierarchy",
+  "title": "Analyze Organization Hierarchy",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/analyze-organization-hierarchy/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3497,
+  "slug": "analyze-subscription-conversion",
+  "title": "Analyze Subscription Conversion ",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/analyze-subscription-conversion/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3521,
+  "slug": "find-product-recommendation-pairs",
+  "title": "Find Product Recommendation Pairs",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-product-recommendation-pairs/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3554,
+  "slug": "find-category-recommendation-pairs",
+  "title": "Find Category Recommendation Pairs",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-category-recommendation-pairs/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3564,
+  "slug": "seasonal-sales-analysis",
+  "title": "Seasonal Sales Analysis",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/seasonal-sales-analysis/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3570,
+  "slug": "find-books-with-no-available-copies",
+  "title": "Find Books with No Available Copies",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-books-with-no-available-copies/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3580,
+  "slug": "find-consistently-improving-employees",
+  "title": "Find Consistently Improving Employees",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-consistently-improving-employees/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3586,
+  "slug": "find-covid-recovery-patients",
+  "title": "Find COVID Recovery Patients",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-covid-recovery-patients/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3601,
+  "slug": "find-drivers-with-improved-fuel-efficiency",
+  "title": "Find Drivers with Improved Fuel Efficiency",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-drivers-with-improved-fuel-efficiency/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3611,
+  "slug": "find-overbooked-employees",
+  "title": "Find Overbooked Employees",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-overbooked-employees/",
+  "leetcodeTags": [
+   "database"
+  ]
+ },
+ {
+  "id": 3617,
+  "slug": "find-students-with-study-spiral-pattern",
+  "title": "Find Students with Study Spiral Pattern",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-students-with-study-spiral-pattern/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3626,
+  "slug": "find-stores-with-inventory-imbalance",
+  "title": "Find Stores with Inventory Imbalance",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-stores-with-inventory-imbalance/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3642,
+  "slug": "find-books-with-polarized-opinions",
+  "title": "Find Books with Polarized Opinions",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-books-with-polarized-opinions/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3657,
+  "slug": "find-loyal-customers",
+  "title": "Find Loyal Customers",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-loyal-customers/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3673,
+  "slug": "find-zombie-sessions",
+  "title": "Find Zombie Sessions",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-zombie-sessions/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3705,
+  "slug": "find-golden-hour-customers",
+  "title": "Find Golden Hour Customers",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-golden-hour-customers/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3716,
+  "slug": "find-churn-risk-customers",
+  "title": "Find Churn Risk Customers",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-churn-risk-customers/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3764,
+  "slug": "most-common-course-pairs",
+  "title": "Most Common Course Pairs",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/most-common-course-pairs/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3793,
+  "slug": "find-users-with-high-token-usage",
+  "title": "Find Users with High Token Usage",
+  "difficulty": "Easy",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-users-with-high-token-usage/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3808,
+  "slug": "find-emotionally-consistent-users",
+  "title": "Find Emotionally Consistent Users",
+  "difficulty": "Medium",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-emotionally-consistent-users/",
+  "leetcodeTags": []
+ },
+ {
+  "id": 3832,
+  "slug": "find-users-with-persistent-behavior-patterns",
+  "title": "Find Users with Persistent Behavior Patterns",
+  "difficulty": "Hard",
+  "premium": false,
+  "inSql50": false,
+  "url": "https://leetcode.com/problems/find-users-with-persistent-behavior-patterns/",
+  "leetcodeTags": []
+ }
+]

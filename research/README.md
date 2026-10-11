@@ -41,6 +41,29 @@ LeetCode groups them: Select (5), Basic Joins (9), Basic Aggregate Functions (8)
 Grouping (7), Advanced Select and Joins (7), Subqueries (7), Advanced String Functions /
 Regex / Clause (7). None are Premium.
 
+## `leetcode-database.verified.json` — all LeetCode Database problems
+
+From LeetCode GraphQL `questionList(categorySlug: "database")`, fetched on 2026-10-11:
+323 problems; 105 free (55 Easy, 39 Medium, 11 Hard); 218 Premium. All 50 SQL 50
+problems are included (`inSql50: true`). 55 free problems are **not** in SQL 50 (23 E,
+22 M, 10 H); these are the curation pool for extra placement SQL practice.
+
+## Other SQL/DBMS resources (HTTP-checked 2026-10-11)
+
+Return 200 and real 404s for bad paths, so per-page links are HTTP-verifiable:
+hackerrank.com/domains/sql, stratascratch.com, datalemur.com/questions, geeksforgeeks.org/dbms/dbms/.
+Return 200: sqlzoo.net/wiki/SQL_Tutorial, pgexercises.com, db-book.com,
+15445.courses.cs.cmu.edu, nptel.ac.in/courses/106105175 (DBMS; "Database Design" lectures),
+sqlite.org/lang.html, postgresql.org/docs/current/tutorial-window.html, w3schools.com/sql,
+mode.com/sql-tutorial. `dev.mysql.com/doc/refman/8.0/en/` returns 403 to bots (official docs;
+mark `httpVerifiable: false`).
+
+## College materials
+
+College sheets, slides and the learner's submissions are **not** stored here or anywhere
+in this public repository (see roadmap decision D-SQL-1). Only their inventory and topic
+mapping live in `what_to_do.md` Section 8.2.
+
 ## How to re-verify
 
 LeetCode web pages return HTTP 403 to non-browser clients (Cloudflare), so **do not use
