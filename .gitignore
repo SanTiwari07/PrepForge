@@ -12,6 +12,5 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 
-# Private college material (decision D-SQL-1) and local secrets
-content-private/
+# Local secrets
 .env.local

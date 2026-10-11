@@ -58,12 +58,6 @@ sqlite.org/lang.html, postgresql.org/docs/current/tutorial-window.html, w3school
 mode.com/sql-tutorial. `dev.mysql.com/doc/refman/8.0/en/` returns 403 to bots (official docs;
 mark `httpVerifiable: false`).
 
-## College materials
-
-College sheets, slides and the learner's submissions are **not** stored here or anywhere
-in this public repository (see roadmap decision D-SQL-1). Only their inventory and topic
-mapping live in `what_to_do.md` Section 8.2.
-
 ## How to re-verify
 
 LeetCode web pages return HTTP 403 to non-browser clients (Cloudflare), so **do not use
