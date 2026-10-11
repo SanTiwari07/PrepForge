@@ -9,10 +9,10 @@
 |---|---|
 | Product name | **PrepForge** (the working name "PlacementOS" was replaced at the user's request) |
 | Repository | `https://github.com/SanTiwari07/PrepForge.git` (public), branch `main`, local folder `D:\Projects\PlacementResource` |
-| Last updated | 2026-10-11 (session 1: audit and roadmap; scope set to fresher placement at big product companies; no application code written yet) |
+| Last updated | 2026-10-11 (session 2: app implemented through Phases 0–4 plus the SQL engine; content expansion in progress) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
-| Current phase | Phase 0, Repository setup (not started) |
-| Overall status | Planning complete. Verified research data in `research/`. Application not yet implemented. |
+| Current phase | Phase 9, Content expansion (Phases 0–4 done; Phase 5 engine done, SQL/DBMS lessons pending) |
+| Overall status | Working app: dashboard, plan, 10 subjects (5 DSA topics complete; others Planned with honest labels), 383-problem bank, coach (14 authored walkthroughs), MCQ engine, SQL lab with real execution (33 exercises), OA centre, revision (SM-2), readiness, companies, mocks, 4 tools. 134 tests passing. |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -57,9 +57,9 @@ Never tick a box for a feature that only exists as a mockup.
 
 **Next actions (in order):**
 
-1. Phase 0: scaffold Vite + React + TypeScript, tooling, design tokens, and CI scripts.
-2. Phase 1: app shell, routing, persistence store, content schema and validator, content renderer.
-3. Phase 2: the DSA learning loop end to end (topic page → MCQs → problem bank → Problem-Solving Coach → attempt logging → dashboard v1), using the first five DSA topics as the pilot.
+1. Content (Phase 9): write lessons, MCQs and interview questions for the next DSA topics in roadmap order (arrays-strings, stl-collections, prefix-sums, stacks-queues, linked-lists, binary-trees, …), plus authored walkthroughs for the remaining Blind 75 problems.
+2. Content (Phases 5C/6/7): SQL lessons, DBMS concepts with MCQs, OOP C++/Java topics with compile-verified output questions, OS, CN, System Design foundations.
+3. QA (Phase 10): Playwright e2e for the core flows, link checker, a visual pass at 1920 and 2560.
 
 ---
 
@@ -522,21 +522,21 @@ and a verified URL.
 **Curriculum (40 topics):**
 
 Foundations
-- [ ] `dsa.complexity` (F): Big-O, Big-Θ, Big-Ω; best/avg/worst; amortised analysis; recurrences and the Master theorem (intro); reading constraints → target complexity (n ≤ 10^5 → O(n log n), and so on)
+- [x] `dsa.complexity` (F): Big-O, Big-Θ, Big-Ω; best/avg/worst; amortised analysis; recurrences and the Master theorem (intro); reading constraints → target complexity (n ≤ 10^5 → O(n log n), and so on)
 - [ ] `dsa.recursion` (F): call stack, base cases, recursion trees, tail recursion, recursion → iteration
 - [ ] `dsa.stl-collections` (F): C++ STL (vector, string, unordered_map/set, map/set, priority_queue, deque, stack, queue, algorithms, lower_bound) and Java Collections (ArrayList, HashMap, TreeMap, ArrayDeque, PriorityQueue, Collections/Arrays); complexity of each; common pitfalls
 - [ ] `dsa.math` (F): GCD/LCM, primes and the sieve, modular arithmetic, fast exponentiation, combinatorics basics, overflow
 
 Arrays and hashing
 - [ ] `dsa.arrays-strings` (F): traversal, in-place techniques, string building, char counting
-- [ ] `dsa.hashing` (F): hash maps and sets, frequency counting, complement lookup, grouping by key
+- [x] `dsa.hashing` (F): hash maps and sets, frequency counting, complement lookup, grouping by key
 - [ ] `dsa.prefix-sums` (C): prefix sums, subarray sum = k with a hashmap, 2D prefix sums, **difference arrays**
 - [ ] `dsa.kadane` (C): maximum subarray, max-product variant, circular variant
 
 Problem-solving patterns
-- [ ] `dsa.two-pointers` (C): opposite ends, same direction, partitioning, k-sum
-- [ ] `dsa.sliding-window` (C): fixed, variable (longest/shortest), counting with "at most k" decomposition
-- [ ] `dsa.binary-search` (C): classic, boundaries (lower/upper bound), rotated arrays, **binary search on the answer**
+- [x] `dsa.two-pointers` (C): opposite ends, same direction, partitioning, k-sum
+- [x] `dsa.sliding-window` (C): fixed, variable (longest/shortest), counting with "at most k" decomposition
+- [x] `dsa.binary-search` (C): classic, boundaries (lower/upper bound), rotated arrays, **binary search on the answer**
 - [ ] `dsa.fast-slow-pointers` (C): cycle detection, middle node, Floyd's algorithm on arrays
 - [ ] `dsa.monotonic-stack-queue` (C): next greater/smaller, histogram, sliding window maximum (deque)
 - [ ] `dsa.intervals` (C): sort and merge, insert, overlap counting, sweep line, meeting rooms
@@ -1054,12 +1054,12 @@ dependencies are unmet.
 Depends on: nothing.
 
 - [x] `git init`, `.gitignore`, initial commit containing `DESIGN.md`, `what_to_do.md` and `research/`, pushed to `origin main` (done in session 1)
-- [ ] Scaffold Vite + React + TS (strict) in place (do not overwrite `DESIGN.md` or `research/`)
-- [ ] Add dependencies: react-router-dom, zustand, lucide-react, marked, highlight.js, sql.js; dev: vitest, @testing-library/react, jsdom, playwright, eslint (+ typescript-eslint, react-hooks, jsx-a11y), prettier, tsx
-- [ ] Scripts: `dev`, `build`, `preview`, `typecheck`, `lint`, `test`, `test:e2e`, `validate:content`, `verify:code`, `check:links`, `build:problems`
-- [ ] `src/styles/tokens.css` from DESIGN.md with the Section 10 adaptations (contrast-checked)
-- [ ] `.claude/launch.json` for the preview server (dev on port 5173)
-- [ ] A short `README.md` (run, build, data storage, limitations), pointing to this file
+- [x] Scaffold Vite + React + TS (strict) in place (do not overwrite `DESIGN.md` or `research/`)
+- [x] (PARTIAL: Playwright and Prettier not installed yet) Add dependencies: react-router-dom, zustand, lucide-react, marked, highlight.js, sql.js; dev: vitest, @testing-library/react, jsdom, playwright, eslint (+ typescript-eslint, react-hooks, jsx-a11y), prettier, tsx
+- [x] (PARTIAL: `test:e2e` and `check:links` not written yet; content validation runs inside `npm test`) Scripts: `dev`, `build`, `preview`, `typecheck`, `lint`, `test`, `test:e2e`, `validate:content`, `verify:code`, `check:links`, `build:problems`
+- [x] `src/styles/tokens.css` from DESIGN.md with the Section 10 adaptations (contrast-checked)
+- [x] `.claude/launch.json` for the preview server (dev on port 5173)
+- [x] A short `README.md` (run, build, data storage, limitations), pointing to this file
 
 **Acceptance:** `npm run build`, `typecheck`, `lint` and `test` (with one trivial test) all pass; the app renders "PrepForge" at `/`.
 
@@ -1067,15 +1067,15 @@ Depends on: nothing.
 
 Depends on: Phase 0.
 
-- [ ] Layout shell: sidebar (desktop), icon rail (tablet), top bar + drawer + bottom tab bar (mobile), skip link, focus management
-- [ ] Router with all Section 5 routes (unbuilt pages render an honest "Coming in Phase N" state linked to this roadmap; **no fake content**)
-- [ ] UI primitives: Button, IconButton, Card, Badge, StatusBadge, Tabs, Disclosure, CodeBlock/CodeTabs (highlight.js, copy), Table (responsive), ProgressBar, Stat, EmptyState, Dialog, Toast, Timer, Kbd
-- [ ] SVG chart primitives: BarList, StackedBar, Sparkline, ActivityHeatmap, ProgressRing
-- [ ] Store: slices per Section 6.2, persist to `prepforge:v1`, `migrate()`, export/import/reset with validation; unit tests
-- [ ] Content schema (`schema.ts`) and registry; Markdown renderer (marked + highlight.js); TraceStepper component (array/pointer/window/stack visuals)
-- [ ] `scripts/validate-content.ts` wired into `npm test`
-- [ ] Global search (Ctrl/Cmd+K) over the registry
-- [ ] Settings page (profile, targets, daily minutes, language, data management)
+- [x] Layout shell: sidebar (desktop), icon rail (tablet), top bar + drawer + bottom tab bar (mobile), skip link, focus management
+- [x] Router with all Section 5 routes (every route is built; planned topics render an honest Planned state) (unbuilt pages render an honest "Coming in Phase N" state linked to this roadmap; **no fake content**)
+- [x] UI primitives: Button, IconButton, Card, Badge, StatusBadge, Tabs, Disclosure, CodeBlock/CodeTabs (highlight.js, copy), Table (responsive), ProgressBar, Stat, EmptyState, Dialog, Toast, Timer, Kbd
+- [x] (PARTIAL: BarList, Sparkline, ActivityHeatmap built; StackedBar and ProgressRing not needed yet) SVG chart primitives
+- [x] (PARTIAL: export/import/reset verified manually; no dedicated store unit test yet) Store: slices per Section 6.2, persist to `prepforge:v1`, `migrate()`, export/import/reset with validation; unit tests
+- [x] Content schema (`schema.ts`) and registry; Markdown renderer (marked + highlight.js); TraceStepper component (array/pointer/window/stack visuals)
+- [x] Content validator implemented as `tests/content.test.ts` (runs in `npm test`)
+- [x] Global search (Ctrl/Cmd+K) over the registry
+- [x] Settings page (profile, targets, daily minutes, language, data management)
 
 **Acceptance:** navigation works on every route at 320/768/1440/2560; data survives a reload; export → reset → import restores state; the validator fails on a deliberately broken fixture.
 
@@ -1083,15 +1083,15 @@ Depends on: Phase 0.
 
 Depends on: Phase 1.
 
-- [ ] `scripts/build-problem-bank.ts`: generate `src/content/problems/bank.generated.ts` from `research/dsa-problems.verified.json` (topic mapping precedence plus a review report); hand-review the mapping
-- [ ] Topic page (all tabs) rendering the `Topic` schema
-- [ ] MCQ engine: single and multi-select, instant feedback in practice mode, explanations and misconception notes, attempt logging with `firstSeen`
-- [ ] Problem bank page: filters (topic, pattern, difficulty, list, status, premium, has-walkthrough), search, sort, responsive card/table views, canonical records shown with all list badges
-- [ ] Problem-Solving Coach page: 11 stages, saved stage answers, hints 1–4 and solution with logged reveals, pausable timer, outcome capture, error classification, reflection, revision-card creation
-- [ ] Engine: `mastery.ts` (Section 7.1) with unit tests
-- [ ] Dashboard v1: today's plan (simple version), completion vs mastery per module, recent activity, due reviews count, weakest topics (with evidence), empty states
-- [ ] **Pilot content (Complete per Section 11):** `dsa.complexity`, `dsa.hashing`, `dsa.two-pointers`, `dsa.sliding-window`, `dsa.binary-search`
-- [ ] Authored coach walkthroughs for the pilot topics' Blind 75 problems (about 15)
+- [x] (PARTIAL: implemented as `scripts/build-problem-bank.mjs`; manual review of the topic mapping still pending) `scripts/build-problem-bank.ts`: generate `src/content/problems/bank.generated.ts` from `research/dsa-problems.verified.json` (topic mapping precedence plus a review report); hand-review the mapping
+- [x] Topic page (all tabs) rendering the `Topic` schema
+- [x] MCQ engine: single and multi-select, instant feedback in practice mode, explanations and misconception notes, attempt logging with `firstSeen`
+- [x] Problem bank page: filters (topic, pattern, difficulty, list, status, premium, has-walkthrough), search, sort, responsive card/table views, canonical records shown with all list badges
+- [x] Problem-Solving Coach page: 11 stages, saved stage answers, hints 1–4 and solution with logged reveals, pausable timer, outcome capture, error classification, reflection, revision-card creation
+- [x] Engine: `mastery.ts` (Section 7.1) with unit tests
+- [x] Dashboard v1: today's plan (simple version), completion vs mastery per module, recent activity, due reviews count, weakest topics (with evidence), empty states
+- [x] **Pilot content (Complete per Section 11):** `dsa.complexity`, `dsa.hashing`, `dsa.two-pointers`, `dsa.sliding-window`, `dsa.binary-search`
+- [x] Authored coach walkthroughs for the pilot topics (14 problems)
 
 **Acceptance:** a learner can open Sliding Window, read it, answer MCQs (logged), open a linked problem, go through the coach with hints, log an outcome with error categories, and see mastery and the dashboard update after a reload. Unit tests cover mastery edge cases (no evidence, all independent, all after-solution).
 
@@ -1099,13 +1099,13 @@ Depends on: Phase 1.
 
 Depends on: Phase 2.
 
-- [ ] `revision.ts` (SM-2 variant + forgetting-risk ordering) + tests
-- [ ] Auto-card creation (wrong MCQs, hinted or solution-viewed problems) + manual "save to revision"
-- [ ] Revision page: due today, flashcard player, topic sessions, previously incorrect, revision sheets
-- [ ] `readiness.ts` (9 dimensions, evidence, confidence, decay) + tests; Analytics page with evidence and the disclaimer
-- [ ] `plan.ts` daily plan generator + tests; Plan page; the dashboard uses it
-- [ ] Mistake journal page; `recommend.ts` (error category → interventions)
-- [ ] Streaks, activity heatmap, weekly goals
+- [x] `revision.ts` (SM-2 variant + forgetting-risk ordering) + tests
+- [x] Auto-card creation (wrong MCQs, hinted or solution-viewed problems) + manual "save to revision"
+- [x] Revision page: due today, flashcard player, topic sessions, previously incorrect, revision sheets
+- [x] `readiness.ts` (9 dimensions, evidence, confidence, decay) + tests; Analytics page with evidence and the disclaimer
+- [x] `plan.ts` daily plan generator + tests; Plan page; the dashboard uses it
+- [x] Mistake journal page; `recommend.ts` (error category → interventions)
+- [x] Streaks, activity heatmap, weekly goals
 
 **Acceptance:** with seeded test data, unit tests produce expected intervals, due ordering, readiness values and plans; the UI shows the evidence for each readiness number; due cards appear on the expected dates (tested with a mocked clock).
 
@@ -1113,12 +1113,12 @@ Depends on: Phase 2.
 
 Depends on: Phases 2–3 (needs the MCQ pool, problems and engines).
 
-- [ ] Assessment builder (presets plus custom)
-- [ ] Runner: absolute timer, palette, mark for review, autosave, resume after reload, per-question active time, confirm submit, auto-submit
-- [ ] Item types: MCQ, approach/pattern MCQ, debugging MCQ, coding (self-reported, labelled), SQL (after Phase 5)
-- [ ] `scoring.ts` + tests (partial credit rules documented; self-reported items excluded from the auto-score)
-- [ ] Results: score, accuracy, per-topic and per-difficulty breakdown, time per question, review with explanations, comparison with history, recommendations
-- [ ] Smart item selection (weak / previously incorrect / unseen mix)
+- [x] Assessment builder (presets plus custom)
+- [x] Runner: absolute timer, palette, mark for review, autosave, resume after reload, per-question active time, confirm submit, auto-submit
+- [x] Item types: MCQ, approach/pattern MCQ, debugging MCQ, coding (self-reported, labelled), SQL (after Phase 5)
+- [x] `scoring.ts` + tests (partial credit rules documented; self-reported items excluded from the auto-score)
+- [x] Results: score, accuracy, per-topic and per-difficulty breakdown, time per question, review with explanations, comparison with history, recommendations
+- [x] Smart item selection (weak / previously incorrect / unseen mix)
 
 **Acceptance:** a 20-question mixed OA can be taken, refreshed mid-way without loss, auto-submitted at time-out, and scored exactly (verified by unit tests on scoring and an e2e test).
 
@@ -1128,24 +1128,24 @@ Depends on: Phase 1 (engines and UI primitives); Phase 2 (MCQ engine); Phase 4 f
 sets in OAs. Full specification: Section 8.2.
 
 **5A. Engine and verification (P0)**
-- [ ] sql.js Web Worker engine (lazy-loaded, 3 s timeout, `PRAGMA foreign_keys = ON`, reset per run)
-- [ ] Datasets `company`, `shop`, `events`, `rides`, `social`, `ledger`, each with hidden edge-case variants; MySQL and SQLite DDL kept in sync
+- [x] sql.js Web Worker engine (lazy-loaded, 3 s timeout, `PRAGMA foreign_keys = ON`, reset per run)
+- [x] (PARTIAL: `company`, `shop`, `events` done; `rides`, `social`, `ledger` pending) Datasets `company`, `shop`, `events`, `rides`, `social`, `ledger`, each with hidden edge-case variants; MySQL and SQLite DDL kept in sync
 - [ ] `scripts/verify-sql-mysql.mjs` (Docker `mysql:8.0`; runs every reference solution, captures expected output, fails on mismatch)
-- [ ] `sqlCompare.ts` + unit tests (order, NULLs, floats, duplicates, column-name policy, classic wrong queries must fail)
+- [x] `sqlCompare.ts` + unit tests (order, NULLs, floats, duplicates, column-name policy, classic wrong queries must fail)
 
 **5B. Practical SQL (P0)**
-- [ ] SQL editor page (schema browser, sample-data preview, run with Ctrl+Enter, result grid, readable errors, history, reset, dialect notes)
-- [ ] Exercise page (hint ladder, check on visible + hidden datasets with row diff, explanation, wrong-approach notes, target time, bookmarks, notes)
-- [ ] ≥ 120 original exercises covering every [Q] topic (start with 40 covering joins, aggregation, subqueries and window functions)
+- [x] SQL editor page (schema browser, sample-data preview, run with Ctrl+Enter, result grid, readable errors, history, reset, dialect notes)
+- [x] Exercise page (hint ladder, check on visible + hidden datasets with row diff, explanation, wrong-approach notes, target time, bookmarks, notes)
+- [ ] (PARTIAL: 33 exercises, all executed in tests) ≥ 120 original exercises covering every [Q] topic (start with 40 covering joins, aggregation, subqueries and window functions)
 - [ ] LeetCode SQL 50 mapped to topics with original hint ladders; curate the 55 free LeetCode Database extras; HackerRank, DataLemur and StrataScratch lists with link checks
-- [ ] Timed SQL sets in the OA engine
+- [x] Timed SQL sets in the OA engine
 
 **5C. Concepts (P0)**
 - [ ] Notes for every P0 concept topic in 8.2.2 (definitions, worked examples, diagrams for B+ trees, isolation anomalies and schedules, common mistakes, revision notes, flashcards)
 - [ ] ≥ 200 MCQs and ≥ 80 interview questions with model answers
 
 **5D. Tools (P1)**
-- [ ] FD toolkit + tests
+- [x] FD toolkit + tests
 - [ ] Schedule analyser + isolation-anomaly simulator + tests
 - [ ] B+ tree visualiser
 
@@ -1252,7 +1252,12 @@ as Planned.
 
 | Date | Command | Result |
 |---|---|---|
-| — | — | No tests exist yet (session 1: planning only) |
+| 2026-10-11 | `npx tsc -p tsconfig.app.json --noEmit` | Pass (a probe file confirmed errors are detected) |
+| 2026-10-11 | `npx eslint .` | Pass |
+| 2026-10-11 | `npx vite build` | Pass (content chunk 335 KB, gzip 79 KB) |
+| 2026-10-11 | `npx vitest run` | 134/134 pass (5 files) |
+| 2026-10-11 | `npx vite-node scripts/verify-code.ts` | 48 C++/Java samples, 0 failures (g++ 6.3 -std=c++14, javac 23) |
+| 2026-10-11 | Manual browser QA (built-in browser) | 29 routes render without errors at 320 px with no horizontal overflow (a plan-page overflow was fixed); onboarding, MCQ, SQL grading (a wrong `NOT IN` was caught on hidden data) and the OA flow (reload-resume, submit, results) checked at 1440 px |
 
 ---
 
@@ -1300,6 +1305,10 @@ The project is complete only when **all** of these are verified:
 |---|---|---|
 | 2026-10-11 | Product name is **PrepForge** (replaces the working name PlacementOS); storage key `prepforge:v1` | User instruction; matches the GitHub repository |
 | 2026-10-11 | Push to `origin main` after every completed task or checkpoint | User instruction ("keep pushing") |
+| 2026-10-11 | Global CSS with component class prefixes (`tokens.css`, `base.css`, `features.css`) instead of CSS Modules | Faster to build a consistent system; still no UI kit or Tailwind |
+| 2026-10-11 | Content validator as a Vitest suite; code verifier runs via `vite-node scripts/verify-code.ts` | Reuses the TypeScript content directly; no extra tooling |
+| 2026-10-11 | SQL execution uses statement iteration (`src/lib/sqlExec.ts`), not `Database.exec()` | `exec()` drops column names for empty results, which broke grading of correct empty answers |
+| 2026-10-11 | Verified C++ is kept at C++14 | The local compiler is g++ 6.3 (blocker B5) |
 | 2026-10-11 | Static local-first SPA: Vite + React + TS, Zustand + localStorage | Greenfield; single learner; free deploy; offline; minimal dependencies |
 | 2026-10-11 | Plain CSS tokens + CSS Modules instead of Tailwind or a UI kit | `DESIGN.md` defines tokens; fewer dependencies; full control of the look |
 | 2026-10-11 | sql.js in a Web Worker for real SQL execution | Genuinely sandboxed, no server, honest grading |
@@ -1320,4 +1329,5 @@ The project is complete only when **all** of these are verified:
 | Session | Date | Summary |
 |---|---|---|
 | 1 | 2026-10-11 | Audited the repo (greenfield). Verified 383 DSA problems + SQL 50 via LeetCode GraphQL and NeetCode/A2Z sources (saved in `research/`). Verified Google and Amazon hiring facts from official pages. Created this roadmap. Renamed the product to PrepForge, initialised git, and pushed to `SanTiwari07/PrepForge`. **No application code written** (per the user's instruction). Next: Phase 0. |
+| 2 | 2026-10-11 | Implemented Phases 0–4 and the Phase 5 engine: full app, 5 complete DSA topics, 14 walkthroughs, 33 SQL exercises, tools, 134 tests and the code verifier. Manual QA in the browser (see the Test log). |
 | 1b | 2026-10-11 | Drafted a college + placement SQL/DBMS plan; the user then rejected the college scope. Rewrote SQL/DBMS (Section 8.2, 6.3, Phase 5) for fresher placement only and removed all college material from the plan. Added the verified LeetCode Database list (323; 105 free). No app code written. |
