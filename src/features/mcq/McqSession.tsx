@@ -1,3 +1,4 @@
+import { displayOptions } from './optionOrder';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, Bookmark, BookmarkCheck, RotateCcw } from 'lucide-react';
 import type { MCQ } from '@/content/schema';
@@ -87,7 +88,7 @@ export function McqSession({ ids, mode = 'practice', context = 'practice', timeL
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || !q) return;
       const n = Number(e.key);
-      if (n >= 1 && n <= q.options.length && !revealed[q.id]) toggle(q.options[n - 1].id);
+      if (n >= 1 && n <= q.options.length && !revealed[q.id]) toggle(displayOptions(q)[n - 1].id);
       if (e.key === 'Enter' && mode === 'practice') { if (revealed[q.id]) next(); else check(); }
     };
     window.addEventListener('keydown', onKey);

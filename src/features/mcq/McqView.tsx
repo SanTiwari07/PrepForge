@@ -3,6 +3,7 @@ import { Markdown } from '@/components/Markdown';
 import { CodeBlock } from '@/components/CodeBlock';
 import { Badge, DifficultyBadge } from '@/components/ui';
 import { CheckCircle2, XCircle } from 'lucide-react';
+import { displayOptions } from './optionOrder';
 
 const TYPE_LABEL: Record<string, string> = {
   concept: 'Concept', complexity: 'Complexity', 'code-output': 'Predict the output', 'compile-error': 'Compile error', debug: 'Find the bug',
@@ -13,6 +14,7 @@ export function McqView({ q, selected, onToggle, revealed, index, total }: {
   q: MCQ; selected: string[]; onToggle: (id: string) => void; revealed: boolean; index?: number; total?: number;
 }) {
   const multi = q.correct.length > 1;
+  const options = displayOptions(q);
   return (
     <div className="mcq">
       <div className="row mb-4" style={{ gap: 6 }}>
@@ -25,7 +27,7 @@ export function McqView({ q, selected, onToggle, revealed, index, total }: {
       {q.code && <div className="mt-4"><CodeBlock samples={[q.code]} /></div>}
       {multi && <p className="xsmall muted mt-2">Select all that apply.</p>}
       <div className="mcq__options" role={multi ? 'group' : 'radiogroup'} aria-label="Options">
-        {q.options.map((o, i) => {
+        {options.map((o, i) => {
           const isSel = selected.includes(o.id);
           const isCorrect = q.correct.includes(o.id);
           const state = revealed ? (isCorrect ? 'correct' : isSel ? 'wrong' : '') : isSel ? 'selected' : '';
@@ -51,12 +53,12 @@ export function McqView({ q, selected, onToggle, revealed, index, total }: {
         <div className="mcq__explain">
           <h4>Why the answer is correct</h4>
           <Markdown md={q.explanationMd} />
-          {q.options.some((o) => o.whyWrongMd && !q.correct.includes(o.id)) && (
+          {options.some((o) => o.whyWrongMd && !q.correct.includes(o.id)) && (
             <>
               <h4 className="mt-4">Why the other options are wrong</h4>
               <ul className="prose">
-                {q.options.filter((o) => o.whyWrongMd && !q.correct.includes(o.id)).map((o) => (
-                  <li key={o.id}><strong>{String.fromCharCode(65 + q.options.indexOf(o))}.</strong> <Markdown md={o.whyWrongMd!} inline className="" /></li>
+                {options.filter((o) => o.whyWrongMd && !q.correct.includes(o.id)).map((o) => (
+                  <li key={o.id}><strong>{String.fromCharCode(65 + options.indexOf(o))}.</strong> <Markdown md={o.whyWrongMd!} inline className="" /></li>
                 ))}
               </ul>
             </>
