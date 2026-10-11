@@ -279,4 +279,175 @@ public int jump(int[] a) {
     ],
     takeawaysMd: 'When the states reachable in k steps form a contiguous range, BFS collapses to two boundaries and becomes O(n).',
   },
+
+  'course-schedule-ii': {
+    understandMd: 'There are n courses and pairs [a, b] meaning b must be taken before a. Return any order that takes all courses, or an empty array if that is impossible.',
+    ioConstraintsMd: 'n up to 2000, up to n(n−1) pairs, all distinct. Several valid orders may exist; any one is accepted.',
+    edgeCases: ['No prerequisites at all (any order of 0..n−1)', 'A cycle such as [[0,1],[1,0]]', 'Courses that appear in no pair', 'A long chain 0 → 1 → … → n−1'],
+    bruteForceMd: 'Try permutations of the courses and check each against every prerequisite.',
+    bruteComplexity: 'O(n! · m): hopeless beyond tiny n.',
+    bottleneckMd: 'We only ever need "which course can be taken now?": one with no unfinished prerequisites. Tracking how many prerequisites remain per course answers that without search.',
+    hints: [
+      'Model it as a graph. What is a vertex, and which way should an edge point?',
+      'Edge b → a for each pair [a, b]. A valid order is a topological order of this directed graph.',
+      'Repeatedly take a course whose remaining prerequisite count (in-degree) is 0, and decrement its successors. If you cannot take all n, there is a cycle.',
+      'indeg[a]++ for each [a,b]; queue all indeg-0; pop u, append, for v in g[u]: if --indeg[v] == 0 push v; return order if size == n else []',
+    ],
+    optimalMd: "Kahn's algorithm. Build the adjacency list with edges prerequisite → course and an in-degree array. Process a queue of courses with in-degree 0; each pop appends a course to the order and frees its dependants. Fewer than n courses in the order means a cycle.",
+    code: [
+      cpp(`
+vector<int> findOrder(int n, vector<vector<int>>& prerequisites) {
+    vector<vector<int>> g(n);
+    vector<int> indeg(n, 0), order;
+    for (auto& p : prerequisites) { g[p[1]].push_back(p[0]); ++indeg[p[0]]; }
+    queue<int> q;
+    for (int v = 0; v < n; ++v) if (!indeg[v]) q.push(v);
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        order.push_back(u);
+        for (int v : g[u]) if (--indeg[v] == 0) q.push(v);
+    }
+    return (int)order.size() == n ? order : vector<int>();
+}`, 'C++'),
+      java(`
+public int[] findOrder(int n, int[][] prerequisites) {
+    List<List<Integer>> g = new ArrayList<>();
+    for (int i = 0; i < n; i++) g.add(new ArrayList<>());
+    int[] indeg = new int[n];
+    for (int[] p : prerequisites) { g.get(p[1]).add(p[0]); indeg[p[0]]++; }
+    Deque<Integer> q = new ArrayDeque<>();
+    for (int v = 0; v < n; v++) if (indeg[v] == 0) q.add(v);
+    int[] order = new int[n];
+    int k = 0;
+    while (!q.isEmpty()) {
+        int u = q.poll();
+        order[k++] = u;
+        for (int v : g.get(u)) if (--indeg[v] == 0) q.add(v);
+    }
+    return k == n ? order : new int[0];
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(V + E) time and space.',
+    testCases: [
+      { input: 'n = 2, [[1,0]]', expected: '[0,1]', why: 'One prerequisite' },
+      { input: 'n = 4, [[1,0],[2,0],[3,1],[3,2]]', expected: '[0,1,2,3] or [0,2,1,3]', why: 'Diamond; several answers' },
+      { input: 'n = 2, [[1,0],[0,1]]', expected: '[]', why: 'Cycle' },
+      { input: 'n = 3, []', expected: 'any permutation, e.g. [0,1,2]', why: 'No constraints' },
+    ],
+    takeawaysMd: 'Dependencies are directed edges from "before" to "after". Kahn gives the order and the cycle check in one pass.',
+  },
+
+  'redundant-connection': {
+    understandMd: 'A tree with n vertices (labelled 1..n) had one extra edge added. Given the n edges in order, return the edge that can be removed so the rest is a tree; if several work, return the one that appears last.',
+    ioConstraintsMd: 'n up to 1000; edges are undirected, with no duplicates or self-loops.',
+    edgeCases: ['The extra edge is the last edge in the input', 'The cycle passes through vertex 1', 'A triangle: [[1,2],[1,3],[2,3]]'],
+    bruteForceMd: 'For each edge from last to first, remove it and check with DFS whether the remaining graph is connected and acyclic.',
+    bruteComplexity: 'O(n²): n DFS runs of O(n).',
+    bottleneckMd: 'Each check rebuilds connectivity from scratch. Instead, add edges one by one and remember which vertices are already connected: the first edge that joins two already-connected vertices closes the only cycle.',
+    hints: [
+      'Add the edges one at a time. When does an edge create a cycle?',
+      'When its two endpoints are already connected through earlier edges.',
+      'Union-find answers "already connected?" and merges groups in near-constant time.',
+      'for (a, b) in edges: if find(a) == find(b): return [a, b]; union(a, b)',
+    ],
+    optimalMd: 'Process edges in input order with a DSU. The first edge whose endpoints already share a root is the answer. It is also the last edge on the cycle in input order, which is why it satisfies the "return the last one" rule: every other cycle edge appears before it.',
+    code: [
+      cpp(`
+vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+    int n = edges.size();
+    vector<int> parent(n + 1);
+    iota(parent.begin(), parent.end(), 0);
+    function<int(int)> find = [&](int x) { return parent[x] == x ? x : parent[x] = find(parent[x]); };
+    for (auto& e : edges) {
+        int a = find(e[0]), b = find(e[1]);
+        if (a == b) return e;
+        parent[a] = b;
+    }
+    return {};
+}`, 'C++'),
+      java(`
+private int[] parent;
+private int find(int x) { return parent[x] == x ? x : (parent[x] = find(parent[x])); }
+public int[] findRedundantConnection(int[][] edges) {
+    int n = edges.length;
+    parent = new int[n + 1];
+    for (int i = 0; i <= n; i++) parent[i] = i;
+    for (int[] e : edges) {
+        int a = find(e[0]), b = find(e[1]);
+        if (a == b) return e;
+        parent[a] = b;
+    }
+    return new int[0];
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n α(n)) time, O(n) space.',
+    testCases: [
+      { input: '[[1,2],[1,3],[2,3]]', expected: '[2,3]', why: 'Triangle; the last cycle edge' },
+      { input: '[[1,2],[2,3],[3,4],[1,4],[1,5]]', expected: '[1,4]', why: 'Cycle 1-2-3-4; [1,5] comes after' },
+      { input: '[[2,3],[1,2],[1,3]]', expected: '[1,3]', why: 'Cycle closes on the third edge' },
+    ],
+    takeawaysMd: 'Online "does this edge close a cycle?" in an undirected graph is the textbook use of union-find.',
+  },
+
+  'network-delay-time': {
+    understandMd: 'A signal starts at node k in a directed graph with travel times on the edges. Return how long it takes until every node has received it, or −1 if some node never does.',
+    ioConstraintsMd: 'Up to 100 nodes and 6000 edges; weights 0..100 (non-negative); nodes labelled 1..n.',
+    edgeCases: ['A node that is unreachable from k', 'n = 1 (answer 0)', 'Parallel paths where the longer-hop path is cheaper'],
+    bruteForceMd: 'Enumerate all simple paths from k with DFS and record the cheapest arrival time per node.',
+    bruteComplexity: 'Exponential in the worst case.',
+    bottleneckMd: 'Paths are re-explored many times. Because weights are non-negative, the cheapest unsettled node can be finalised immediately, which is Dijkstra.',
+    hints: [
+      'The time for a node to receive the signal is its shortest-path distance from k. What is the answer in terms of those distances?',
+      'The answer is the maximum of all shortest distances, or −1 if any is infinite.',
+      'Weights are non-negative: use Dijkstra with a min-heap of (distance, node).',
+      'dist[k] = 0; heap = [(0,k)]; pop (d,u); skip if d > dist[u]; relax each edge; answer = max(dist) or −1',
+    ],
+    optimalMd: 'Single-source shortest paths with Dijkstra (lazy deletion), then take the maximum distance. With n ≤ 100, Bellman-Ford (O(n · E)) or even Floyd-Warshall would also pass, but Dijkstra is the expected answer.',
+    code: [
+      cpp(`
+int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+    vector<vector<pair<int, int>>> g(n + 1);
+    for (auto& t : times) g[t[0]].push_back({t[1], t[2]});
+    vector<int> dist(n + 1, INT_MAX);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    dist[k] = 0; pq.push({0, k});
+    while (!pq.empty()) {
+        int d = pq.top().first, u = pq.top().second; pq.pop();
+        if (d > dist[u]) continue;
+        for (auto& e : g[u])
+            if (d + e.second < dist[e.first]) { dist[e.first] = d + e.second; pq.push({dist[e.first], e.first}); }
+    }
+    int best = 0;
+    for (int v = 1; v <= n; ++v) { if (dist[v] == INT_MAX) return -1; best = max(best, dist[v]); }
+    return best;
+}`, 'C++'),
+      java(`
+public int networkDelayTime(int[][] times, int n, int k) {
+    List<List<int[]>> g = new ArrayList<>();
+    for (int i = 0; i <= n; i++) g.add(new ArrayList<>());
+    for (int[] t : times) g.get(t[0]).add(new int[] {t[1], t[2]});
+    int[] dist = new int[n + 1];
+    Arrays.fill(dist, Integer.MAX_VALUE);
+    PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+    dist[k] = 0; pq.add(new int[] {0, k});
+    while (!pq.isEmpty()) {
+        int[] top = pq.poll();
+        int d = top[0], u = top[1];
+        if (d > dist[u]) continue;
+        for (int[] e : g.get(u))
+            if (d + e[1] < dist[e[0]]) { dist[e[0]] = d + e[1]; pq.add(new int[] {dist[e[0]], e[0]}); }
+    }
+    int best = 0;
+    for (int v = 1; v <= n; v++) { if (dist[v] == Integer.MAX_VALUE) return -1; best = Math.max(best, dist[v]); }
+    return best;
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(E log V) time, O(V + E) space.',
+    testCases: [
+      { input: 'times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2', expected: '2', why: 'Node 4 is reached last at time 2' },
+      { input: 'times = [[1,2,1]], n = 2, k = 2', expected: '-1', why: 'Node 1 is unreachable from 2' },
+      { input: 'times = [[1,2,5],[1,3,1],[3,2,1]], n = 3, k = 1', expected: '2', why: 'The two-hop path to 2 is cheaper' },
+    ],
+    takeawaysMd: '"When does everyone receive it?" is the maximum over single-source shortest distances. Check reachability before taking the maximum.',
+  },
 };

@@ -20,6 +20,9 @@ import * as recursion from './recursion';
 import * as bst from './bst';
 import * as intervals from './intervals';
 import * as greedy from './greedy';
+import * as topo from './topological-sort';
+import * as dsu from './dsu';
+import * as shortestPaths from './shortest-paths';
 import { walkthroughs as w1 } from './walkthroughs';
 import { walkthroughs2 } from './walkthroughs2';
 import { walkthroughs3 } from './walkthroughs3';
@@ -27,7 +30,7 @@ import type { CoachWalkthrough } from '../schema';
 
 export const walkthroughs: Record<string, CoachWalkthrough> = { ...w1, ...walkthroughs2, ...walkthroughs3 };
 
-const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees, heaps, graphs, dp1d, backtracking, kadane, fastSlow, recursion, bst, intervals, greedy];
+const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees, heaps, graphs, dp1d, backtracking, kadane, fastSlow, recursion, bst, intervals, greedy, topo, dsu, shortestPaths];
 
 export const topics: Topic[] = parts.map((p) => p.topic);
 export const mcqs: MCQ[] = parts.flatMap((p) => p.mcqs);
