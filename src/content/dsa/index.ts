@@ -14,7 +14,11 @@ import * as heaps from './heaps';
 import * as graphs from './graphs';
 import * as dp1d from './dp-1d';
 import * as backtracking from './backtracking';
-export { walkthroughs } from './walkthroughs';
+import { walkthroughs as w1 } from './walkthroughs';
+import { walkthroughs2 } from './walkthroughs2';
+import type { CoachWalkthrough } from '../schema';
+
+export const walkthroughs: Record<string, CoachWalkthrough> = { ...w1, ...walkthroughs2 };
 
 const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees, heaps, graphs, dp1d, backtracking];
 

@@ -63,6 +63,29 @@ const isFragment = (code: string) => {
 const CPP_FRAGMENT = (c: string) => `${CPP_PRELUDE}struct ListNode { int val; ListNode* next; };\nvoid process(int, int) {}\nvoid snippet_() {\n  int n = 8, cnt = 0, target = 0; long long sum = 0; vector<int> a(8), v(8);\n  ListNode* cur = nullptr;\n  (void)n; (void)cnt; (void)target; (void)sum; (void)cur;\n${c}\n}\n`;
 const JAVA_FRAGMENT = (c: string) => `${JAVA_IMPORTS}class Snippet {\n  void snippet_() {\n    int n = 8, cnt = 0, target = 0; long sum = 0; int[] a = new int[8];\n${c}\n  }\n}\n`;
 
+// LeetCode provides ListNode/TreeNode; supply equivalent definitions when a snippet uses
+// them without defining them, so solutions are checked exactly as written for LeetCode.
+function cppLeetCodeTypes(code: string): string {
+  let out = '';
+  if (/\bListNode\b/.test(code) && !/struct\s+ListNode\b/.test(code)) {
+    out += 'struct ListNode { int val; ListNode* next; ListNode(int x = 0, ListNode* n = nullptr) : val(x), next(n) {} };\n';
+  }
+  if (/\bTreeNode\b/.test(code) && !/struct\s+TreeNode\b/.test(code)) {
+    out += 'struct TreeNode { int val; TreeNode *left, *right; TreeNode(int x = 0) : val(x), left(nullptr), right(nullptr) {} };\n';
+  }
+  return out;
+}
+function javaLeetCodeTypes(code: string): string {
+  let out = '';
+  if (/\bListNode\b/.test(code) && !/class\s+ListNode\b/.test(code)) {
+    out += 'static class ListNode { int val; ListNode next; ListNode() {} ListNode(int v) { val = v; } ListNode(int v, ListNode n) { val = v; next = n; } }\n';
+  }
+  if (/\bTreeNode\b/.test(code) && !/class\s+TreeNode\b/.test(code)) {
+    out += 'static class TreeNode { int val; TreeNode left, right; TreeNode() {} TreeNode(int v) { val = v; } }\n';
+  }
+  return out;
+}
+
 function syntaxCheck(where: string, s: CodeSample) {
   checked += 1;
   const dir = join(work, `s${checked}`);
@@ -78,14 +101,14 @@ function syntaxCheck(where: string, s: CodeSample) {
   }
   if (s.lang === 'cpp') {
     const hasMain = /\bint\s+main\s*\(/.test(s.code);
-    writeFileSync(join(dir, 'x.cpp'), (s.code.includes('#include') ? '' : CPP_PRELUDE) + s.code + (hasMain ? '' : '\n'));
+    writeFileSync(join(dir, 'x.cpp'), (s.code.includes('#include') ? '' : CPP_PRELUDE + cppLeetCodeTypes(s.code)) + s.code + (hasMain ? '' : '\n'));
     const c = spawnSync('g++', [`-std=${CPP_STD}`, '-fsyntax-only', join(dir, 'x.cpp')], { encoding: 'utf8' });
     if (c.status !== 0) fail(where, c.stderr);
   } else if (s.lang === 'java') {
     // A complete compilation unit has imports or a public top-level class; anything else
     // (methods, helper classes, fields) is wrapped in a class so it compiles as members.
     const isFullClass = /^\s*import\s/m.test(s.code) || /^public\s+class\s+\w+/m.test(s.code);
-    const src = isFullClass ? s.code : `${JAVA_IMPORTS}@SuppressWarnings({"unchecked", "rawtypes"})\nclass Snippet {\n${s.code}\n}\n`;
+    const src = isFullClass ? s.code : `${JAVA_IMPORTS}@SuppressWarnings({"unchecked", "rawtypes"})\nclass Snippet {\n${javaLeetCodeTypes(s.code)}${s.code}\n}\n`;
     const cls = isFullClass ? (s.code.match(/public\s+class\s+(\w+)/)?.[1] ?? 'Snippet') : 'Snippet';
     writeFileSync(join(dir, `${cls}.java`), src);
     const c = spawnSync('javac', ['-Xlint:none', '-d', dir, join(dir, `${cls}.java`)], { encoding: 'utf8' });
