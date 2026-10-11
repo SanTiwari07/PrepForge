@@ -639,4 +639,126 @@ public List<String> findWords(char[][] board, String[] words) {
     ],
     takeawaysMd: 'When many searches share prefixes, put the queries in a trie and do the expensive traversal once. Clear reported words to avoid duplicates.',
   },
+
+  'single-number': {
+    understandMd: 'Every value in a non-empty array appears exactly twice except one value, which appears once. Return that value using O(n) time and O(1) extra space.',
+    ioConstraintsMd: 'Up to 3·10⁴ values, each a 32-bit int (negatives allowed).',
+    edgeCases: ['A single element', 'Negative numbers', 'The single value is 0'],
+    bruteForceMd: 'Count occurrences with a hash map and return the key with count 1, or sort and scan for the unpaired element.',
+    bruteComplexity: 'Hash map: O(n) time, O(n) space. Sorting: O(n log n) time.',
+    bottleneckMd: 'Both approaches spend memory or time just to make pairs meet. An operation that cancels a value with itself, regardless of order, needs neither.',
+    hints: [
+      'Is there an operation where combining a value with itself gives a neutral result?',
+      'XOR: a ^ a = 0 and a ^ 0 = a.',
+      'XOR is commutative and associative, so the order of the elements does not matter: all pairs cancel.',
+      'x = 0; for v in nums: x ^= v; return x',
+    ],
+    optimalMd: 'XOR all values. Every value that appears twice cancels to 0, leaving the single value. Works for negatives because XOR acts on the two\'s-complement bits.',
+    code: [
+      cpp(`
+int singleNumber(vector<int>& nums) {
+    int x = 0;
+    for (int v : nums) x ^= v;
+    return x;
+}`, 'C++'),
+      java(`
+public int singleNumber(int[] nums) {
+    int x = 0;
+    for (int v : nums) x ^= v;
+    return x;
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n) time, O(1) space.',
+    testCases: [
+      { input: '[2,2,1]', expected: '1', why: 'Basic' },
+      { input: '[4,1,2,1,2]', expected: '4', why: 'Pairs are not adjacent' },
+      { input: '[1]', expected: '1', why: 'Single element' },
+      { input: '[-3,7,-3]', expected: '7', why: 'Negatives cancel too' },
+    ],
+    takeawaysMd: 'When pairs must cancel in O(1) space, think XOR. For values appearing three times, count bits mod 3 instead.',
+  },
+
+  'rotate-image': {
+    understandMd: 'Rotate an n × n matrix by 90 degrees clockwise in place, without allocating another matrix.',
+    ioConstraintsMd: 'n from 1 to 20; values from −1000 to 1000.',
+    edgeCases: ['n = 1 (nothing changes)', 'n = 2', 'Odd n, where the centre stays put'],
+    bruteForceMd: 'Allocate a new matrix b with b[j][n−1−i] = a[i][j], then copy it back.',
+    bruteComplexity: 'O(n²) time, but O(n²) extra space, which the problem forbids.',
+    bottleneckMd: 'The extra matrix is needed only because writing a cell destroys a value still to be read. Composing two simpler in-place permutations, transpose and reverse, avoids that.',
+    hints: [
+      'Where does a[i][j] go? Write the destination for a small 3 × 3 example.',
+      'a[i][j] moves to position (j, n − 1 − i). Can you split that into two easier moves?',
+      'Transposing maps (i, j) to (j, i); then reversing each row maps (j, i) to (j, n − 1 − i).',
+      'for i: for j > i: swap(a[i][j], a[j][i]); for each row: reverse(row)',
+    ],
+    optimalMd: 'Transpose the matrix in place (swap across the main diagonal, j > i only), then reverse every row. Each step is an in-place permutation, so the extra space is O(1).',
+    code: [
+      cpp(`
+void rotate(vector<vector<int>>& a) {
+    int n = a.size();
+    for (int i = 0; i < n; ++i)
+        for (int j = i + 1; j < n; ++j) swap(a[i][j], a[j][i]);
+    for (auto& row : a) reverse(row.begin(), row.end());
+}`, 'C++'),
+      java(`
+public void rotate(int[][] a) {
+    int n = a.length;
+    for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++) { int t = a[i][j]; a[i][j] = a[j][i]; a[j][i] = t; }
+    for (int[] row : a)
+        for (int l = 0, r = n - 1; l < r; l++, r--) { int t = row[l]; row[l] = row[r]; row[r] = t; }
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n²) time, O(1) extra space.',
+    testCases: [
+      { input: '[[1,2,3],[4,5,6],[7,8,9]]', expected: '[[7,4,1],[8,5,2],[9,6,3]]', why: 'Basic 3 × 3' },
+      { input: '[[1,2],[3,4]]', expected: '[[3,1],[4,2]]', why: 'Even size' },
+      { input: '[[5]]', expected: '[[5]]', why: 'n = 1' },
+    ],
+    takeawaysMd: 'Hard in-place permutations often decompose into simple ones (transpose, reverse). Write down where one element must go, then factor that mapping.',
+  },
+
+  'sort-colors': {
+    understandMd: 'An array contains only 0s, 1s and 2s (red, white, blue). Sort it in place so all 0s come first, then 1s, then 2s, without using a library sort.',
+    ioConstraintsMd: 'Length up to 300. The follow-up asks for one pass with O(1) extra space.',
+    edgeCases: ['All the same value', 'Already sorted or reverse sorted', 'A 2 at the end swapped with a 0 (the classic trap)', 'Length 1'],
+    bruteForceMd: 'Count the 0s, 1s and 2s, then overwrite the array with that many of each.',
+    bruteComplexity: 'O(n) time, O(1) space, but two passes.',
+    bottleneckMd: 'Counting needs a second pass to write values. Maintaining three regions while scanning places each element in one pass.',
+    hints: [
+      'Imagine the array split into a 0 region at the front, a 2 region at the back, and the rest in between.',
+      'Keep three pointers: lo (next slot for a 0), hi (next slot for a 2), and mid (the element being examined).',
+      'A 0 swaps to lo (both advance), a 1 just advances mid, a 2 swaps to hi (only hi moves: the swapped-in value is unexamined).',
+      'while mid <= hi: if a[mid]==0: swap(lo++, mid++) elif a[mid]==1: mid++ else: swap(mid, hi--)',
+    ],
+    optimalMd: 'Dutch national flag partition. Invariant: [0, lo) are 0s, [lo, mid) are 1s, (hi, n) are 2s, and [mid, hi] is unexamined. Stop when mid passes hi.',
+    code: [
+      cpp(`
+void sortColors(vector<int>& a) {
+    int lo = 0, mid = 0, hi = a.size() - 1;
+    while (mid <= hi) {
+        if (a[mid] == 0) swap(a[lo++], a[mid++]);
+        else if (a[mid] == 1) ++mid;
+        else swap(a[mid], a[hi--]);
+    }
+}`, 'C++'),
+      java(`
+public void sortColors(int[] a) {
+    int lo = 0, mid = 0, hi = a.length - 1;
+    while (mid <= hi) {
+        if (a[mid] == 0) { int t = a[lo]; a[lo++] = a[mid]; a[mid++] = t; }
+        else if (a[mid] == 1) mid++;
+        else { int t = a[hi]; a[hi--] = a[mid]; a[mid] = t; }
+    }
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n) time in one pass, O(1) space.',
+    testCases: [
+      { input: '[2,0,2,1,1,0]', expected: '[0,0,1,1,2,2]', why: 'Basic' },
+      { input: '[1,2,0]', expected: '[0,1,2]', why: 'Catches advancing mid after swapping with hi' },
+      { input: '[2,0,1]', expected: '[0,1,2]', why: 'A 2 first' },
+      { input: '[0]', expected: '[0]', why: 'Single element' },
+    ],
+    takeawaysMd: 'Three-way partitioning keeps a written invariant for each region. Only advance a pointer past values you have actually examined.',
+  },
 };
