@@ -282,7 +282,7 @@ const rateLimit = sdTopic({
 |---|---|---|---|
 | Fixed window counter | count per minute bucket | trivial | up to **2× the limit** across a window boundary |
 | Sliding window log | store timestamps, count the last 60 s | exact | memory per request |
-| Sliding window counter | weight the previous window\'s count | cheap, close to exact | approximate |
+| Sliding window counter | weight the previous window's count | cheap, close to exact | approximate |
 | **Token bucket** | bucket of capacity C refills at r tokens/s; each request takes a token | allows bursts up to C, average rate r | two parameters to tune |
 | Leaky bucket | queue drained at a constant rate | smooth output | adds latency; drops bursts |` },
     { id: 'code', kind: 'code', title: 'Token bucket', bodyMd: 'Refill lazily on each call from the elapsed time; no background thread is needed.', code: [cpp(`#include <algorithm>
