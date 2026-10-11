@@ -63,7 +63,7 @@ export function SearchDialog({ onClose }: { onClose: () => void }) {
             const Icon = ICON[d.kind];
             return (
               <li key={`${d.kind}:${d.id}`}>
-                <a href={d.href} data-active={i === active} onClick={(e) => { e.preventDefault(); go(d); }} onMouseEnter={() => setActive(i)}>
+                <a href={d.href} data-active={i === active} onClick={(e) => { e.preventDefault(); go(d); }} onMouseMove={() => { if (i !== active) setActive(i); }}>
                   <Icon size={16} aria-hidden style={{ flex: 'none', color: 'var(--body-mid)' }} />
                   <span className="grow">
                     <span className="truncate" style={{ display: 'block', color: 'var(--ink)' }}>{d.title}</span>

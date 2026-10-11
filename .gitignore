@@ -15,3 +15,5 @@ Thumbs.db
 # Local secrets
 .env.local
 *.tsbuildinfo
+test-results/
+playwright-report/

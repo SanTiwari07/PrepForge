@@ -9,10 +9,11 @@
     "build": "vite-node scripts/build-content-index.ts && tsc -b && vite build",
     "build:index": "vite-node scripts/build-content-index.ts",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit",
+    "typecheck": "tsc -b --noEmit && tsc -p e2e/tsconfig.json",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "vite build && playwright test",
     "build:problems": "node scripts/build-problem-bank.mjs",
     "check:links": "vite-node scripts/check-links.ts",
     "verify:code": "vite-node scripts/verify-code.ts"
@@ -28,7 +29,9 @@
     "zustand": "^4.5.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
     "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.64.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/react": "^18.3.31",
