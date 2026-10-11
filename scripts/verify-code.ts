@@ -56,9 +56,11 @@ const JAVA_IMPORTS = 'import java.util.*;\nimport java.util.function.*;\nimport 
 // body with the free variables these snippets use declared up front.
 const isFragment = (code: string) => {
   const first = code.split('\n').find((l) => l.trim()) ?? '';
-  return /^\s*(for|while|if|do)\b/.test(first) || /^\s*(int|long|String|auto|double|var)\s+\w+\s*(=|;|,)/.test(first);
+  // A loop/if, or a variable declaration such as "int x = …" or "ListNode* prev = …".
+  return /^\s*(for|while|if|do)\b/.test(first) || /^\s*[\w:<>]+[\s*&]+\w+\s*(=|;|,)/.test(first);
 };
-const CPP_FRAGMENT = (c: string) => `${CPP_PRELUDE}void snippet_() {\n  int n = 8, cnt = 0, target = 0; long long sum = 0; vector<int> a(8);\n  (void)n; (void)cnt; (void)target; (void)sum;\n${c}\n}\n`;
+// Free names used by fragments in MCQ stems are declared here so the fragment itself is checked.
+const CPP_FRAGMENT = (c: string) => `${CPP_PRELUDE}struct ListNode { int val; ListNode* next; };\nvoid process(int, int) {}\nvoid snippet_() {\n  int n = 8, cnt = 0, target = 0; long long sum = 0; vector<int> a(8), v(8);\n  ListNode* cur = nullptr;\n  (void)n; (void)cnt; (void)target; (void)sum; (void)cur;\n${c}\n}\n`;
 const JAVA_FRAGMENT = (c: string) => `${JAVA_IMPORTS}class Snippet {\n  void snippet_() {\n    int n = 8, cnt = 0, target = 0; long sum = 0; int[] a = new int[8];\n${c}\n  }\n}\n`;
 
 function syntaxCheck(where: string, s: CodeSample) {
@@ -80,7 +82,9 @@ function syntaxCheck(where: string, s: CodeSample) {
     const c = spawnSync('g++', [`-std=${CPP_STD}`, '-fsyntax-only', join(dir, 'x.cpp')], { encoding: 'utf8' });
     if (c.status !== 0) fail(where, c.stderr);
   } else if (s.lang === 'java') {
-    const isFullClass = /^\s*(import|public\s+class|class)\b/m.test(s.code) && /class\s+\w+/.test(s.code) && !/^\s*(public\s+|static\s+|private\s+)?[\w<>[\], ]+\s+\w+\s*\([^)]*\)\s*\{/m.test(s.code.split('\n')[0]);
+    // A complete compilation unit has imports or a public top-level class; anything else
+    // (methods, helper classes, fields) is wrapped in a class so it compiles as members.
+    const isFullClass = /^\s*import\s/m.test(s.code) || /^public\s+class\s+\w+/m.test(s.code);
     const src = isFullClass ? s.code : `${JAVA_IMPORTS}@SuppressWarnings({"unchecked", "rawtypes"})\nclass Snippet {\n${s.code}\n}\n`;
     const cls = isFullClass ? (s.code.match(/public\s+class\s+(\w+)/)?.[1] ?? 'Snippet') : 'Snippet';
     writeFileSync(join(dir, `${cls}.java`), src);
