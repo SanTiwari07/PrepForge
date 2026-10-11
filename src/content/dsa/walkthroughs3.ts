@@ -941,4 +941,163 @@ public int countPrimes(int n) {
     ],
     takeawaysMd: 'When many queries repeat the same work (divisibility tests), invert the loop: let each prime do its work once for every number it affects.',
   },
+
+  'time-based-key-value-store': {
+    understandMd: 'Design a store where set(key, value, timestamp) records a value, and get(key, timestamp) returns the value set for that key at the largest timestamp ≤ the given one, or "" if there is none.',
+    ioConstraintsMd: 'Up to 2·10⁵ calls. For each key, timestamps passed to set are strictly increasing. Timestamps are up to 10⁷.',
+    edgeCases: ['get before any set for the key', 'get with a timestamp earlier than the first set', 'get exactly at a set timestamp', 'Many keys with interleaved timestamps'],
+    bruteForceMd: 'Store every (key, timestamp, value) in a list; get scans for the best match.',
+    bruteComplexity: 'O(n) per get.',
+    bottleneckMd: 'Per key, the timestamps arrive in sorted order, so the history of each key is already a sorted list. We only need "the last entry with time ≤ t", which binary search finds in O(log n).',
+    hints: [
+      'Group the history by key first. What do you know about the order of timestamps within one key?',
+      'They arrive increasing, so appending keeps each key\'s list sorted.',
+      'get is "the floor of t" in that list: binary search for the first timestamp > t and step back one.',
+      'set: m[key].append((t, v)); get: i = upper_bound(m[key], t); return i == 0 ? "" : m[key][i − 1].value',
+    ],
+    optimalMd: 'Hash map from key to a list of (timestamp, value) in increasing time. set appends in O(1); get binary-searches for the last timestamp ≤ t. In Java, a TreeMap per key with floorEntry is a one-line alternative (O(log n) for both operations).',
+    code: [
+      cpp(`
+class TimeMap {
+    unordered_map<string, vector<pair<int, string>>> m;
+public:
+    void set(string key, string value, int timestamp) { m[key].push_back({timestamp, value}); }
+    string get(string key, int timestamp) {
+        auto it = m.find(key);
+        if (it == m.end()) return "";
+        const auto& v = it->second;
+        int lo = 0, hi = v.size();
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (v[mid].first <= timestamp) lo = mid + 1; else hi = mid;
+        }
+        return lo == 0 ? "" : v[lo - 1].second;
+    }
+};`, 'C++'),
+      java(`
+class TimeMap {
+    private final Map<String, TreeMap<Integer, String>> m = new HashMap<>();
+    public void set(String key, String value, int timestamp) {
+        m.computeIfAbsent(key, k -> new TreeMap<>()).put(timestamp, value);
+    }
+    public String get(String key, int timestamp) {
+        TreeMap<Integer, String> t = m.get(key);
+        if (t == null) return "";
+        Map.Entry<Integer, String> e = t.floorEntry(timestamp);
+        return e == null ? "" : e.getValue();
+    }
+}`, 'Java'),
+    ],
+    finalComplexity: 'set O(1) (vector) or O(log n) (TreeMap); get O(log n); O(total calls) space.',
+    testCases: [
+      { input: 'set(foo,bar,1), get(foo,1), get(foo,3), set(foo,bar2,4), get(foo,4), get(foo,5)', expected: 'bar, bar, bar2, bar2', why: 'The LeetCode sequence' },
+      { input: 'set(a,x,5), get(a,4)', expected: '""', why: 'Earlier than the first set' },
+      { input: 'get(missing,1)', expected: '""', why: 'Unknown key' },
+    ],
+    takeawaysMd: 'When data arrives already sorted, keep it in arrival order and binary-search it. "Largest ≤ t" is upper_bound − 1, or floorEntry.',
+  },
+
+  'asteroid-collision': {
+    understandMd: 'Asteroids move along a line: positive values move right, negative move left, and the absolute value is the size. When two meet, the smaller explodes (both if equal). Return the asteroids that remain after all collisions, in order.',
+    ioConstraintsMd: 'Up to 10⁴ asteroids, sizes 1..1000, no zeros.',
+    edgeCases: ['Left-movers at the start never collide', 'Equal sizes destroy both', 'One large left-mover destroying a whole run of right-movers', 'A right-mover after a left-mover (they move apart)'],
+    bruteForceMd: 'Repeatedly scan for an adjacent pair (right-mover followed by left-mover), resolve it, and restart until no pair exists.',
+    bruteComplexity: 'O(n²).',
+    bottleneckMd: 'Only a left-mover can trigger collisions, and it can only hit the right-movers that are still alive just before it, nearest first. That is exactly the top of a stack of survivors.',
+    hints: [
+      'Which pairs can ever collide? Think about direction and order.',
+      'Only a right-moving asteroid followed (to its right) by a left-moving one. The left-mover meets the closest surviving right-mover first.',
+      'Keep a stack of survivors. A left-mover keeps fighting the top while the top is moving right.',
+      'for x: alive = true; while alive and x < 0 and top > 0: if top < −x: pop; elif top == −x: pop, alive = false; else alive = false. if alive: push x',
+    ],
+    optimalMd: 'A single pass with a stack of survivors from left to right. Right-movers are pushed. A left-mover pops every smaller right-mover on top, dies with an equal one, dies against a larger one, and is pushed if it survives or meets a left-mover or an empty stack.',
+    code: [
+      cpp(`
+vector<int> asteroidCollision(vector<int>& a) {
+    vector<int> st;
+    for (int x : a) {
+        bool alive = true;
+        while (alive && x < 0 && !st.empty() && st.back() > 0) {
+            if (st.back() < -x) st.pop_back();
+            else { if (st.back() == -x) st.pop_back(); alive = false; }
+        }
+        if (alive) st.push_back(x);
+    }
+    return st;
+}`, 'C++'),
+      java(`
+public int[] asteroidCollision(int[] a) {
+    int[] st = new int[a.length];
+    int top = 0;                                       // array used as a stack
+    for (int x : a) {
+        boolean alive = true;
+        while (alive && x < 0 && top > 0 && st[top - 1] > 0) {
+            if (st[top - 1] < -x) top--;
+            else { if (st[top - 1] == -x) top--; alive = false; }
+        }
+        if (alive) st[top++] = x;
+    }
+    return Arrays.copyOf(st, top);
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n) time (each asteroid is pushed and popped at most once), O(n) space.',
+    testCases: [
+      { input: '[5,10,-5]', expected: '[5,10]', why: '10 destroys −5' },
+      { input: '[8,-8]', expected: '[]', why: 'Equal sizes' },
+      { input: '[10,2,-5]', expected: '[10]', why: '−5 destroys 2 then dies against 10' },
+      { input: '[-2,-1,1,2]', expected: '[-2,-1,1,2]', why: 'Moving apart: no collisions' },
+    ],
+    takeawaysMd: '"The newest item interacts with the most recent survivors first" is a stack. Loop while the interaction continues, not just once.',
+  },
+
+  'range-sum-query-mutable': {
+    understandMd: 'Support two operations on an integer array: update(i, val) sets a[i] = val, and sumRange(l, r) returns the sum of a[l..r] inclusive.',
+    ioConstraintsMd: 'n up to 3·10⁴ and up to 3·10⁴ calls in total, interleaved.',
+    edgeCases: ['l == r', 'Updating to the same value', 'Negative values', 'Many updates to one index'],
+    bruteForceMd: 'Keep the array: update in O(1), sum by looping, or keep prefix sums: sum in O(1), update by rebuilding.',
+    bruteComplexity: 'One of the two operations is O(n), so O(n · q) in total.',
+    bottleneckMd: 'Prefix sums store too much (every prefix changes on an update); the plain array stores too little. A tree of partial sums lets an update touch O(log n) partial sums and a query combine O(log n) of them.',
+    hints: [
+      'Prefix sums make queries fast and updates slow; the plain array does the opposite. Can you find a middle ground?',
+      'Store sums of blocks whose sizes are powers of two, arranged so every prefix is a union of O(log n) blocks.',
+      'A Fenwick tree: bit[i] holds the sum of (i − lowbit(i), i]. Update walks i += lowbit(i); prefix walks i −= lowbit(i).',
+      'update(i, v): d = v − a[i]; a[i] = v; add(i + 1, d). sumRange(l, r) = prefix(r + 1) − prefix(l)',
+    ],
+    optimalMd: 'Fenwick tree over the array (1-indexed internally), plus a copy of the current values so that update can add the difference. A segment tree gives the same complexity.',
+    code: [
+      cpp(`
+class NumArray {
+    int n;
+    vector<int> a, bit;
+    void add(int i, int d) { for (++i; i <= n; i += i & -i) bit[i] += d; }
+    int prefix(int i) const { int s = 0; for (; i > 0; i -= i & -i) s += bit[i]; return s; }   // sum of a[0..i)
+public:
+    NumArray(vector<int>& nums) : n(nums.size()), a(nums), bit(nums.size() + 1, 0) {
+        for (int i = 0; i < n; ++i) add(i, nums[i]);
+    }
+    void update(int index, int val) { add(index, val - a[index]); a[index] = val; }
+    int sumRange(int left, int right) { return prefix(right + 1) - prefix(left); }
+};`, 'C++'),
+      java(`
+class NumArray {
+    private final int n;
+    private final int[] a, bit;
+    public NumArray(int[] nums) {
+        n = nums.length; a = nums.clone(); bit = new int[n + 1];
+        for (int i = 0; i < n; i++) add(i, nums[i]);
+    }
+    private void add(int i, int d) { for (i++; i <= n; i += i & -i) bit[i] += d; }
+    private int prefix(int i) { int s = 0; for (; i > 0; i -= i & -i) s += bit[i]; return s; }
+    public void update(int index, int val) { add(index, val - a[index]); a[index] = val; }
+    public int sumRange(int left, int right) { return prefix(right + 1) - prefix(left); }
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n log n) construction (O(n) possible), O(log n) per update and query, O(n) space.',
+    testCases: [
+      { input: 'nums = [1,3,5]; sumRange(0,2), update(1,2), sumRange(0,2)', expected: '9, 8', why: 'The LeetCode sequence' },
+      { input: 'nums = [-1]; sumRange(0,0), update(0,1), sumRange(0,0)', expected: '-1, 1', why: 'Single element, negative' },
+      { input: 'nums = [7,2,7,2,0]; update(4,6), update(0,2), sumRange(0,4)', expected: '19', why: 'Several updates' },
+    ],
+    takeawaysMd: 'When both updates and range queries matter, balance them with a tree of partial sums. Fenwick updates take deltas, so keep the current values.',
+  },
 };
