@@ -21,6 +21,26 @@ function version(cmd: string, args: string[]): string {
 console.log(`g++: ${version('g++', ['--version'])}`);
 console.log(`javac: ${version('javac', ['-version'])}`);
 
+// Some toolchains (e.g. MinGW g++ with the win32 thread model) lack <mutex>/<thread> or POSIX
+// headers. Probe once; samples needing a missing capability are reported as SKIP, not passed.
+let skipped = 0;
+function compiles(src: string): boolean {
+  const f = join(work, `probe${Math.random().toString(36).slice(2)}.cpp`);
+  writeFileSync(f, src);
+  return spawnSync('g++', [`-std=${CPP_STD}`, '-fsyntax-only', f], { encoding: 'utf8' }).status === 0;
+}
+const CAPS = {
+  threads: compiles('#include <mutex>\n#include <condition_variable>\nstd::mutex m; std::condition_variable cv;\n'),
+  posix: compiles('#include <unistd.h>\n#include <sys/wait.h>\nint f() { return fork(); }\n'),
+};
+console.log(`toolchain: std threads ${CAPS.threads ? 'yes' : 'NO'}, POSIX headers ${CAPS.posix ? 'yes' : 'NO'}`);
+function missingCap(s: CodeSample): string | null {
+  if (s.lang !== 'cpp') return null;
+  if (!CAPS.threads && /#include\s*<(mutex|thread|condition_variable|shared_mutex|future)>|std::(mutex|thread|condition_variable)/.test(s.code)) return 'std threading';
+  if (!CAPS.posix && /#include\s*<(unistd\.h|sys\/\w+\.h|pthread\.h)>/.test(s.code)) return 'POSIX headers';
+  return null;
+}
+
 const norm = (s: string) => s.replace(/\r\n/g, '\n').trim();
 
 function fail(where: string, msg: string) {
@@ -29,6 +49,8 @@ function fail(where: string, msg: string) {
 }
 
 function runProgram(where: string, s: CodeSample) {
+  const cap = missingCap(s);
+  if (cap) { skipped += 1; console.warn(`SKIP ${where}: this toolchain lacks ${cap}`); return; }
   checked += 1;
   const dir = join(work, `p${checked}`);
   mkdirSync(dir);
@@ -87,6 +109,8 @@ function javaLeetCodeTypes(code: string): string {
 }
 
 function syntaxCheck(where: string, s: CodeSample) {
+  const cap = missingCap(s);
+  if (cap) { skipped += 1; console.warn(`SKIP ${where}: this toolchain lacks ${cap}`); return; }
   checked += 1;
   const dir = join(work, `s${checked}`);
   mkdirSync(dir);
@@ -160,5 +184,5 @@ for (const t of TOPICS) {
 }
 for (const [slug, w] of Object.entries(WALKTHROUGHS)) for (const c of w.code) syntaxCheck(`walkthrough ${slug} (${c.lang})`, c);
 
-console.log(`\nChecked ${checked} code samples with C++ standard ${CPP_STD}: ${failures} failure(s).`);
+console.log(`\nChecked ${checked} code samples with C++ standard ${CPP_STD}: ${failures} failure(s), ${skipped} skipped (toolchain capability)`);
 process.exit(failures ? 1 : 0);
