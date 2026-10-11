@@ -96,7 +96,7 @@ INSERT INTO customers VALUES
  (4,'Kiara','Pune','2023-05-20'),(5,'Rohan','Delhi','2024-01-05');
 INSERT INTO products VALUES
  (1,'Keyboard','electronics',2500),(2,'Mouse','electronics',800),(3,'Notebook','stationery',120),
- (4,'Pen','stationery',30),(5,'Monitor','electronics',12000),(6,'Desk Lamp','home',1500);
+ (4,'Pen','stationery',30),(5,'Monitor','electronics',12000),(6,'Desk Lamp','home',1500),(7,'Webcam','electronics',3000);
 INSERT INTO orders VALUES
  (101,1,'2024-01-03','shipped'),(102,1,'2024-02-11','shipped'),(103,2,'2024-02-11','cancelled'),
  (104,2,'2024-03-02','shipped'),(105,3,'2024-03-15','placed'),(106,4,'2024-03-20','shipped'),

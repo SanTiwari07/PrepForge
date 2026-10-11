@@ -243,7 +243,7 @@ int main() {
     }
     cout << best << endl;
     return 0;
-}`),
+}`, 'C++', '3'),
     options: [['2', '"wk" is not the longest; "wke" has 3 unique characters.'], '3', ['4', '"pwke" is a subsequence, not a substring.'], ['6', 'The string has repeated characters.']],
     answer: 1,
     explanation: 'The longest substring without repeats is "wke" (or "kew"), of length 3. "pwke" is not contiguous.',

@@ -14,7 +14,7 @@
     "test:watch": "vitest",
     "build:problems": "node scripts/build-problem-bank.mjs",
     "check:links": "node scripts/check-links.mjs",
-    "verify:code": "node scripts/verify-code.mjs"
+    "verify:code": "vite-node scripts/verify-code.ts"
   },
   "dependencies": {
     "highlight.js": "^11.12.0",

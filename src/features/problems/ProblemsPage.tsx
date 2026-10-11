@@ -4,9 +4,9 @@ import { PlayCircle, Search } from 'lucide-react';
 import { PROBLEMS, TOPIC_BY_ID, WALKTHROUGHS, topicsOf } from '@/content/registry';
 import type { Difficulty, ProblemList } from '@/content/schema';
 import { useStore } from '@/store/store';
+import { LIST_LABEL } from '@/content/lists';
 import { Badge, DifficultyBadge, EmptyState, PageHeader } from '@/components/ui';
 
-const LIST_LABEL: Record<ProblemList, string> = { blind75: 'Blind 75', neetcode150: 'NeetCode 150', 'top-interview-150': 'Top Interview 150', 'leetcode-75': 'LeetCode 75', 'striver-a2z': 'Striver A2Z', curated: 'Curated' };
 const PAGE = 50;
 
 export default function ProblemsPage() {

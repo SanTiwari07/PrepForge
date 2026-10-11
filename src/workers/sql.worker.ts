@@ -1,5 +1,6 @@
 /// <reference lib="webworker" />
 import initSqlJs, { type SqlJsStatic } from 'sql.js';
+import { execLast } from '@/lib/sqlExec';
 
 export interface SqlRequest {
   id: number;
@@ -30,11 +31,7 @@ self.onmessage = async (e: MessageEvent<SqlRequest>) => {
     try {
       db.run('PRAGMA foreign_keys = ON;');
       if (setupSql) db.exec(setupSql);
-      const results = db.exec(query);
-      const last = results.at(-1);
-      const result: SqlResultSet = last
-        ? { columns: last.columns, rows: last.values.map((r) => r.map((v) => (v instanceof Uint8Array ? '[blob]' : (v as string | number | null)))) }
-        : { columns: [], rows: [] };
+      const result: SqlResultSet = execLast(db, query);
       (self as unknown as Worker).postMessage({ id, ok: true, result, ms: performance.now() - t0 } satisfies SqlResponse);
     } finally {
       db.close();

@@ -61,7 +61,7 @@ export function Dashboard() {
       {!profile.onboarded && <Onboarding />}
 
       <section className="grid grid-4" aria-label="Summary">
-        <div className="card card--compact"><Stat label="Current streak" value={streak} unit={streak === 1 ? 'day' : 'days'} note={<span className="row" style={{ gap: 4 }}><Flame size={12} aria-hidden /> One qualifying action per day</span>} /></div>
+        <div className="card card--compact"><Stat label="Current streak" value={streak} unit={streak === 1 ? 'day' : 'days'} note={<><Flame size={12} aria-hidden style={{ display: 'inline', verticalAlign: '-1px' }} /> One qualifying action per day</>} /></div>
         <div className="card card--compact"><Stat label="Solved independently" value={solves.independent} note={`${solves.withHints} with hints · ${solves.afterSolution} after solution`} /></div>
         <div className="card card--compact"><Stat label="OA accuracy" value={oa === null ? '—' : oa} unit={oa === null ? undefined : '%'} note={oa === null ? 'No timed assessments yet' : 'Across submitted assessments'} /></div>
         <div className="card card--compact"><Stat label="Average solve time" value={solves.avgSolveSec === null ? '—' : formatDuration(solves.avgSolveSec)} note="Independent and hinted solves" /></div>

@@ -231,7 +231,7 @@ int main() {
         if (a[r] != a[w - 1]) a[w++] = a[r];
     cout << w << " " << a[w - 1] << endl;
     return 0;
-}`),
+}`, 'C++', '4 3'),
     options: ['4 3', ['3 2', 'The last distinct value 3 is also kept.'], ['8 3', 'w counts kept elements, not all elements.'], ['4 2', 'a[3] is overwritten with 3.']],
     answer: 0,
     explanation: 'Distinct values are 0, 1, 2, 3, so w = 4 and the compacted prefix is [0, 1, 2, 3]; a[w−1] = 3.',

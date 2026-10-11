@@ -71,7 +71,7 @@ export default function SqlExercisePage() {
           </section>
           <section className="card stack-sm">
             <label className="label" htmlFor="sql-ed">Your query (SQLite; Ctrl+Enter runs it)</label>
-            <SqlEditor value={sql} onChange={setSql} onRun={execute} />
+            <SqlEditor id="sql-ed" value={sql} onChange={setSql} onRun={execute} />
             <div className="row">
               <button className="btn btn--secondary" onClick={execute} disabled={busy || !sql.trim()}><Play /> Run on sample data</button>
               <button className="btn btn--primary" onClick={check} disabled={busy || !sql.trim()}>Check answer</button>

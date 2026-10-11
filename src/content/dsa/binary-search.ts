@@ -219,7 +219,7 @@ int main() {
     auto x  = lower_bound(a.begin(), a.end(), 4) - a.begin();
     cout << lo << " " << hi << " " << x << endl;
     return 0;
-}`),
+}`, 'C++', '1 4 4'),
     options: ['1 4 4', ['1 3 4', 'upper_bound returns the first element strictly greater than 3, at index 4.'], ['1 4 5', 'lower_bound(4) is the first element ≥ 4, which is 5 at index 4.'], ['0 4 4', 'Index 0 holds 1, which is < 3.']],
     answer: 0,
     explanation: 'lower_bound(3) is the first index with a[i] ≥ 3 → 1. upper_bound(3) is the first index with a[i] > 3 → 4. lower_bound(4) → 4 (value 5). The count of 3s is hi − lo = 3.',

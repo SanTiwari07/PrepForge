@@ -29,7 +29,7 @@
 .plan-item__num { flex: none; width: 24px; height: 24px; border-radius: var(--r-full); background: var(--surface-2); display: grid; place-items: center; font-size: 12px; font-weight: 600; color: var(--ink); }
 .plan-item__title { display: flex; align-items: center; gap: 6px; font-weight: 600; color: var(--ink); font-size: var(--fs-sm); }
 .plan-item__time { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: var(--fs-xs); color: var(--body-mid); white-space: nowrap; }
-.roadmap { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--sp-2); }
+.roadmap { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: var(--sp-2); }
 .roadmap__item { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-2) var(--sp-3); border: 1px solid var(--hairline-soft); border-radius: var(--r-sm); }
 .roadmap__num { flex: none; width: 22px; font-size: var(--fs-xs); color: var(--mute); text-align: right; }
 

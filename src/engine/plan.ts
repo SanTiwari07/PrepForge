@@ -117,11 +117,14 @@ export function buildDailyPlan(input: PlanInput): PlanTask[] {
       used += minutes;
     }
     if (used < budget) {
-      const p = nextProblemFor(next, s, problemBySlug, targetDifficulty(m), used_);
+      // If this topic has no practice problems (e.g. Complexity), practise the next roadmap topic that does.
+      const practiceTopic = next.problemIds.length ? next : DSA_ORDER.slice(DSA_ORDER.indexOf(next.id) + 1).map((id) => topicById.get(id)).find((t) => t && t.problemIds.length) ?? next;
+      const pm = mastery.get(practiceTopic.id);
+      const p = nextProblemFor(practiceTopic, s, problemBySlug, targetDifficulty(pm), used_);
       if (p) {
         used_.add(p.slug);
         const minutes = p.estMinutes + 5;
-        tasks.push({ id: `practice-${p.slug}`, kind: 'practice', title: `Practise: ${p.title}`, detail: `${p.difficulty[0].toUpperCase() + p.difficulty.slice(1)} · ${next.title}. Use hints only after a real attempt.`, minutes, href: `/problems/${p.slug}`, reason: 'Apply the current topic to an unseen problem.' });
+        tasks.push({ id: `practice-${p.slug}`, kind: 'practice', title: `Practise: ${p.title}`, detail: `${p.difficulty[0].toUpperCase() + p.difficulty.slice(1)} · ${practiceTopic.title}. Use hints only after a real attempt.`, minutes, href: `/problems/${p.slug}`, reason: 'Apply the current topic to an unseen problem.' });
         used += minutes;
       }
     }

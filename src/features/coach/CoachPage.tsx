@@ -11,6 +11,7 @@ import { Badge, Callout, DifficultyBadge, PageHeader } from '@/components/ui';
 import { formatClock, formatDuration } from '@/engine/dates';
 import { ERROR_CATEGORIES } from './errorCategories';
 import NotFound from '@/features/NotFound';
+import { LIST_LABEL } from '@/content/lists';
 
 const STAGES: { id: CoachStage; title: string; prompt: string }[] = [
   { id: 'understand', title: '1. Understand the problem', prompt: 'Restate the task in your own words. What exactly must you return?' },
@@ -99,7 +100,7 @@ export default function CoachPage() {
           <div className="stack-sm">
             <span className="small">Read the official statement, then work through the stages here. Submit your code on LeetCode; PrepForge does not run C++/Java code.</span>
             <span className="row" style={{ gap: 6 }}>
-              {problem.lists.map((l) => <Badge key={l} tone="outline">{l}</Badge>)}
+              {problem.lists.map((l) => <Badge key={l} tone="outline">{LIST_LABEL[l]}</Badge>)}
               {problem.patterns.map((p) => <Badge key={p}>{p}</Badge>)}
             </span>
           </div>

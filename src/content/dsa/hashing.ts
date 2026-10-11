@@ -250,7 +250,7 @@ int main() {
     if (m[2] == 0) cout << "zero ";
     cout << m.size() << endl;
     return 0;
-}`),
+}`, 'C++', 'zero 2'),
     options: [['zero 1', 'operator[] inserted key 2 when it was read.'], 'zero 2', ['1', 'm[2] is 0 (value-initialised), so "zero " is printed.'], ['Runtime error', 'Reading a missing key with operator[] is legal; it inserts.']],
     answer: 1,
     explanation: '`m[2]` on a missing key inserts {2, 0} and returns a reference to 0, so "zero " prints, and the map now has 2 entries.',
@@ -268,7 +268,7 @@ public class Main {
         System.out.println(m.get("a") == m.get("b"));
         System.out.println(m.get("a").equals(m.get("b")));
     }
-}`),
+}`, 'Java', 'false\ntrue'),
     options: [['Prints true, then true', '== compares references; 1000 is outside the Integer cache (−128…127).'], 'Prints false, then true', ['Prints true, then false', 'equals compares values, which are equal.'], ['Compilation error', 'The code compiles fine.']],
     answer: 1,
     explanation: 'Autoboxing 1000 creates two distinct Integer objects (only −128…127 are cached by default), so `==` compares references and is false, while `equals` compares values and is true.',

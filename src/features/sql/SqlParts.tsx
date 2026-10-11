@@ -52,9 +52,10 @@ export function SchemaBrowser({ dataset }: { dataset: SqlDataset }) {
   );
 }
 
-export function SqlEditor({ value, onChange, onRun, label = 'SQL query' }: { value: string; onChange: (v: string) => void; onRun: () => void; label?: string }) {
+export function SqlEditor({ value, onChange, onRun, label = 'SQL query', id }: { value: string; onChange: (v: string) => void; onRun: () => void; label?: string; id?: string }) {
   return (
     <textarea
+      id={id}
       className="textarea textarea--code sql-editor"
       spellCheck={false}
       autoCapitalize="off"
