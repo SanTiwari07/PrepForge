@@ -9,10 +9,10 @@
 |---|---|
 | Product name | **PrepForge** (the working name "PlacementOS" was replaced at the user's request) |
 | Repository | `https://github.com/SanTiwari07/PrepForge.git` (public), branch `main`, local folder `D:\Projects\PlacementResource` |
-| Last updated | 2026-10-11 (session 2: app implemented through Phases 0–4 plus the SQL engine; content expansion in progress) |
+| Last updated | 2026-10-11 (session 2, continued: content for all 10 subjects, link checker, verifier upgrades) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
-| Current phase | Phase 9, Content expansion (Phases 0–4 done; Phase 5 engine done, SQL/DBMS lessons pending) |
-| Overall status | Working app: dashboard, plan, 10 subjects (5 DSA topics complete; others Planned with honest labels), 383-problem bank, coach (14 authored walkthroughs), MCQ engine, SQL lab with real execution (33 exercises), OA centre, revision (SM-2), readiness, companies, mocks, 4 tools. 134 tests passing. |
+| Current phase | Phase 9, Content expansion (Phases 0–4 done; every subject now has complete topics; remaining topics are honestly labelled Planned) |
+| Overall status | Working app with **64 complete topics out of 173 catalogued** (DSA 15/40, SQL 6/14, DBMS 6/16, C++ 5/15, Java 5/15, CN 7/17, OS 6/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **412 MCQs**, 383-problem bank, **34 coach walkthroughs**, SQL lab with real execution (33 exercises), OA centre, revision (SM-2), readiness, companies, mocks, 4 tools. 190 tests pass; 202 C++/Java samples compile (and run where output is claimed); 103/108 links verified automatically, 5 bot-walled pages checked manually. |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -1160,9 +1160,9 @@ infinite recursive CTEs are stopped by the timeout.
 
 Depends on: Phase 2 (MCQ engine). Code verification needs `scripts/verify-code.mjs`.
 
-- [ ] `scripts/verify-code.mjs` (g++ / javac compile, run, compare with `expectedOutput`; record compiler version)
-- [ ] C++ topics content (Section 8.3), all output and compile-error questions verified
-- [ ] Java topics content (Section 8.4), all output and compile-error questions verified
+- [x] `scripts/verify-code.ts` (g++ / javac compile, run, compare with `expectedOutput`; expected-compile-error mode with a `// here` line check; toolchain capability probe that reports SKIPs)
+- [ ] C++ topics content (Section 8.3), all output and compile-error questions verified (5/15 topics complete, 30 MCQs, all verified with g++)
+- [ ] Java topics content (Section 8.4), all output and compile-error questions verified (5/15 topics complete, 30 MCQs, all verified with JDK 23)
 - [ ] LLD practice set (6 problems)
 
 **Acceptance:** `npm run verify:code` passes for every `verify: true` snippet; each topic meets Section 11.
@@ -1171,11 +1171,11 @@ Depends on: Phase 2 (MCQ engine). Code verification needs `scripts/verify-code.m
 
 Depends on: Phase 2.
 
-- [ ] CN content + subnet calculator + the three required scenario walkthroughs
-- [ ] OS content + CPU scheduling simulator + page replacement simulator (each with unit-tested algorithms)
-- [ ] System design foundations + 10 case studies (new-grad vs senior callouts)
-- [ ] DevOps content (core and advanced tracks) + YAML/Dockerfile debugging questions + local mini-labs
-- [ ] Core CS rapid-fire bank + security fundamentals
+- [ ] CN content + subnet calculator + the three required scenario walkthroughs (calculator done; 7/17 topics: models, subnetting, TCP/UDP, TCP lifecycle, DNS, HTTP including the type-a-URL walkthrough, TLS; subnetting answers tested against the calculator)
+- [ ] OS content + CPU scheduling simulator + page replacement simulator (each with unit-tested algorithms) (simulators done; 6/15 topics; numeric MCQ answers tested against the simulators)
+- [ ] System design foundations + 10 case studies (new-grad vs senior callouts) (7/26: estimation, caching, load balancing, replication/sharding, rate limiting, CAP, URL shortener case study; numeric facts tested)
+- [ ] DevOps content (core and advanced tracks) + YAML/Dockerfile debugging questions + local mini-labs (4/11: Linux, Git, Docker, Kubernetes core; Git facts tested against real git)
+- [ ] Core CS rapid-fire bank + security fundamentals (3/4: data representation, program execution, security fundamentals)
 
 **Acceptance:** each module has a navigable curriculum with all topics either Complete or honestly Planned; the simulators match hand-computed textbook examples in unit tests.
 
@@ -1193,8 +1193,8 @@ Depends on: Phases 3–4; company research tasks in Phase R.
 
 Depends on: the respective module phases.
 
-- [ ] All 40 DSA topics Complete
-- [ ] Authored walkthroughs for all Blind 75 problems, then all NeetCode 150
+- [ ] All 40 DSA topics Complete (15/40)
+- [ ] Authored walkthroughs for all Blind 75 problems, then all NeetCode 150 (34 authored)
 - [ ] SQL/DBMS, OOP, CN, OS, SD and DevOps topics all Complete
 - [ ] Recognition drill bank (≥ 100 "which pattern?" items from problem summaries)
 
@@ -1205,7 +1205,7 @@ Depends on: everything shipped.
 - [ ] Full test suite, lint, typecheck, production build
 - [ ] Playwright e2e for the core flows (Section 14) plus viewport screenshots at 7 widths
 - [ ] Accessibility pass (axe via Playwright, keyboard-only walkthrough, contrast)
-- [ ] Link check passes; console free of errors and warnings on all routes
+- [ ] Link check passes; console free of errors and warnings on all routes (link check passes via `npm run check:links` with 0 broken; console sweep pending for the new content)
 - [ ] Performance: initial JS under ~400KB gzip excluding content chunks; sql.js lazy-loaded; content split per module if needed
 - [ ] README: run, deploy, storage, limitations; update this file
 
@@ -1257,6 +1257,10 @@ as Planned.
 | 2026-10-11 | `npx vite build` | Pass (content chunk 335 KB, gzip 79 KB) |
 | 2026-10-11 | `npx vitest run` | 134/134 pass (5 files) |
 | 2026-10-11 | `npx vite-node scripts/verify-code.ts` | 48 C++/Java samples, 0 failures (g++ 6.3 -std=c++14, javac 23) |
+| 2026-10-11 | `npx vitest run` (after the content packs) | 190/190 pass (10 files: engines, tools, SQL exercises + executed SQL MCQs, content validator, plan/readiness, DBMS FD facts, OS/CN simulator facts, SD numeric facts, DevOps facts with real git) |
+| 2026-10-11 | `npm run verify:code` | 202 C++/Java samples checked, 0 failures, 3 skipped (local MinGW g++ lacks `<mutex>` and POSIX headers; see B11) |
+| 2026-10-11 | `npm run check:links` | 108 links: 103 OK, 0 broken, 5 bot-walled (LeetCode study plans, Cloudflare Learning; the Cloudflare pages returned HTTP 200 in the browser) |
+| 2026-10-11 | `npx vite build` | Pass (content chunk 932 KB, gzip 266 KB; app chunk gzip 28 KB) |
 | 2026-10-11 | Manual browser QA (built-in browser) | 29 routes render without errors at 320 px with no horizontal overflow (a plan-page overflow was fixed); onboarding, MCQ, SQL grading (a wrong `NOT IN` was caught on hidden data) and the OA flow (reload-resume, submit, results) checked at 1440 px |
 
 ---
@@ -1295,6 +1299,9 @@ The project is complete only when **all** of these are verified:
 | B7 | No AI API configured | No interactive AI coach | Deterministic coach in v1; optional proxy in Phase 11 |
 | B8 | localStorage is per-browser and per-device | Progress is not synced; clearing site data deletes it | Export/import JSON; warn in Settings; optional cloud sync (Phase 11) |
 | B9 | The Meta Full Loop guide is a PDF download | Meta rounds unverified | Ask the user before downloading; label as unverified meanwhile |
+| B11 | Local g++ (MinGW 6.3, win32 threads) lacks `<mutex>`/`<condition_variable>` and POSIX headers; WSL Ubuntu has no g++ | 3 lesson snippets (fork, bounded queue, lock ordering) cannot be compiled locally | The verifier reports them as SKIP, never as passed. Fix: install a modern GCC (MSYS2 with posix threads, or `apt install g++` in WSL) and re-run `npm run verify:code` |
+| B12 | man7.org is unreachable from this network and the browser; Cloudflare Learning returns 403 to scripts | Those links cannot be auto-checked | man7 links replaced with man.archlinux.org pages (verified 200); Cloudflare listed as bot-walled in the checker after a manual browser check |
+| B13 | The content bundle is one 932 KB chunk (266 KB gzip) | Slower first load on mobile | Split content per module with dynamic imports (Phase 10 performance task) |
 | B10 | sql.js uses SQLite, while LeetCode and most OAs default to MySQL | Some syntax and behaviour differ | Dual reference solutions; every MySQL solution verified offline on MySQL 8.0 (Docker); clear "where it was executed" labels (Section 8.2.4) |
 
 ---
@@ -1320,6 +1327,10 @@ The project is complete only when **all** of these are verified:
 | 2026-10-11 | DSA is built first and used as the pilot for every engine | Highest-priority gap (unfamiliar OA questions) |
 | 2026-10-11 | MySQL 8.0 is the reference dialect for SQL solutions; SQLite (sql.js) runs in the browser | LeetCode and most OAs default to MySQL; no practical in-browser MySQL exists |
 | 2026-10-11 | Grade SQL on visible **and hidden edge-case datasets** | Catches the classic interview mistakes (zero-count groups, NULLs, ties, date boundaries) that a single sample dataset hides |
+| 2026-10-11 | Verified questions must never depend on undefined, unspecified or implementation-defined behaviour (e.g. C++ argument evaluation order, signed overflow, char signedness) | A compiler run proves only one compiler's choice; such questions teach wrong rules |
+| 2026-10-11 | Compile-error questions use `cppErr`/`javaErr`; the verifier requires a compile failure on the line marked `// here` | Proves the question points at the real error |
+| 2026-10-11 | Numeric answers in OS/CN/SD/DBMS MCQs are cross-checked in unit tests against the in-app simulators or direct computation; SQL output MCQs are executed in sql.js; Git facts are checked against real git | Content correctness is tested, not assumed |
+| 2026-10-11 | Toolchain gaps are reported as SKIP by the verifier, never as passes | Honesty rule: no verified claim without an actual run |
 | 2026-10-11 | **Scope: fresher / new-grad placement at big product companies only. No college syllabus, assignments or exam prep**; college material is never imported. Depth everywhere follows new-grad interview and OA expectations, with senior-level material only in labelled advanced tracks | User instruction |
 
 ---
@@ -1331,3 +1342,4 @@ The project is complete only when **all** of these are verified:
 | 1 | 2026-10-11 | Audited the repo (greenfield). Verified 383 DSA problems + SQL 50 via LeetCode GraphQL and NeetCode/A2Z sources (saved in `research/`). Verified Google and Amazon hiring facts from official pages. Created this roadmap. Renamed the product to PrepForge, initialised git, and pushed to `SanTiwari07/PrepForge`. **No application code written** (per the user's instruction). Next: Phase 0. |
 | 2 | 2026-10-11 | Implemented Phases 0–4 and the Phase 5 engine: full app, 5 complete DSA topics, 14 walkthroughs, 33 SQL exercises, tools, 134 tests and the code verifier. Manual QA in the browser (see the Test log). |
 | 1b | 2026-10-11 | Drafted a college + placement SQL/DBMS plan; the user then rejected the college scope. Rewrote SQL/DBMS (Section 8.2, 6.3, Phase 5) for fresher placement only and removed all college material from the plan. Added the verified LeetCode Database list (323; 105 free). No app code written. |
+| 2c | 2026-10-11 | Autonomous content run (user away): DSA topics 5 to 15 and walkthroughs 14 to 34; SQL lessons (6), DBMS (6), OOP C++ (5) and Java (5) with compiler-verified questions; then OS (6), CN (7), System Design (7), DevOps (4) and Core CS (3). Added fact tests, the toolchain-capability probe, section-program execution in the verifier, and `scripts/check-links.ts`. All pushed. |
