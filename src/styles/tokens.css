@@ -1,0 +1,88 @@
+/* Design tokens derived from DESIGN.md, adapted for a learning product.
+   Text colours are contrast-checked against --canvas (WCAG AA >= 4.5:1). */
+:root {
+  /* Ink and text */
+  --ink: #080808;
+  --ink-strong: #222222;
+  --body: #363636;
+  --body-mid: #5a5a5a;      /* 6.9:1 on white */
+  --mute: #6e6e6e;          /* 5.1:1, darkened from #898989 for AA */
+  --mute-soft: #ababab;     /* decorative only, never body text */
+
+  /* Surfaces */
+  --canvas: #ffffff;
+  --surface: #f7f7f7;
+  --surface-2: #efefef;
+  --hairline: #d8d8d8;
+  --hairline-soft: #e8e8e8;
+
+  /* Brand accents (fills, markers, icons only) */
+  --accent-purple: #7a3dff;
+  --accent-pink: #ed52cb;
+  --accent-blue: #3b89ff;
+  --accent-orange: #ff6b00;
+  --accent-green: #00d722;
+  --accent-yellow: #ffae13;
+
+  /* Semantic text-safe colours */
+  --info: #006acc;
+  --info-bg: #eaf3ff;
+  --success: #0a7f2e;
+  --success-bg: #e8f7ec;
+  --warning: #8f5400;
+  --warning-bg: #fff4dc;
+  --danger: #c4122b;
+  --danger-bg: #fdecee;
+
+  /* Subject identity markers */
+  --subject-dsa: #7a3dff;
+  --subject-sql: #006acc;
+  --subject-oop-cpp: #c2410c;
+  --subject-oop-java: #b45309;
+  --subject-cn: #0f766e;
+  --subject-os: #4d7c0f;
+  --subject-sd: #be185d;
+  --subject-devops: #1d4ed8;
+  --subject-core: #525252;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Inconsolata', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+  --fs-3xl: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+  --lh-tight: 1.2;
+  --lh-body: 1.6;
+
+  /* Spacing (4px base) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+
+  /* Shape and elevation */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-full: 9999px;
+  --shadow-pop: 0 30px 18px rgba(0, 0, 0, 0.03), 0 13px 13px rgba(0, 0, 0, 0.06), 0 3px 7px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 24px 24px rgba(0, 0, 0, 0.18), 0 6px 13px rgba(0, 0, 0, 0.2);
+
+  /* Layout */
+  --sidebar-w: 248px;
+  --rail-w: 64px;
+  --topbar-h: 56px;
+  --bottombar-h: 60px;
+  --content-max: 1600px;
+  --prose-max: 74ch;
+  --focus: 0 0 0 2px var(--canvas), 0 0 0 4px var(--info);
+}
