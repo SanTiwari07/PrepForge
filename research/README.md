@@ -69,3 +69,14 @@ curl -s -X POST https://leetcode.com/graphql -H "Content-Type: application/json"
 
 A non-existent slug returns `{"data":{"question":null}}`. GeeksforGeeks and most
 documentation sites return real 404s, so plain HTTP checks work for them.
+
+## `curated-problems.verified.json`: PrepForge's curated topic mapping
+
+`research/scripts/verify-curated.mjs` holds PrepForge's own judgement of which topic a
+problem practises (for example `maximum-sum-circular-subarray` → Kadane). It verifies every slug
+with LeetCode GraphQL (`question(titleSlug)`) and records the title, difficulty, premium flag and
+tags from LeetCode. 74 problems were verified on 2026-10-11: 40 were already in the bank (they gain
+a topic), and 34 are new, covering topics that no public list maps well (MST, Fenwick/segment
+trees, interval and bitmask DP, Euler paths and bridges, KMP/Z/rolling hash, sweep line and
+meet in the middle). New problems carry the list badge **Curated**. Re-run the script before a
+release; it exits non-zero if any slug no longer exists.

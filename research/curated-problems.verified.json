@@ -1,0 +1,1423 @@
+{
+ "verifiedOn": "2026-10-11",
+ "source": "LeetCode GraphQL question(titleSlug)",
+ "problems": [
+  {
+   "id": 19,
+   "slug": "remove-nth-node-from-end-of-list",
+   "title": "Remove Nth Node From End of List",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+   "leetcodeTags": [
+    "linked-list",
+    "two-pointers"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 28,
+   "slug": "find-the-index-of-the-first-occurrence-in-a-string",
+   "title": "Find the Index of the First Occurrence in a String",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/",
+   "leetcodeTags": [
+    "two-pointers",
+    "string",
+    "string-matching",
+    "z-algorithm",
+    "knuth-morris-pratt-algorithm",
+    "boyer-moore-string-search-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.string-matching"
+   ]
+  },
+  {
+   "id": 49,
+   "slug": "group-anagrams",
+   "title": "Group Anagrams",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/group-anagrams/",
+   "leetcodeTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 53,
+   "slug": "maximum-subarray",
+   "title": "Maximum Subarray",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/maximum-subarray/",
+   "leetcodeTags": [
+    "array",
+    "divide-and-conquer",
+    "dynamic-programming"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.kadane"
+   ]
+  },
+  {
+   "id": 121,
+   "slug": "best-time-to-buy-and-sell-stock",
+   "title": "Best Time to Buy and Sell Stock",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+   "leetcodeTags": [
+    "array",
+    "dynamic-programming"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.kadane"
+   ]
+  },
+  {
+   "id": 122,
+   "slug": "best-time-to-buy-and-sell-stock-ii",
+   "title": "Best Time to Buy and Sell Stock II",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
+   "leetcodeTags": [
+    "array",
+    "dynamic-programming",
+    "greedy"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.kadane"
+   ]
+  },
+  {
+   "id": 124,
+   "slug": "binary-tree-maximum-path-sum",
+   "title": "Binary Tree Maximum Path Sum",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+   "leetcodeTags": [
+    "dynamic-programming",
+    "tree",
+    "depth-first-search",
+    "binary-tree",
+    "dp-on-trees"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.kadane"
+   ]
+  },
+  {
+   "id": 127,
+   "slug": "word-ladder",
+   "title": "Word Ladder",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/word-ladder/",
+   "leetcodeTags": [
+    "hash-table",
+    "string",
+    "breadth-first-search",
+    "bidirectional-search"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  },
+  {
+   "id": 132,
+   "slug": "palindrome-partitioning-ii",
+   "title": "Palindrome Partitioning II",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/palindrome-partitioning-ii/",
+   "leetcodeTags": [
+    "string",
+    "dynamic-programming"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.dp-advanced"
+   ]
+  },
+  {
+   "id": 141,
+   "slug": "linked-list-cycle",
+   "title": "Linked List Cycle",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/linked-list-cycle/",
+   "leetcodeTags": [
+    "hash-table",
+    "linked-list",
+    "two-pointers",
+    "floyds-cycle-finding-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 142,
+   "slug": "linked-list-cycle-ii",
+   "title": "Linked List Cycle II",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/linked-list-cycle-ii/",
+   "leetcodeTags": [
+    "hash-table",
+    "linked-list",
+    "two-pointers",
+    "floyds-cycle-finding-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 143,
+   "slug": "reorder-list",
+   "title": "Reorder List",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/reorder-list/",
+   "leetcodeTags": [
+    "linked-list",
+    "two-pointers",
+    "stack",
+    "recursion"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 152,
+   "slug": "maximum-product-subarray",
+   "title": "Maximum Product Subarray",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/maximum-product-subarray/",
+   "leetcodeTags": [
+    "array",
+    "dynamic-programming"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.kadane"
+   ]
+  },
+  {
+   "id": 202,
+   "slug": "happy-number",
+   "title": "Happy Number",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/happy-number/",
+   "leetcodeTags": [
+    "hash-table",
+    "math",
+    "two-pointers",
+    "floyds-cycle-finding-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 214,
+   "slug": "shortest-palindrome",
+   "title": "Shortest Palindrome",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/shortest-palindrome/",
+   "leetcodeTags": [
+    "string",
+    "rolling-hash",
+    "string-matching",
+    "hash-function",
+    "manacher",
+    "z-algorithm",
+    "knuth-morris-pratt-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.string-matching"
+   ]
+  },
+  {
+   "id": 218,
+   "slug": "the-skyline-problem",
+   "title": "The Skyline Problem",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/the-skyline-problem/",
+   "leetcodeTags": [
+    "array",
+    "divide-and-conquer",
+    "binary-indexed-tree",
+    "segment-tree",
+    "sweep-line",
+    "sorting",
+    "heap-priority-queue",
+    "ordered-set"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.advanced-patterns"
+   ]
+  },
+  {
+   "id": 220,
+   "slug": "contains-duplicate-iii",
+   "title": "Contains Duplicate III",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/contains-duplicate-iii/",
+   "leetcodeTags": [
+    "array",
+    "sliding-window",
+    "sorting",
+    "bucket-sort",
+    "ordered-set"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 234,
+   "slug": "palindrome-linked-list",
+   "title": "Palindrome Linked List",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/palindrome-linked-list/",
+   "leetcodeTags": [
+    "linked-list",
+    "two-pointers",
+    "stack",
+    "recursion"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 287,
+   "slug": "find-the-duplicate-number",
+   "title": "Find the Duplicate Number",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/find-the-duplicate-number/",
+   "leetcodeTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "bit-manipulation",
+    "pigeonhole-principle",
+    "floyds-cycle-finding-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 303,
+   "slug": "range-sum-query-immutable",
+   "title": "Range Sum Query - Immutable",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/range-sum-query-immutable/",
+   "leetcodeTags": [
+    "array",
+    "design",
+    "prefix-sum"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.fenwick-segment"
+   ]
+  },
+  {
+   "id": 307,
+   "slug": "range-sum-query-mutable",
+   "title": "Range Sum Query - Mutable",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/range-sum-query-mutable/",
+   "leetcodeTags": [
+    "array",
+    "divide-and-conquer",
+    "design",
+    "binary-indexed-tree",
+    "segment-tree",
+    "sqrt-decomposition"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.fenwick-segment"
+   ]
+  },
+  {
+   "id": 312,
+   "slug": "burst-balloons",
+   "title": "Burst Balloons",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/burst-balloons/",
+   "leetcodeTags": [
+    "array",
+    "dynamic-programming"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.dp-advanced"
+   ]
+  },
+  {
+   "id": 315,
+   "slug": "count-of-smaller-numbers-after-self",
+   "title": "Count of Smaller Numbers After Self",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/count-of-smaller-numbers-after-self/",
+   "leetcodeTags": [
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "binary-indexed-tree",
+    "segment-tree",
+    "merge-sort",
+    "ordered-set",
+    "treap"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.fenwick-segment",
+    "dsa.advanced-patterns"
+   ]
+  },
+  {
+   "id": 327,
+   "slug": "count-of-range-sum",
+   "title": "Count of Range Sum",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/count-of-range-sum/",
+   "leetcodeTags": [
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "binary-indexed-tree",
+    "segment-tree",
+    "merge-sort",
+    "ordered-set",
+    "treap"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.fenwick-segment"
+   ]
+  },
+  {
+   "id": 332,
+   "slug": "reconstruct-itinerary",
+   "title": "Reconstruct Itinerary",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/reconstruct-itinerary/",
+   "leetcodeTags": [
+    "array",
+    "string",
+    "depth-first-search",
+    "graph",
+    "sorting",
+    "heap-priority-queue",
+    "eulerian-circuit",
+    "eulerian-path",
+    "semi-eulerian-graph"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.advanced-graphs"
+   ]
+  },
+  {
+   "id": 337,
+   "slug": "house-robber-iii",
+   "title": "House Robber III",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/house-robber-iii/",
+   "leetcodeTags": [
+    "dynamic-programming",
+    "tree",
+    "depth-first-search",
+    "binary-tree",
+    "dp-on-trees"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.dp-advanced"
+   ]
+  },
+  {
+   "id": 347,
+   "slug": "top-k-frequent-elements",
+   "title": "Top K Frequent Elements",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/top-k-frequent-elements/",
+   "leetcodeTags": [
+    "array",
+    "hash-table",
+    "divide-and-conquer",
+    "sorting",
+    "heap-priority-queue",
+    "bucket-sort",
+    "counting",
+    "quickselect"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 451,
+   "slug": "sort-characters-by-frequency",
+   "title": "Sort Characters By Frequency",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/sort-characters-by-frequency/",
+   "leetcodeTags": [
+    "hash-table",
+    "string",
+    "sorting",
+    "heap-priority-queue",
+    "bucket-sort",
+    "counting"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 459,
+   "slug": "repeated-substring-pattern",
+   "title": "Repeated Substring Pattern",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/repeated-substring-pattern/",
+   "leetcodeTags": [
+    "string",
+    "string-matching",
+    "z-algorithm",
+    "knuth-morris-pratt-algorithm"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.string-matching"
+   ]
+  },
+  {
+   "id": 480,
+   "slug": "sliding-window-median",
+   "title": "Sliding Window Median",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/sliding-window-median/",
+   "leetcodeTags": [
+    "array",
+    "hash-table",
+    "sliding-window",
+    "heap-priority-queue",
+    "treap"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 493,
+   "slug": "reverse-pairs",
+   "title": "Reverse Pairs",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/reverse-pairs/",
+   "leetcodeTags": [
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "binary-indexed-tree",
+    "segment-tree",
+    "merge-sort",
+    "ordered-set",
+    "treap"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fenwick-segment"
+   ]
+  },
+  {
+   "id": 516,
+   "slug": "longest-palindromic-subsequence",
+   "title": "Longest Palindromic Subsequence",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/longest-palindromic-subsequence/",
+   "leetcodeTags": [
+    "string",
+    "dynamic-programming"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.dp-advanced"
+   ]
+  },
+  {
+   "id": 542,
+   "slug": "01-matrix",
+   "title": "01 Matrix",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/01-matrix/",
+   "leetcodeTags": [
+    "array",
+    "dynamic-programming",
+    "breadth-first-search",
+    "matrix"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  },
+  {
+   "id": 686,
+   "slug": "repeated-string-match",
+   "title": "Repeated String Match",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/repeated-string-match/",
+   "leetcodeTags": [
+    "string",
+    "string-matching",
+    "z-algorithm",
+    "knuth-morris-pratt-algorithm",
+    "boyer-moore-string-search-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.string-matching"
+   ]
+  },
+  {
+   "id": 698,
+   "slug": "partition-to-k-equal-sum-subsets",
+   "title": "Partition to K Equal Sum Subsets",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/",
+   "leetcodeTags": [
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "bit-manipulation",
+    "memoization",
+    "bitmask"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.dp-advanced"
+   ]
+  },
+  {
+   "id": 705,
+   "slug": "design-hashset",
+   "title": "Design HashSet",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/design-hashset/",
+   "leetcodeTags": [
+    "array",
+    "hash-table",
+    "linked-list",
+    "design",
+    "hash-function"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 706,
+   "slug": "design-hashmap",
+   "title": "Design HashMap",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/design-hashmap/",
+   "leetcodeTags": [
+    "array",
+    "hash-table",
+    "linked-list",
+    "design",
+    "hash-function"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 729,
+   "slug": "my-calendar-i",
+   "title": "My Calendar I",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/my-calendar-i/",
+   "leetcodeTags": [
+    "array",
+    "binary-search",
+    "design",
+    "segment-tree",
+    "ordered-set"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 732,
+   "slug": "my-calendar-iii",
+   "title": "My Calendar III",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/my-calendar-iii/",
+   "leetcodeTags": [
+    "binary-search",
+    "design",
+    "segment-tree",
+    "prefix-sum",
+    "ordered-set"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.fenwick-segment",
+    "dsa.advanced-patterns"
+   ]
+  },
+  {
+   "id": 743,
+   "slug": "network-delay-time",
+   "title": "Network Delay Time",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/network-delay-time/",
+   "leetcodeTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "heap-priority-queue",
+    "shortest-path",
+    "dijkstra"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  },
+  {
+   "id": 753,
+   "slug": "cracking-the-safe",
+   "title": "Cracking the Safe",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/cracking-the-safe/",
+   "leetcodeTags": [
+    "string",
+    "depth-first-search",
+    "graph",
+    "eulerian-circuit",
+    "eulerian-path",
+    "eulerian-graph"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.advanced-graphs"
+   ]
+  },
+  {
+   "id": 778,
+   "slug": "swim-in-rising-water",
+   "title": "Swim in Rising Water",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/swim-in-rising-water/",
+   "leetcodeTags": [
+    "array",
+    "binary-search",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "minimax-algorithm",
+    "heap-priority-queue",
+    "matrix",
+    "dijkstra"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths",
+    "dsa.mst"
+   ]
+  },
+  {
+   "id": 787,
+   "slug": "cheapest-flights-within-k-stops",
+   "title": "Cheapest Flights Within K Stops",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/cheapest-flights-within-k-stops/",
+   "leetcodeTags": [
+    "dynamic-programming",
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "heap-priority-queue",
+    "shortest-path"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  },
+  {
+   "id": 796,
+   "slug": "rotate-string",
+   "title": "Rotate String",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/rotate-string/",
+   "leetcodeTags": [
+    "string",
+    "string-matching"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.string-matching"
+   ]
+  },
+  {
+   "id": 802,
+   "slug": "find-eventual-safe-states",
+   "title": "Find Eventual Safe States",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/find-eventual-safe-states/",
+   "leetcodeTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort",
+    "kosarajus-algorithm",
+    "tarjans-scc-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.advanced-graphs"
+   ]
+  },
+  {
+   "id": 847,
+   "slug": "shortest-path-visiting-all-nodes",
+   "title": "Shortest Path Visiting All Nodes",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/shortest-path-visiting-all-nodes/",
+   "leetcodeTags": [
+    "dynamic-programming",
+    "bit-manipulation",
+    "breadth-first-search",
+    "graph",
+    "bitmask"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.dp-advanced"
+   ]
+  },
+  {
+   "id": 850,
+   "slug": "rectangle-area-ii",
+   "title": "Rectangle Area II",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/rectangle-area-ii/",
+   "leetcodeTags": [
+    "array",
+    "segment-tree",
+    "sweep-line",
+    "ordered-set"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.advanced-patterns"
+   ]
+  },
+  {
+   "id": 876,
+   "slug": "middle-of-the-linked-list",
+   "title": "Middle of the Linked List",
+   "difficulty": "Easy",
+   "premium": false,
+   "url": "https://leetcode.com/problems/middle-of-the-linked-list/",
+   "leetcodeTags": [
+    "linked-list",
+    "two-pointers"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 918,
+   "slug": "maximum-sum-circular-subarray",
+   "title": "Maximum Sum Circular Subarray",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/maximum-sum-circular-subarray/",
+   "leetcodeTags": [
+    "array",
+    "divide-and-conquer",
+    "dynamic-programming",
+    "queue",
+    "monotonic-queue"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.kadane"
+   ]
+  },
+  {
+   "id": 968,
+   "slug": "binary-tree-cameras",
+   "title": "Binary Tree Cameras",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/binary-tree-cameras/",
+   "leetcodeTags": [
+    "dynamic-programming",
+    "tree",
+    "depth-first-search",
+    "binary-tree",
+    "dp-on-trees"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.dp-advanced"
+   ]
+  },
+  {
+   "id": 978,
+   "slug": "longest-turbulent-subarray",
+   "title": "Longest Turbulent Subarray",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/longest-turbulent-subarray/",
+   "leetcodeTags": [
+    "array",
+    "dynamic-programming",
+    "sliding-window"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.kadane"
+   ]
+  },
+  {
+   "id": 981,
+   "slug": "time-based-key-value-store",
+   "title": "Time Based Key-Value Store",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/time-based-key-value-store/",
+   "leetcodeTags": [
+    "hash-table",
+    "string",
+    "binary-search",
+    "design"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.stl-collections"
+   ]
+  },
+  {
+   "id": 994,
+   "slug": "rotting-oranges",
+   "title": "Rotting Oranges",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/rotting-oranges/",
+   "leetcodeTags": [
+    "array",
+    "breadth-first-search",
+    "matrix"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  },
+  {
+   "id": 1044,
+   "slug": "longest-duplicate-substring",
+   "title": "Longest Duplicate Substring",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/longest-duplicate-substring/",
+   "leetcodeTags": [
+    "string",
+    "binary-search",
+    "sliding-window",
+    "rolling-hash",
+    "suffix-array",
+    "hash-function",
+    "suffix-automaton",
+    "suffix-tree",
+    "z-algorithm",
+    "boyer-moore-string-search-algorithm"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.string-matching"
+   ]
+  },
+  {
+   "id": 1091,
+   "slug": "shortest-path-in-binary-matrix",
+   "title": "Shortest Path in Binary Matrix",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/shortest-path-in-binary-matrix/",
+   "leetcodeTags": [
+    "array",
+    "breadth-first-search",
+    "matrix"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  },
+  {
+   "id": 1094,
+   "slug": "car-pooling",
+   "title": "Car Pooling",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/car-pooling/",
+   "leetcodeTags": [
+    "array",
+    "sorting",
+    "heap-priority-queue",
+    "simulation",
+    "prefix-sum"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.advanced-patterns"
+   ]
+  },
+  {
+   "id": 1135,
+   "slug": "connecting-cities-with-minimum-cost",
+   "title": "Connecting Cities With Minimum Cost",
+   "difficulty": "Medium",
+   "premium": true,
+   "url": "https://leetcode.com/problems/connecting-cities-with-minimum-cost/",
+   "leetcodeTags": [
+    "union-find",
+    "graph",
+    "heap-priority-queue",
+    "minimum-spanning-tree"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.mst"
+   ]
+  },
+  {
+   "id": 1168,
+   "slug": "optimize-water-distribution-in-a-village",
+   "title": "Optimize Water Distribution in a Village",
+   "difficulty": "Hard",
+   "premium": true,
+   "url": "https://leetcode.com/problems/optimize-water-distribution-in-a-village/",
+   "leetcodeTags": [
+    "union-find",
+    "graph",
+    "heap-priority-queue",
+    "minimum-spanning-tree",
+    "prims-algorithm",
+    "kruskals-algorithm",
+    "boruvkas-algorithm"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.mst"
+   ]
+  },
+  {
+   "id": 1192,
+   "slug": "critical-connections-in-a-network",
+   "title": "Critical Connections in a Network",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/critical-connections-in-a-network/",
+   "leetcodeTags": [
+    "depth-first-search",
+    "graph",
+    "biconnected-component",
+    "bridge-graph"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.advanced-graphs"
+   ]
+  },
+  {
+   "id": 1334,
+   "slug": "find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance",
+   "title": "Find the City With the Smallest Number of Neighbors at a Threshold Distance",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/",
+   "leetcodeTags": [
+    "dynamic-programming",
+    "graph",
+    "shortest-path",
+    "dijkstra",
+    "bellman-ford-algorithm",
+    "floyd-warshall-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  },
+  {
+   "id": 1392,
+   "slug": "longest-happy-prefix",
+   "title": "Longest Happy Prefix",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/longest-happy-prefix/",
+   "leetcodeTags": [
+    "string",
+    "rolling-hash",
+    "string-matching",
+    "hash-function",
+    "z-algorithm",
+    "knuth-morris-pratt-algorithm"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.string-matching"
+   ]
+  },
+  {
+   "id": 1489,
+   "slug": "find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree",
+   "title": "Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/",
+   "leetcodeTags": [
+    "union-find",
+    "graph",
+    "sorting",
+    "minimum-spanning-tree",
+    "strongly-connected-component",
+    "prims-algorithm",
+    "kruskals-algorithm",
+    "boruvkas-algorithm"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.mst"
+   ]
+  },
+  {
+   "id": 1547,
+   "slug": "minimum-cost-to-cut-a-stick",
+   "title": "Minimum Cost to Cut a Stick",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/minimum-cost-to-cut-a-stick/",
+   "leetcodeTags": [
+    "array",
+    "dynamic-programming",
+    "sorting"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.dp-advanced"
+   ]
+  },
+  {
+   "id": 1568,
+   "slug": "minimum-number-of-days-to-disconnect-island",
+   "title": "Minimum Number of Days to Disconnect Island",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/minimum-number-of-days-to-disconnect-island/",
+   "leetcodeTags": [
+    "array",
+    "depth-first-search",
+    "breadth-first-search",
+    "matrix",
+    "strongly-connected-component",
+    "articulation-point"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.advanced-graphs"
+   ]
+  },
+  {
+   "id": 1579,
+   "slug": "remove-max-number-of-edges-to-keep-graph-fully-traversable",
+   "title": "Remove Max Number of Edges to Keep Graph Fully Traversable",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/",
+   "leetcodeTags": [
+    "union-find",
+    "graph"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.mst"
+   ]
+  },
+  {
+   "id": 1584,
+   "slug": "min-cost-to-connect-all-points",
+   "title": "Min Cost to Connect All Points",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/min-cost-to-connect-all-points/",
+   "leetcodeTags": [
+    "array",
+    "union-find",
+    "graph",
+    "minimum-spanning-tree",
+    "prims-algorithm",
+    "kruskals-algorithm",
+    "boruvkas-algorithm"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.mst"
+   ]
+  },
+  {
+   "id": 1631,
+   "slug": "path-with-minimum-effort",
+   "title": "Path With Minimum Effort",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/path-with-minimum-effort/",
+   "leetcodeTags": [
+    "array",
+    "binary-search",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "heap-priority-queue",
+    "matrix",
+    "dijkstra"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths",
+    "dsa.mst"
+   ]
+  },
+  {
+   "id": 1649,
+   "slug": "create-sorted-array-through-instructions",
+   "title": "Create Sorted Array through Instructions",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/create-sorted-array-through-instructions/",
+   "leetcodeTags": [
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "binary-indexed-tree",
+    "segment-tree",
+    "merge-sort",
+    "ordered-set"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.fenwick-segment"
+   ]
+  },
+  {
+   "id": 1755,
+   "slug": "closest-subsequence-sum",
+   "title": "Closest Subsequence Sum",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/closest-subsequence-sum/",
+   "leetcodeTags": [
+    "array",
+    "two-pointers",
+    "dynamic-programming",
+    "bit-manipulation",
+    "meet-in-the-middle",
+    "sorting",
+    "bitmask"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.advanced-patterns"
+   ]
+  },
+  {
+   "id": 1976,
+   "slug": "number-of-ways-to-arrive-at-destination",
+   "title": "Number of Ways to Arrive at Destination",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/",
+   "leetcodeTags": [
+    "dynamic-programming",
+    "graph",
+    "topological-sort",
+    "shortest-path",
+    "dijkstra"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  },
+  {
+   "id": 2035,
+   "slug": "partition-array-into-two-arrays-to-minimize-sum-difference",
+   "title": "Partition Array Into Two Arrays to Minimize Sum Difference",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/",
+   "leetcodeTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "dynamic-programming",
+    "bit-manipulation",
+    "meet-in-the-middle",
+    "sorting",
+    "ordered-set",
+    "bitmask"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.advanced-patterns"
+   ]
+  },
+  {
+   "id": 2095,
+   "slug": "delete-the-middle-node-of-a-linked-list",
+   "title": "Delete the Middle Node of a Linked List",
+   "difficulty": "Medium",
+   "premium": false,
+   "url": "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/",
+   "leetcodeTags": [
+    "linked-list",
+    "two-pointers"
+   ],
+   "inMainBank": true,
+   "topics": [
+    "dsa.fast-slow-pointers"
+   ]
+  },
+  {
+   "id": 2097,
+   "slug": "valid-arrangement-of-pairs",
+   "title": "Valid Arrangement of Pairs",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/valid-arrangement-of-pairs/",
+   "leetcodeTags": [
+    "array",
+    "depth-first-search",
+    "graph",
+    "eulerian-circuit",
+    "eulerian-path",
+    "semi-eulerian-graph"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.advanced-graphs"
+   ]
+  },
+  {
+   "id": 2290,
+   "slug": "minimum-obstacle-removal-to-reach-corner",
+   "title": "Minimum Obstacle Removal to Reach Corner",
+   "difficulty": "Hard",
+   "premium": false,
+   "url": "https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/",
+   "leetcodeTags": [
+    "array",
+    "breadth-first-search",
+    "graph",
+    "heap-priority-queue",
+    "matrix",
+    "shortest-path",
+    "0-1-bfs",
+    "dijkstra"
+   ],
+   "inMainBank": false,
+   "topics": [
+    "dsa.shortest-paths"
+   ]
+  }
+ ]
+}

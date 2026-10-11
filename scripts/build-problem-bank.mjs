@@ -117,6 +117,26 @@ const problems = data.map((p) => {
   };
 });
 
+// Curated topic mapping (research/curated-problems.verified.json, verified via LeetCode GraphQL):
+// adds topics to bank problems, and adds problems that no public list covers (list "curated").
+const curated = JSON.parse(readFileSync(resolve(root, 'research/curated-problems.verified.json'), 'utf8')).problems;
+const bySlug = new Map(problems.map((p) => [p.slug, p]));
+for (const c of curated) {
+  const existing = bySlug.get(c.slug);
+  if (existing) { existing.topicIds = [...new Set([...existing.topicIds, ...c.topics])]; continue; }
+  const difficulty = c.difficulty.toLowerCase();
+  const topicIds = new Set(c.topics);
+  for (const t of c.leetcodeTags) if (TAG_SECONDARY[t]) topicIds.add(TAG_SECONDARY[t]);
+  const p = {
+    slug: c.slug, leetcodeId: c.id, title: c.title, difficulty, premium: c.premium, url: c.url,
+    lists: ['curated'], topicIds: [...topicIds], primaryTopicId: c.topics[0],
+    patterns: [...new Set(c.leetcodeTags.map((t) => PATTERN_FROM_TAG[t]).filter(Boolean))].slice(0, 4),
+    estMinutes: difficulty === 'easy' ? 15 : difficulty === 'medium' ? 30 : 45,
+  };
+  problems.push(p);
+  bySlug.set(p.slug, p);
+}
+
 const out = resolve(root, 'src/content/problems/bank.generated.ts');
 mkdirSync(dirname(out), { recursive: true });
 writeFileSync(
