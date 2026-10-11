@@ -22,6 +22,8 @@ export interface CodeSample {
   verify?: boolean;
   expectedOutput?: string;
   std?: 'c++14' | 'c++17' | 'c++20';
+  /** Compile-error questions: compilation must FAIL, at the line marked "// here". */
+  expectCompileError?: boolean;
 }
 
 export interface TraceStep {

@@ -44,4 +44,7 @@ export function mcq(i: McqInput): MCQ {
 /** expectedOutput marks a complete program whose stdout is verified by scripts/verify-code.ts. */
 export const cpp = (code: string, label?: string, expectedOutput?: string): CodeSample => ({ lang: 'cpp', code: code.replace(/^\n/, ''), label, ...(expectedOutput !== undefined ? { expectedOutput, verify: true } : {}) });
 export const java = (code: string, label?: string, expectedOutput?: string): CodeSample => ({ lang: 'java', code: code.replace(/^\n/, ''), label, ...(expectedOutput !== undefined ? { expectedOutput, verify: true } : {}) });
+/** A snippet that must NOT compile (compile-error MCQs); verified by scripts/verify-code.ts. */
+export const cppErr = (code: string): CodeSample => ({ lang: 'cpp', code: code.replace(/^\n/, ''), expectCompileError: true });
+export const javaErr = (code: string): CodeSample => ({ lang: 'java', code: code.replace(/^\n/, ''), expectCompileError: true });
 export const sqlCode = (code: string, label?: string): CodeSample => ({ lang: 'sql', code: code.replace(/^\n/, ''), label });

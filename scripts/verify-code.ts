@@ -116,8 +116,40 @@ function syntaxCheck(where: string, s: CodeSample) {
   }
 }
 
+// Compile-error questions: compilation must fail, and the first error must be on the line
+// marked "// here" (so the question points at the real problem).
+function expectFailure(where: string, s: CodeSample) {
+  checked += 1;
+  const dir = join(work, `e${checked}`);
+  mkdirSync(dir);
+  const marked = s.code.split('\n').findIndex((l) => l.includes('// here'));
+  let file: string, prefixLines: number, res;
+  if (s.lang === 'cpp') {
+    const prefix = s.code.includes('#include') ? '' : CPP_PRELUDE;
+    prefixLines = prefix.split('\n').length - 1;
+    file = join(dir, 'x.cpp');
+    writeFileSync(file, prefix + s.code + '\n');
+    res = spawnSync('g++', [`-std=${CPP_STD}`, '-fsyntax-only', file], { encoding: 'utf8' });
+  } else {
+    const full = /^\s*import\s/m.test(s.code) || /^public\s+class\s+\w+/m.test(s.code);
+    const cls = full ? (s.code.match(/public\s+class\s+(\w+)/)?.[1] ?? 'Snippet') : 'Snippet';
+    const prefix = full ? '' : `${JAVA_IMPORTS}class Snippet {\n`;
+    prefixLines = prefix.split('\n').length - 1;
+    file = join(dir, `${cls}.java`);
+    writeFileSync(file, prefix + s.code + (full ? '\n' : '\n}\n'));
+    res = spawnSync('javac', ['-Xlint:none', '-d', dir, file], { encoding: 'utf8' });
+  }
+  if (res.status === 0) return fail(where, 'Expected a compile error, but the code compiled.');
+  if (marked >= 0) {
+    const m = res.stderr.match(/:(\d+)(?::\d+)?:\s*error/);
+    const line = m ? Number(m[1]) - prefixLines - 1 : -1;
+    if (line !== marked) fail(where, `First error is on snippet line ${line + 1}, expected the "// here" line ${marked + 1}.\n${res.stderr}`);
+  }
+}
+
 for (const q of MCQS) {
   if (!q.code || (q.code.lang !== 'cpp' && q.code.lang !== 'java')) continue;
+  if (q.code.expectCompileError) { expectFailure(`MCQ ${q.id}`, q.code); continue; }
   if (q.code.expectedOutput !== undefined) runProgram(`MCQ ${q.id}`, q.code);
   else syntaxCheck(`MCQ ${q.id}`, q.code);
   if (q.verified === 'compiled' && q.code.expectedOutput === undefined) fail(`MCQ ${q.id}`, 'Marked "compiled" but has no expectedOutput to verify.');
