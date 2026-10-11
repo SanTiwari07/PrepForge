@@ -10,9 +10,13 @@ import * as stacksQueues from './stacks-queues';
 import * as monotonic from './monotonic-stack';
 import * as linkedLists from './linked-lists';
 import * as binaryTrees from './binary-trees';
+import * as heaps from './heaps';
+import * as graphs from './graphs';
+import * as dp1d from './dp-1d';
+import * as backtracking from './backtracking';
 export { walkthroughs } from './walkthroughs';
 
-const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees];
+const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees, heaps, graphs, dp1d, backtracking];
 
 export const topics: Topic[] = parts.map((p) => p.topic);
 export const mcqs: MCQ[] = parts.flatMap((p) => p.mcqs);
