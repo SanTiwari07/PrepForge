@@ -28,3 +28,20 @@ describe('OS MCQ facts', () => {
   it('os.vm.q2: EAT = 120 ns', () => expect(0.9 * (10 + 100) + 0.1 * (10 + 200)).toBeCloseTo(120, 6));
   it('os.vm.q5: 4 MB page table', () => expect((2 ** 32 / 2 ** 12) * 4).toBe(4 * 1024 * 1024));
 });
+
+import { prefixForHosts, subnetInfo, type SubnetInfo } from '@/engine/tools/subnet';
+describe('CN subnetting MCQ facts', () => {
+  const s = (c: string) => subnetInfo(c) as SubnetInfo;
+  it('cn.ip.q1: 192.168.10.77/26 network .64, broadcast .127', () => {
+    expect(s('192.168.10.77/26').network).toBe('192.168.10.64');
+    expect(s('192.168.10.77/26').broadcast).toBe('192.168.10.127');
+  });
+  it('cn.ip.q2: /27 has 30 usable hosts', () => expect(s('10.0.0.0/27').usableHosts).toBe(30));
+  it('cn.ip.q3: 50 hosts need /26', () => expect(prefixForHosts(50)).toBe(26));
+  it('cn.ip.q4: 172.32.1.1 is not private, 172.20.5.5 is', () => {
+    expect(s('172.32.1.1/32').isPrivate).toBe(false);
+    expect(s('172.20.5.5/32').isPrivate).toBe(true);
+  });
+  it('cn.ip.q5: /20 mask is 255.255.240.0', () => expect(s('10.0.0.0/20').mask).toBe('255.255.240.0'));
+  it('flashcard: 100 hosts need /25', () => expect(prefixForHosts(100)).toBe(25));
+});
