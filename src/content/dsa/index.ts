@@ -35,6 +35,10 @@ import * as math from './math';
 import * as stl from './stl-collections';
 import * as implementation from './implementation';
 import * as fenwick from './fenwick-segment';
+import * as dpAdvanced from './dp-advanced';
+import * as advancedGraphs from './advanced-graphs';
+import * as stringMatching from './string-matching';
+import * as advancedPatterns from './advanced-patterns';
 import { walkthroughs as w1 } from './walkthroughs';
 import { walkthroughs2 } from './walkthroughs2';
 import { walkthroughs3 } from './walkthroughs3';
@@ -42,7 +46,7 @@ import type { CoachWalkthrough } from '../schema';
 
 export const walkthroughs: Record<string, CoachWalkthrough> = { ...w1, ...walkthroughs2, ...walkthroughs3 };
 
-const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees, heaps, graphs, dp1d, backtracking, kadane, fastSlow, recursion, bst, intervals, greedy, topo, dsu, shortestPaths, mst, dp2d, tries, bits, matrix, sorting, divideConquer, designDs, math, stl, implementation, fenwick];
+const parts = [complexity, arraysStrings, hashing, twoPointers, slidingWindow, prefixSums, binarySearch, stacksQueues, monotonic, linkedLists, binaryTrees, heaps, graphs, dp1d, backtracking, kadane, fastSlow, recursion, bst, intervals, greedy, topo, dsu, shortestPaths, mst, dp2d, tries, bits, matrix, sorting, divideConquer, designDs, math, stl, implementation, fenwick, dpAdvanced, advancedGraphs, stringMatching, advancedPatterns];
 
 export const topics: Topic[] = parts.map((p) => p.topic);
 export const mcqs: MCQ[] = parts.flatMap((p) => p.mcqs);

@@ -1100,4 +1100,246 @@ class NumArray {
     ],
     takeawaysMd: 'When both updates and range queries matter, balance them with a tree of partial sums. Fenwick updates take deltas, so keep the current values.',
   },
+
+  'burst-balloons': {
+    understandMd: 'Balloons have values. Bursting balloon i earns left · value · right, where left and right are its current neighbours (1 beyond the ends). Burst all balloons in the best order and return the maximum total.',
+    ioConstraintsMd: 'Up to 300 balloons with values 0..100. O(n³) ≈ 4.5·10⁶ steps is fine.',
+    edgeCases: ['A single balloon', 'Zeros (bursting them earns nothing but changes neighbours)', 'All values equal'],
+    bruteForceMd: 'Try every burst order recursively.',
+    bruteComplexity: 'O(n!).',
+    bottleneckMd: 'Deciding which balloon to burst first leaves two sides that still interact (they become neighbours). Deciding which balloon to burst last keeps it as a wall, so the two sides are independent and only O(n²) intervals exist.',
+    hints: [
+      'If you burst balloon k first, are the left and right parts independent afterwards?',
+      'They are not: they become neighbours. What if k is the last balloon burst in a range instead?',
+      'Pad with 1s. Let dp[i][j] be the best for the balloons strictly between i and j. If k is burst last, it earns v[i]·v[k]·v[j], plus dp[i][k] + dp[k][j].',
+      'for len in 2..n−1: for i: j = i + len; dp[i][j] = max over i<k<j of dp[i][k] + dp[k][j] + v[i]*v[k]*v[j]; return dp[0][n−1]',
+    ],
+    optimalMd: 'Interval DP over open intervals of the padded array, filled by increasing length; the split point is the last balloon to burst. The sentinels make the boundary product correct.',
+    code: [
+      cpp(`
+int maxCoins(vector<int>& nums) {
+    vector<int> v(nums.size() + 2, 1);
+    for (size_t i = 0; i < nums.size(); ++i) v[i + 1] = nums[i];
+    int n = v.size();
+    vector<vector<int>> dp(n, vector<int>(n, 0));
+    for (int len = 2; len < n; ++len)
+        for (int i = 0; i + len < n; ++i) {
+            int j = i + len;
+            for (int k = i + 1; k < j; ++k)
+                dp[i][j] = max(dp[i][j], dp[i][k] + dp[k][j] + v[i] * v[k] * v[j]);
+        }
+    return dp[0][n - 1];
+}`, 'C++'),
+      java(`
+public int maxCoins(int[] nums) {
+    int n = nums.length + 2;
+    int[] v = new int[n];
+    v[0] = v[n - 1] = 1;
+    for (int i = 0; i < nums.length; i++) v[i + 1] = nums[i];
+    int[][] dp = new int[n][n];
+    for (int len = 2; len < n; len++)
+        for (int i = 0; i + len < n; i++) {
+            int j = i + len;
+            for (int k = i + 1; k < j; k++)
+                dp[i][j] = Math.max(dp[i][j], dp[i][k] + dp[k][j] + v[i] * v[k] * v[j]);
+        }
+    return dp[0][n - 1];
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n³) time, O(n²) space.',
+    testCases: [
+      { input: '[3,1,5,8]', expected: '167', why: 'LeetCode example' },
+      { input: '[1,5]', expected: '10', why: 'Burst 1 first' },
+      { input: '[7]', expected: '7', why: 'Single balloon: 1·7·1' },
+    ],
+    takeawaysMd: 'When a choice changes the structure around it, fix the LAST choice instead of the first so the remaining parts become independent.',
+  },
+
+  'critical-connections-in-a-network': {
+    understandMd: 'Servers 0..n−1 are connected by undirected links forming a connected network. Return every link whose removal would disconnect some servers.',
+    ioConstraintsMd: 'n up to 10⁵ and n − 1 to 10⁵ links; no repeated links. O(V + E) is required.',
+    edgeCases: ['A tree (every edge is critical)', 'A single cycle (no edge is critical)', 'Two cycles joined by one edge', 'Long chains (deep recursion)'],
+    bruteForceMd: 'Remove each edge in turn and test connectivity with BFS.',
+    bruteComplexity: 'O(E · (V + E)): 10¹⁰ for the limits.',
+    bottleneckMd: 'Each removal re-runs a full traversal. One DFS can decide every edge at once: an edge is critical exactly when the subtree below it has no back edge reaching above it.',
+    hints: [
+      'An edge is critical if it lies on no cycle. How can a DFS detect whether a subtree has a way back up?',
+      'Record when each vertex is discovered (tin). For each vertex, compute low = the earliest tin reachable from its subtree using at most one back edge.',
+      'For a tree edge u → v: if low[v] > tin[u], nothing below v can reach u or above without this edge, so it is a bridge.',
+      'dfs(u, p): tin[u] = low[u] = t++; for v in g[u]: if v == p continue; if seen: low[u] = min(low[u], tin[v]) else: dfs(v, u); low[u] = min(low[u], low[v]); if low[v] > tin[u]: add (u, v)',
+    ],
+    optimalMd: "Tarjan's bridge-finding DFS with discovery times and low-links. Every vertex and edge is processed once. The problem has no parallel edges, so skipping the parent vertex is safe.",
+    code: [
+      cpp(`
+class Solution {
+    vector<vector<int>> g, out;
+    vector<int> tin, low;
+    int t = 0;
+    void dfs(int u, int p) {
+        tin[u] = low[u] = t++;
+        for (int v : g[u]) {
+            if (v == p) continue;
+            if (tin[v] != -1) low[u] = min(low[u], tin[v]);
+            else {
+                dfs(v, u);
+                low[u] = min(low[u], low[v]);
+                if (low[v] > tin[u]) out.push_back({u, v});
+            }
+        }
+    }
+public:
+    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {
+        g.assign(n, {}); tin.assign(n, -1); low.assign(n, 0);
+        for (auto& e : connections) { g[e[0]].push_back(e[1]); g[e[1]].push_back(e[0]); }
+        dfs(0, -1);
+        return out;
+    }
+};`, 'C++'),
+      java(`
+class Solution {
+    private List<List<Integer>> g, out;
+    private int[] tin, low;
+    private int t = 0;
+    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+        g = new ArrayList<>();
+        for (int i = 0; i < n; i++) g.add(new ArrayList<>());
+        for (List<Integer> e : connections) { g.get(e.get(0)).add(e.get(1)); g.get(e.get(1)).add(e.get(0)); }
+        tin = new int[n]; low = new int[n];
+        Arrays.fill(tin, -1);
+        out = new ArrayList<>();
+        dfs(0, -1);
+        return out;
+    }
+    private void dfs(int u, int p) {
+        tin[u] = low[u] = t++;
+        for (int v : g.get(u)) {
+            if (v == p) continue;
+            if (tin[v] != -1) low[u] = Math.min(low[u], tin[v]);
+            else {
+                dfs(v, u);
+                low[u] = Math.min(low[u], low[v]);
+                if (low[v] > tin[u]) out.add(List.of(u, v));
+            }
+        }
+    }
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(V + E) time and space (recursion depth up to V).',
+    testCases: [
+      { input: 'n = 4, [[0,1],[1,2],[2,0],[1,3]]', expected: '[[1,3]]', why: 'Triangle with a tail' },
+      { input: 'n = 2, [[0,1]]', expected: '[[0,1]]', why: 'A single edge is critical' },
+      { input: 'n = 3, [[0,1],[1,2],[2,0]]', expected: '[]', why: 'A cycle has no bridges' },
+    ],
+    takeawaysMd: 'Low-links summarise "how high can this subtree climb back?" in one DFS. Bridges use the strict condition low[v] > tin[u].',
+  },
+
+  'repeated-substring-pattern': {
+    understandMd: 'Decide whether a string can be built by concatenating copies of one of its substrings (at least two copies).',
+    ioConstraintsMd: 'Length up to 10⁴, lowercase letters.',
+    edgeCases: ['Length 1 (false)', 'All characters equal (true)', 'A border that does not divide the length, e.g. "abcab"', 'Exactly two copies, e.g. "abab"'],
+    bruteForceMd: 'For every divisor d of n with d < n, check whether s equals s[0..d) repeated n/d times.',
+    bruteComplexity: 'O(n · number of divisors), about O(n√n) in the worst case; fine here, but there is a neat linear method.',
+    bottleneckMd: 'Each candidate period is checked from scratch. The prefix function directly gives the smallest period of the string.',
+    hints: [
+      'If s is a repetition of a block of length p, how is p related to the longest prefix of s that is also a suffix?',
+      'The longest proper border has length n − p for the smallest period p.',
+      'Compute the KMP prefix function; p = n − pi[n − 1]. The string is a repetition iff p < n and n is divisible by p.',
+      'pi = prefixFunction(s); p = n − pi[n−1]; return p < n and n % p == 0',
+    ],
+    optimalMd: 'One prefix-function pass. The smallest period is n − pi[n − 1]; it tiles the string exactly when it divides n (and is shorter than n). An equally valid trick: s is a repetition iff s appears in (s + s) with the first and last characters removed.',
+    code: [
+      cpp(`
+bool repeatedSubstringPattern(string s) {
+    int n = s.size();
+    vector<int> pi(n, 0);
+    for (int i = 1; i < n; ++i) {
+        int k = pi[i - 1];
+        while (k > 0 && s[i] != s[k]) k = pi[k - 1];
+        if (s[i] == s[k]) ++k;
+        pi[i] = k;
+    }
+    int p = n - pi[n - 1];
+    return p < n && n % p == 0;
+}`, 'C++'),
+      java(`
+public boolean repeatedSubstringPattern(String s) {
+    int n = s.length();
+    int[] pi = new int[n];
+    for (int i = 1; i < n; i++) {
+        int k = pi[i - 1];
+        while (k > 0 && s.charAt(i) != s.charAt(k)) k = pi[k - 1];
+        if (s.charAt(i) == s.charAt(k)) k++;
+        pi[i] = k;
+    }
+    int p = n - pi[n - 1];
+    return p < n && n % p == 0;
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n) time, O(n) space.',
+    testCases: [
+      { input: '"abab"', expected: 'true', why: '"ab" twice' },
+      { input: '"aba"', expected: 'false', why: 'Border "a", but 2 does not divide 3' },
+      { input: '"abcabcabcabc"', expected: 'true', why: '"abc" four times' },
+      { input: '"a"', expected: 'false', why: 'Needs at least two copies' },
+    ],
+    takeawaysMd: 'The prefix function encodes periodicity: the smallest period is n − pi[n − 1]. Many string puzzles reduce to borders.',
+  },
+
+  'the-skyline-problem': {
+    understandMd: 'Given buildings as [left, right, height], return the key points of the outline formed by all buildings: the x-coordinates where the visible height changes, with the new height.',
+    ioConstraintsMd: 'Up to 10⁴ buildings; coordinates up to 2³¹ − 1; sorted by left. Output points must not repeat the same height consecutively.',
+    edgeCases: ['Buildings that touch (end of one = start of another, same height)', 'Nested buildings', 'Two buildings starting at the same x with different heights', 'A single building'],
+    bruteForceMd: 'For every distinct x-coordinate, scan all buildings to find the tallest one covering it, and emit points where the height changes.',
+    bruteComplexity: 'O(n²).',
+    bottleneckMd: 'The tallest active building is recomputed by scanning. A structure that maintains the set of active heights under insertions and deletions answers "current maximum" in O(log n).',
+    hints: [
+      'The outline can change only at building edges. Process those x-coordinates in order.',
+      'At a left edge a height becomes active; at a right edge it stops. You need the maximum of the active heights after each change.',
+      'Use a max-multiset (or a heap with lazy deletion) containing 0. Encode starts as (x, −h) and ends as (x, h) so that sorting puts starts first and taller starts first at equal x.',
+      'for (x, h) in sorted events: if h < 0: add −h else remove one h; cur = max(active); if cur != prev: emit (x, cur); prev = cur',
+    ],
+    optimalMd: 'Sweep over sorted edge events with a multiset of active heights (TreeMap of counts in Java). Emit a key point whenever the maximum changes. The event encoding handles ties without special cases.',
+    code: [
+      cpp(`
+vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+    vector<pair<int, int>> ev;
+    for (auto& b : buildings) { ev.push_back({b[0], -b[2]}); ev.push_back({b[1], b[2]}); }
+    sort(ev.begin(), ev.end());
+    multiset<int> active = {0};
+    vector<vector<int>> out;
+    int prev = 0;
+    for (auto& e : ev) {
+        if (e.second < 0) active.insert(-e.second);
+        else active.erase(active.find(e.second));
+        int cur = *active.rbegin();
+        if (cur != prev) { out.push_back({e.first, cur}); prev = cur; }
+    }
+    return out;
+}`, 'C++'),
+      java(`
+public List<List<Integer>> getSkyline(int[][] buildings) {
+    List<int[]> ev = new ArrayList<>();
+    for (int[] b : buildings) { ev.add(new int[] {b[0], -b[2]}); ev.add(new int[] {b[1], b[2]}); }
+    ev.sort((p, q) -> p[0] != q[0] ? Integer.compare(p[0], q[0]) : Integer.compare(p[1], q[1]));
+    TreeMap<Integer, Integer> active = new TreeMap<>();
+    active.put(0, 1);
+    List<List<Integer>> out = new ArrayList<>();
+    int prev = 0;
+    for (int[] e : ev) {
+        if (e[1] < 0) active.merge(-e[1], 1, Integer::sum);
+        else if (active.merge(e[1], -1, Integer::sum) == 0) active.remove(e[1]);
+        int cur = active.lastKey();
+        if (cur != prev) { out.add(List.of(e[0], cur)); prev = cur; }
+    }
+    return out;
+}`, 'Java'),
+    ],
+    finalComplexity: 'O(n log n) time, O(n) space.',
+    testCases: [
+      { input: '[[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]', expected: '[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]', why: 'LeetCode example' },
+      { input: '[[0,2,3],[2,5,3]]', expected: '[[0,3],[5,0]]', why: 'Touching buildings of the same height' },
+      { input: '[[1,5,4]]', expected: '[[1,4],[5,0]]', why: 'One building' },
+    ],
+    takeawaysMd: 'A sweep line turns a 2-D outline into a sequence of insert/delete events on a 1-D active set. Encode tie-breaking in the event keys rather than in special cases.',
+  },
 };
