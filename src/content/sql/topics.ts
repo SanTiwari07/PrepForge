@@ -5,7 +5,7 @@ import { mcq, sqlCode } from '../helpers';
 // (format: rows separated by newlines, columns by " | ", NULL as "NULL").
 
 const SQLITE_SELECT: Resource = { title: 'SELECT (SQLite docs)', url: 'https://www.sqlite.org/lang_select.html', kind: 'official-docs' };
-const MODE: Resource = { title: 'SQL Tutorial (Mode)', url: 'https://mode.com/sql-tutorial', kind: 'course' };
+const MODE: Resource = { title: 'SQL Tutorial (ThoughtSpot, formerly Mode)', url: 'https://www.thoughtspot.com/sql-tutorial', kind: 'course' };
 const LC_SQL50: Resource = { title: 'LeetCode SQL 50 study plan', url: 'https://leetcode.com/studyplan/top-sql-50/', kind: 'practice', httpVerifiable: false };
 const MASTERY = { testSize: 6, testMinutes: 10, passPct: 80, minIndependentSolves: 2, minMediumIndependent: 1, retentionDays: 7 };
 
@@ -280,7 +280,7 @@ For INNER joins, ON and WHERE are equivalent.` },
     { id: 'f4', front: 'FULL OUTER JOIN in MySQL?', backMd: 'LEFT JOIN UNION RIGHT JOIN.' },
     { id: 'f5', front: 'Semi-join without duplicates?', backMd: 'WHERE EXISTS (correlated subquery).' },
   ] },
-  resources: [{ title: 'Join types (Mode SQL tutorial)', url: 'https://mode.com/sql-tutorial/sql-joins', kind: 'course' }, SQLITE_SELECT, LC_SQL50],
+  resources: [{ title: 'Join types (ThoughtSpot SQL tutorial)', url: 'https://www.thoughtspot.com/sql-tutorial/sql-joins', kind: 'course' }, SQLITE_SELECT, LC_SQL50],
 });
 
 const jnMcqs: MCQ[] = [
@@ -429,7 +429,7 @@ WHERE e.salary > (SELECT AVG(e2.salary)
     { id: 'f4', front: 'Define a correlated subquery.', backMd: 'A subquery that references the outer query row.' },
     { id: 'f5', front: 'NULL-safe "not in B"?', backMd: 'NOT EXISTS (… WHERE b.k = a.k).' },
   ] },
-  resources: [{ title: 'Subqueries (Mode SQL tutorial)', url: 'https://mode.com/sql-tutorial/sql-sub-queries', kind: 'course' }, SQLITE_SELECT],
+  resources: [{ title: 'Subqueries (ThoughtSpot SQL tutorial)', url: 'https://www.thoughtspot.com/sql-tutorial/sql-subquery', kind: 'course' }, SQLITE_SELECT],
 });
 
 const sqMcqs: MCQ[] = [

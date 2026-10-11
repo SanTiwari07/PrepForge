@@ -62,7 +62,7 @@ int main() {
     { id: 'f4', front: 'Zombie process?', backMd: 'It exited, but the parent has not called wait().' },
     { id: 'f5', front: 'Why is a process switch costlier than a thread switch?', backMd: 'The address space changes too (page tables, TLB).' },
   ] },
-  resources: [OSTEP, { title: 'fork(2) Linux manual page', url: 'https://man7.org/linux/man-pages/man2/fork.2.html', kind: 'official-docs' }],
+  resources: [OSTEP, { title: 'fork(2) manual page', url: 'https://man.archlinux.org/man/fork.2', kind: 'official-docs' }],
 });
 
 const ptMcqs: MCQ[] = [

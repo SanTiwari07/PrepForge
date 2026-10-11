@@ -13,7 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "build:problems": "node scripts/build-problem-bank.mjs",
-    "check:links": "node scripts/check-links.mjs",
+    "check:links": "vite-node scripts/check-links.ts",
     "verify:code": "vite-node scripts/verify-code.ts"
   },
   "dependencies": {

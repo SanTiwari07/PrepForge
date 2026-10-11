@@ -66,7 +66,7 @@ echo "backed up to $backup_dir"`, 'Bash')] },
     { id: 'f4', front: 'x permission on a directory means?', backMd: 'Permission to enter/traverse it.' },
     { id: 'f5', front: 'Redirect stdout and stderr to one file?', backMd: '`cmd > file 2>&1`.' },
   ] },
-  resources: [{ title: 'The Linux Command Line (free book)', url: 'https://linuxcommand.org/tlcl.php', kind: 'book' }, { title: 'signal(7) Linux manual page', url: 'https://man7.org/linux/man-pages/man7/signal.7.html', kind: 'official-docs' }],
+  resources: [{ title: 'The Linux Command Line (free book)', url: 'https://linuxcommand.org/tlcl.php', kind: 'book' }, { title: 'signal(7) manual page', url: 'https://man.archlinux.org/man/signal.7', kind: 'official-docs' }],
 });
 
 const lxMcqs: MCQ[] = [
