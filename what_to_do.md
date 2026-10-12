@@ -9,10 +9,10 @@
 |---|---|
 | Product name | **PrepForge** (the working name "PlacementOS" was replaced at the user's request) |
 | Repository | `https://github.com/SanTiwari07/PrepForge.git` (public), branch `main`, local folder `D:\Projects\PlacementResource` |
-| Last updated | 2026-10-11 (session 2, continued: content for all 10 subjects, link checker, verifier upgrades) |
+| Last updated | 2026-10-12 (session 3: per-module content loading, Playwright e2e + axe, WSL g++ verification, all 40 DSA topics, curated problems, GraphQL link checks) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
-| Current phase | Phase 9, Content expansion (Phases 0–4 done; every subject now has complete topics; remaining topics are honestly labelled Planned) |
-| Overall status | Working app with **64 complete topics out of 173 catalogued** (DSA 15/40, SQL 6/14, DBMS 6/16, C++ 5/15, Java 5/15, CN 7/17, OS 6/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **412 MCQs**, 383-problem bank, **34 coach walkthroughs**, SQL lab with real execution (33 exercises), OA centre, revision (SM-2), readiness, companies, mocks, 4 tools. 190 tests pass; 202 C++/Java samples compile (and run where output is claimed); 103/108 links verified automatically, 5 bot-walled pages checked manually. |
+| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA complete (40/40)**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
+| Overall status | Working app with **89 complete topics out of 173 catalogued** (DSA 40/40, SQL 6/14, DBMS 6/16, C++ 5/15, Java 5/15, CN 7/17, OS 6/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **612 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (33 exercises), OA centre, revision (SM-2), readiness, companies, mocks, 4 tools. 191 unit tests and 31 Playwright e2e tests pass; 362 C++/Java samples compile (and run where output is claimed), 0 skipped; 168/171 links verified automatically, 3 bot-walled pages checked manually. |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -57,9 +57,11 @@ Never tick a box for a feature that only exists as a mockup.
 
 **Next actions (in order):**
 
-1. Content (Phase 9): write lessons, MCQs and interview questions for the next DSA topics in roadmap order (arrays-strings, stl-collections, prefix-sums, stacks-queues, linked-lists, binary-trees, …), plus authored walkthroughs for the remaining Blind 75 problems.
-2. Content (Phases 5C/6/7): SQL lessons, DBMS concepts with MCQs, OOP C++/Java topics with compile-verified output questions, OS, CN, System Design foundations.
-3. QA (Phase 10): Playwright e2e for the core flows, link checker, a visual pass at 1920 and 2560.
+1. Content (Phase 5): the 8 planned SQL lessons (self joins, set operations, CASE, CTEs, dates/strings, patterns, DML/DDL, EXPLAIN) and SQL exercises towards 120 (33 now); add datasets `rides`, `social`, `ledger`.
+2. Content (Phases 5C/6/7): remaining DBMS, C++, Java, CN, OS, System Design (foundations + case studies), DevOps and Core CS topics, in catalog order.
+3. Walkthroughs: the 43 Blind 75 problems still without one (Problem bank → list Blind 75, coach "Pattern guidance"), then NeetCode 150.
+4. Performance: the DSA pack is 264 KB gzip (B14); split it per topic or move walkthroughs into their own chunk.
+5. `scripts/verify-sql-mysql.mjs` with Docker `mysql:8.0` (Docker Desktop is installed but was not started in session 3).
 
 ---
 
@@ -1055,8 +1057,8 @@ Depends on: nothing.
 
 - [x] `git init`, `.gitignore`, initial commit containing `DESIGN.md`, `what_to_do.md` and `research/`, pushed to `origin main` (done in session 1)
 - [x] Scaffold Vite + React + TS (strict) in place (do not overwrite `DESIGN.md` or `research/`)
-- [x] (PARTIAL: Playwright and Prettier not installed yet) Add dependencies: react-router-dom, zustand, lucide-react, marked, highlight.js, sql.js; dev: vitest, @testing-library/react, jsdom, playwright, eslint (+ typescript-eslint, react-hooks, jsx-a11y), prettier, tsx
-- [x] (PARTIAL: `test:e2e` and `check:links` not written yet; content validation runs inside `npm test`) Scripts: `dev`, `build`, `preview`, `typecheck`, `lint`, `test`, `test:e2e`, `validate:content`, `verify:code`, `check:links`, `build:problems`
+- [x] (PARTIAL: Prettier not installed; Playwright 1.64 + axe added in session 3) Add dependencies: react-router-dom, zustand, lucide-react, marked, highlight.js, sql.js; dev: vitest, @testing-library/react, jsdom, playwright, eslint (+ typescript-eslint, react-hooks, jsx-a11y), prettier, tsx
+- [x] (`validate:content` runs inside `npm test`; `build:index` added in session 3) Scripts: `dev`, `build`, `preview`, `typecheck`, `lint`, `test`, `test:e2e`, `validate:content`, `verify:code`, `check:links`, `build:problems`
 - [x] `src/styles/tokens.css` from DESIGN.md with the Section 10 adaptations (contrast-checked)
 - [x] `.claude/launch.json` for the preview server (dev on port 5173)
 - [x] A short `README.md` (run, build, data storage, limitations), pointing to this file
@@ -1193,8 +1195,8 @@ Depends on: Phases 3–4; company research tasks in Phase R.
 
 Depends on: the respective module phases.
 
-- [ ] All 40 DSA topics Complete (15/40)
-- [ ] Authored walkthroughs for all Blind 75 problems, then all NeetCode 150 (34 authored)
+- [x] All 40 DSA topics Complete (40/40, session 3)
+- [ ] Authored walkthroughs for all Blind 75 problems, then all NeetCode 150 (59 authored: Blind 75 32/75, NeetCode 150 51/150)
 - [ ] SQL/DBMS, OOP, CN, OS, SD and DevOps topics all Complete
 - [ ] Recognition drill bank (≥ 100 "which pattern?" items from problem summaries)
 
@@ -1202,11 +1204,11 @@ Depends on: the respective module phases.
 
 Depends on: everything shipped.
 
-- [ ] Full test suite, lint, typecheck, production build
-- [ ] Playwright e2e for the core flows (Section 14) plus viewport screenshots at 7 widths
-- [ ] Accessibility pass (axe via Playwright, keyboard-only walkthrough, contrast)
-- [ ] Link check passes; console free of errors and warnings on all routes (link check passes via `npm run check:links` with 0 broken; console sweep pending for the new content)
-- [ ] Performance: initial JS under ~400KB gzip excluding content chunks; sql.js lazy-loaded; content split per module if needed
+- [x] Full test suite, lint, typecheck (app + e2e), production build (session 3)
+- [x] Playwright e2e for the core flows (Section 14) plus viewport screenshots at 7 widths (`e2e/`, runs on the production build in the installed Chrome; screenshots in `test-results/screens`)
+- [x] (PARTIAL: full keyboard-only walkthrough of every flow not done) Accessibility pass: axe (WCAG 2.1 AA) on 14 routes with no serious/critical violations, skip-link test, a tab-count contrast bug fixed
+- [x] Link check passes (LeetCode links via GraphQL; 0 broken); e2e flows and the 7-width sweep fail on any console error or page error
+- [x] (PARTIAL: DSA pack is 264 KB gzip, see B14) Performance: eager JS ≈ 186 KB gzip (app 27, React 68, content index 70, problem bank 21); module packs load on demand; sql.js lazy-loaded
 - [ ] README: run, deploy, storage, limitations; update this file
 
 ### Phase 11: Optional integrations (P2, all optional; the app must work without them)
@@ -1262,6 +1264,12 @@ as Planned.
 | 2026-10-11 | `npm run check:links` | 108 links: 103 OK, 0 broken, 5 bot-walled (LeetCode study plans, Cloudflare Learning; the Cloudflare pages returned HTTP 200 in the browser) |
 | 2026-10-11 | `npx vite build` | Pass (content chunk 932 KB, gzip 266 KB; app chunk gzip 28 KB) |
 | 2026-10-11 | Manual browser QA (built-in browser) | 29 routes render without errors at 320 px with no horizontal overflow (a plan-page overflow was fixed); onboarding, MCQ, SQL grading (a wrong `NOT IN` was caught on hidden data) and the OA flow (reload-resume, submit, results) checked at 1440 px |
+| 2026-10-12 | `npm run verify:code` | 362 C++/Java samples, 0 failures, 0 skipped (3 compiled and run with WSL g++ 15.2) |
+| 2026-10-12 | `npx vitest run` | 191/191 pass (11 files; new: content-index staleness test) |
+| 2026-10-12 | `npm run test:e2e` | 31/31 pass in Chrome on the production build: 8 core flows (onboarding, topic MCQ + reload, coach → revision card due tomorrow, OA mark/reload/auto-submit with an independently recomputed score, SQL wrong → right, export/reset/import, mobile drawer, search), overflow + screenshots at 320/375/768/1024/1440/1920/2560, axe on 14 routes, skip link |
+| 2026-10-12 | `npm run check:links` | 171 links: 168 OK (LeetCode via GraphQL), 0 broken, 3 bot-walled (Cloudflare Learning, browser-checked) |
+| 2026-10-12 | `npx vite build` | Pass. Eager JS ≈ 186 KB gzip; packs load on demand (DSA 264 KB gzip, others 10–19 KB) |
+| 2026-10-12 | `node research/scripts/verify-curated.mjs` | 74 curated problems verified via LeetCode GraphQL, 0 failed |
 
 ---
 
@@ -1299,9 +1307,10 @@ The project is complete only when **all** of these are verified:
 | B7 | No AI API configured | No interactive AI coach | Deterministic coach in v1; optional proxy in Phase 11 |
 | B8 | localStorage is per-browser and per-device | Progress is not synced; clearing site data deletes it | Export/import JSON; warn in Settings; optional cloud sync (Phase 11) |
 | B9 | The Meta Full Loop guide is a PDF download | Meta rounds unverified | Ask the user before downloading; label as unverified meanwhile |
-| B11 | Local g++ (MinGW 6.3, win32 threads) lacks `<mutex>`/`<condition_variable>` and POSIX headers; WSL Ubuntu has no g++ | 3 lesson snippets (fork, bounded queue, lock ordering) cannot be compiled locally | The verifier reports them as SKIP, never as passed. Fix: install a modern GCC (MSYS2 with posix threads, or `apt install g++` in WSL) and re-run `npm run verify:code` |
+| B11 | ~~Local MinGW g++ lacks `<mutex>` and POSIX headers~~ **Resolved (session 3)** | none | g++ 15 installed in WSL Ubuntu; `verify-code.ts` compiles samples needing those capabilities there (3 samples), so 0 are skipped |
 | B12 | man7.org is unreachable from this network and the browser; Cloudflare Learning returns 403 to scripts | Those links cannot be auto-checked | man7 links replaced with man.archlinux.org pages (verified 200); Cloudflare listed as bot-walled in the checker after a manual browser check |
-| B13 | The content bundle is one 932 KB chunk (266 KB gzip) | Slower first load on mobile | Split content per module with dynamic imports (Phase 10 performance task) |
+| B13 | ~~One 932 KB content chunk~~ **Resolved (session 3)** | none | Per-module packs loaded on demand (`src/content/loader.ts`); eager metadata in `index.generated.ts` (regenerated by `npm run build:index`, staleness-tested) |
+| B14 | The DSA pack is 859 KB (264 KB gzip) after completing all 40 topics | Opening any DSA page downloads all DSA lessons and walkthroughs | Split DSA per topic or put walkthroughs in their own lazily loaded chunk |
 | B10 | sql.js uses SQLite, while LeetCode and most OAs default to MySQL | Some syntax and behaviour differ | Dual reference solutions; every MySQL solution verified offline on MySQL 8.0 (Docker); clear "where it was executed" labels (Section 8.2.4) |
 
 ---
@@ -1332,6 +1341,12 @@ The project is complete only when **all** of these are verified:
 | 2026-10-11 | Numeric answers in OS/CN/SD/DBMS MCQs are cross-checked in unit tests against the in-app simulators or direct computation; SQL output MCQs are executed in sql.js; Git facts are checked against real git | Content correctness is tested, not assumed |
 | 2026-10-11 | Toolchain gaps are reported as SKIP by the verifier, never as passes | Honesty rule: no verified claim without an actual run |
 | 2026-10-11 | **Scope: fresher / new-grad placement at big product companies only. No college syllabus, assignments or exam prep**; college material is never imported. Depth everywhere follows new-grad interview and OA expectations, with senior-level material only in labelled advanced tracks | User instruction |
+| 2026-10-12 | Content ships as per-module packs loaded on demand; a generated metadata index (`index.generated.ts`) is eager and a test fails if it is stale | One 932 KB bundle slowed first load; all pages still need topic/MCQ metadata synchronously |
+| 2026-10-12 | Tests and scripts import full content from `src/content/all.ts`; the app never does | Keeps the eager bundle small while tests still check everything |
+| 2026-10-12 | E2E runs on the production build in the locally installed Chrome (`channel: chrome`) | No browser download needed; tests what users get |
+| 2026-10-12 | Curated problems outside the public lists are allowed only via `research/scripts/verify-curated.mjs` (GraphQL-verified) and carry the "Curated" badge | Several topics (MST, Fenwick, advanced graphs) had too few list problems; never invent slugs |
+| 2026-10-12 | LeetCode links are verified through GraphQL in the link checker | leetcode.com returns 403 to scripts; GraphQL is the same verification used for the research data |
+| 2026-10-12 | Samples needing threads/POSIX are compiled with WSL g++ | Local MinGW lacks those headers; skipped samples are never counted as verified |
 
 ---
 
@@ -1343,3 +1358,4 @@ The project is complete only when **all** of these are verified:
 | 2 | 2026-10-11 | Implemented Phases 0–4 and the Phase 5 engine: full app, 5 complete DSA topics, 14 walkthroughs, 33 SQL exercises, tools, 134 tests and the code verifier. Manual QA in the browser (see the Test log). |
 | 1b | 2026-10-11 | Drafted a college + placement SQL/DBMS plan; the user then rejected the college scope. Rewrote SQL/DBMS (Section 8.2, 6.3, Phase 5) for fresher placement only and removed all college material from the plan. Added the verified LeetCode Database list (323; 105 free). No app code written. |
 | 2c | 2026-10-11 | Autonomous content run (user away): DSA topics 5 to 15 and walkthroughs 14 to 34; SQL lessons (6), DBMS (6), OOP C++ (5) and Java (5) with compiler-verified questions; then OS (6), CN (7), System Design (7), DevOps (4) and Core CS (3). Added fact tests, the toolchain-capability probe, section-program execution in the verifier, and `scripts/check-links.ts`. All pushed. |
+| 3 | 2026-10-12 | Resolved B11 (WSL g++) and B13 (per-module content packs). Added the Playwright e2e suite with axe and a 7-width sweep, which found and fixed a contrast bug and a search bug (hover stole the keyboard selection). Verified 74 curated problems via GraphQL (bank 383 → 417). Wrote the remaining 25 DSA topics (DSA 40/40) with 200+ MCQs and 25 walkthroughs, all compiler-verified, with numeric answers cross-checked by script. Link checker now verifies LeetCode via GraphQL. Not done: SQL/DBMS/OOP/CN/OS/SD/DevOps remaining topics, SQL exercises to 120, MySQL verification, B14. The history-rewrite question (institute name in commit `92c5b9c`) still needs the user's decision. |
