@@ -42,3 +42,54 @@ describe('DBMS schedule MCQ facts (schedule analyser)', () => {
     expect([r.recoverable, r.cascadeless]).toEqual([true, false]);
   });
 });
+
+import { MCQ_BY_ID } from '@/content/all';
+const answerOf = (id: string): string => {
+  const m = MCQ_BY_ID.get(id);
+  if (!m) throw new Error(`no MCQ ${id}`);
+  return m.options.find((o) => o.id === m.correct[0])!.textMd;
+};
+
+describe('Extra DBMS MCQ facts (dbms.xm.*)', () => {
+  it('dbms.xm.q1: A → B, B → C, C → D: one key {A}; {B}+ = {B, C, D}', () => {
+    const r = parse('A B C D', 'A -> B\nB -> C\nC -> D');
+    expect(candidateKeys(r.attrs, r.fds).map((k) => k.join(''))).toEqual(['A']);
+    expect(closure(['B'], r.fds).result.sort()).toEqual(['B', 'C', 'D']);
+    expect(answerOf('dbms.xm.q1')).toContain('One candidate key');
+  });
+  it('dbms.xm.q2: AB → C, C → D, D → A: keys AB, BC, BD', () => {
+    const r = parse('A B C D', 'A B -> C\nC -> D\nD -> A');
+    const keys = candidateKeys(r.attrs, r.fds).map((k) => k.join('')).sort();
+    expect(keys).toEqual(['AB', 'BC', 'BD']);
+    expect(answerOf('dbms.xm.q2')).toContain('3');
+  });
+  it('dbms.xm.q3: AB → C, C → D is in 2NF but not 3NF', () => {
+    const r = parse('A B C D', 'A B -> C\nC -> D');
+    expect(candidateKeys(r.attrs, r.fds).map((k) => k.join(''))).toEqual(['AB']);
+    expect(normalForm(r.attrs, r.fds).highest).toBe('2NF');
+  });
+  it('dbms.xm.q4: (A, B) + (A, C) is lossless when A → B', () => {
+    const r = parse('A B C', 'A -> B');
+    expect(isLosslessBinary(['A', 'B'], ['A', 'C'], r.attrs, r.fds)).toBe(true);
+  });
+  it('dbms.xm.q5: |R × S| = 4,000', () => {
+    expect(100 * 40).toBe(4000);
+    expect(answerOf('dbms.xm.q5')).toContain('4,000');
+  });
+  it('dbms.xm.q6: 10^6 keys with fan-out 100 → 3 levels; 10^6 / 100 rows per page = 10,000 pages', () => {
+    let levels = 0;
+    for (let reach = 1; reach < 1e6; reach *= 100) levels++;
+    expect(levels).toBe(3);
+    expect(1e6 / 100).toBe(10000);
+    expect(answerOf('dbms.xm.q6')).toContain('About 4');
+  });
+  it('dbms.xm.q10: T1 → T2 → T3 → T1 is a cycle in the wait-for graph', () => {
+    const edges: Record<string, string[]> = { T1: ['T2'], T2: ['T3'], T3: ['T1'] };
+    const hasCycle = (start: string) => { const seen = new Set<string>(); let cur = start; while (edges[cur]) { if (seen.has(cur)) return true; seen.add(cur); cur = edges[cur][0]; } return false; };
+    expect(hasCycle('T1')).toBe(true);
+  });
+  it('dbms.xm.q12: 4 transactions have 4! = 24 serial schedules', () => {
+    expect([1, 2, 3, 4].reduce((a, b) => a * b, 1)).toBe(24);
+    expect(answerOf('dbms.xm.q12')).toBe('24');
+  });
+});

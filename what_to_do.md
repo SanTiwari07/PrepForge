@@ -13,7 +13,7 @@
 | Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 26/26 plus 6 LLD problems, DevOps 11/11, Core CS 4/4 (all 179 catalogued topics Complete), schedule analyser, Vercel blank-page fix) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
 | Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32, DevOps 11/11, Core CS 4/4 complete: every catalogued topic**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
-| Overall status | Working app with **179 complete topics out of 179 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32 including the 6-problem LLD practice set, DevOps 11/11, Core CS 4/4), **1,208 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 402 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 489 C++/Java samples compile (and run where output is claimed), 0 skipped; 350/356 links checked automatically (1 csapp.cs.cmu.edu outage, 5 bot-walled Cloudflare pages). |
+| Overall status | Working app with **179 complete topics out of 179 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32 including the 6-problem LLD practice set, DevOps 11/11, Core CS 4/4), **1,227 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 417 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 489 C++/Java samples compile (and run where output is claimed), 0 skipped; 350/356 links checked automatically (1 csapp.cs.cmu.edu outage, 5 bot-walled Cloudflare pages). |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -59,11 +59,10 @@ Never tick a box for a feature that only exists as a mockup.
 **Next actions (in order):**
 
 1. Content is complete for every catalogued topic (179/179). What remains is depth, tools and polish, in this order:
-2. Quick win: 19 more SQL/DBMS MCQs to reach 200 (181 now).
-3. SQL/DBMS gaps: exercises towards 120 (74 now), isolation-anomaly simulator and B+ tree visualiser.
-4. Walkthroughs: the 43 Blind 75 problems still without one (Problem bank → list Blind 75, coach "Pattern guidance"), then NeetCode 150.
-5. Performance: the DSA pack is 264 KB gzip (B14) and the eager content index is now 125 KB gzip (B15); split the DSA pack per topic or move walkthroughs into their own chunk, and load index metadata per module. Any new lazy chunk must follow `chunking.ts` (the guard test fails if the eager import graph reaches a lazy pack, which caused the session-4 blank page in production).
-6. `scripts/verify-sql-mysql.mjs` with Docker `mysql:8.0` (Docker Desktop is installed but was not started in session 3).
+2. SQL/DBMS gaps: exercises towards 120 (74 now), isolation-anomaly simulator and B+ tree visualiser.
+3. Walkthroughs: the 43 Blind 75 problems still without one (Problem bank → list Blind 75, coach "Pattern guidance"), then NeetCode 150.
+4. Performance: the DSA pack is 264 KB gzip (B14) and the eager content index is now 125 KB gzip (B15); split the DSA pack per topic or move walkthroughs into their own chunk, and load index metadata per module. Any new lazy chunk must follow `chunking.ts` (the guard test fails if the eager import graph reaches a lazy pack, which caused the session-4 blank page in production).
+5. `scripts/verify-sql-mysql.mjs` with Docker `mysql:8.0` (Docker Desktop is installed but was not started in session 3).
 
 ---
 
@@ -1146,7 +1145,7 @@ sets in OAs. Full specification: Section 8.2.
 
 **5C. Concepts (P0)**
 - [x] Notes for every P0 concept topic in 8.2.2 (definitions, worked examples, diagrams for B+ trees, isolation anomalies and schedules, common mistakes, revision notes, flashcards)
-- [ ] (PARTIAL: 181 MCQs, 126 interview questions) ≥ 200 MCQs and ≥ 80 interview questions with model answers
+- [x] 200 SQL/DBMS MCQs (91 SQL with 29 executed in SQLite, 109 DBMS) and 126 interview questions with model answers
 
 **5D. Tools (P1)**
 - [x] FD toolkit + tests

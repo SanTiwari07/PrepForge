@@ -591,6 +591,13 @@ const MCQ_META_1: McqMeta[] = [
   {"id":"sql.ex.q4","topicIds":["sql.explain-optimisation"],"moduleId":"sql","type":"scenario","difficulty":"medium","verified":"reviewed","title":"A feed uses ORDER BY id LIMIT 20 OFFSET 200000 and page loads get slower the deeper users "},
   {"id":"sql.ex.q5","topicIds":["sql.explain-optimisation"],"moduleId":"sql","type":"concept","difficulty":"medium","verified":"reviewed","title":"Why might the optimiser choose a full table scan even though status is indexed and the que"},
   {"id":"sql.ex.q6","topicIds":["sql.explain-optimisation"],"moduleId":"sql","type":"concept","difficulty":"hard","verified":"reviewed","title":"What is a covering index for SELECT orderdate, total FROM orders WHERE customerid = ? ORDE"},
+  {"id":"sql.xm.q1","topicIds":["sql.window-functions"],"moduleId":"sql","type":"code-output","difficulty":"medium","verified":"executed","title":"What does the query return for the row of student c?"},
+  {"id":"sql.xm.q2","topicIds":["sql.null-handling"],"moduleId":"sql","type":"code-output","difficulty":"hard","verified":"executed","title":"What does the final query return?"},
+  {"id":"sql.xm.q3","topicIds":["sql.joins"],"moduleId":"sql","type":"code-output","difficulty":"medium","verified":"executed","title":"What does the final query return?"},
+  {"id":"sql.xm.q4","topicIds":["sql.aggregation"],"moduleId":"sql","type":"code-output","difficulty":"medium","verified":"executed","title":"What does the final query return?"},
+  {"id":"sql.xm.q5","topicIds":["sql.set-operations"],"moduleId":"sql","type":"code-output","difficulty":"easy","verified":"executed","title":"What does the final query return?"},
+  {"id":"sql.xm.q6","topicIds":["sql.case-conditional-agg"],"moduleId":"sql","type":"code-output","difficulty":"medium","verified":"executed","title":"What does the final query return?"},
+  {"id":"sql.xm.q7","topicIds":["sql.window-functions"],"moduleId":"sql","type":"code-output","difficulty":"medium","verified":"executed","title":"What does the final query return?"},
   {"id":"dbms.kc.q1","topicIds":["dbms.keys-constraints"],"moduleId":"dbms","type":"concept","difficulty":"easy","verified":"reviewed","title":"In Users(id, email, name) where both id and email are unique, which statement is true?"},
   {"id":"dbms.kc.q2","topicIds":["dbms.keys-constraints"],"moduleId":"dbms","type":"scenario","difficulty":"medium","verified":"reviewed","title":"Deleting an orders row should also delete its orderitems. Which foreign key option on orde"},
   {"id":"dbms.kc.q3","topicIds":["dbms.keys-constraints"],"moduleId":"dbms","type":"concept","difficulty":"easy","verified":"reviewed","title":"Which constraint is implied by PRIMARY KEY but not by UNIQUE?"},
@@ -682,16 +689,28 @@ const MCQ_META_1: McqMeta[] = [
   {"id":"dbms.qp.q4","topicIds":["dbms.query-processing"],"moduleId":"dbms","type":"scenario","difficulty":"medium","verified":"reviewed","title":"EXPLAIN ANALYZE shows a step estimated at 100 rows that actually produced 2 million. What "},
   {"id":"dbms.qp.q5","topicIds":["dbms.query-processing"],"moduleId":"dbms","type":"concept","difficulty":"medium","verified":"reviewed","title":"Why is choosing the join order important for a 5-table query?"},
   {"id":"dbms.qp.q6","topicIds":["dbms.query-processing"],"moduleId":"dbms","type":"concept","difficulty":"hard","verified":"reviewed","title":"Which operator is blocking (must consume its whole input before producing output) in the i"},
+];
+
+const MCQ_META_2: McqMeta[] = [
   {"id":"dbms.dt.q1","topicIds":["dbms.distributed-transactions"],"moduleId":"dbms","type":"concept","difficulty":"medium","verified":"reviewed","title":"In 2PC, a participant has voted yes and then loses contact with the coordinator. What may "},
   {"id":"dbms.dt.q2","topicIds":["dbms.distributed-transactions"],"moduleId":"dbms","type":"design","difficulty":"medium","verified":"reviewed","title":"In an order saga, payment succeeded but stock reservation failed. What happens next?"},
   {"id":"dbms.dt.q3","topicIds":["dbms.distributed-transactions"],"moduleId":"dbms","type":"scenario","difficulty":"medium","verified":"reviewed","title":"A service saves an order and then publishes an event to Kafka. Sometimes events are missin"},
   {"id":"dbms.dt.q4","topicIds":["dbms.distributed-transactions"],"moduleId":"dbms","type":"concept","difficulty":"easy","verified":"reviewed","title":"Which property do sagas NOT provide?"},
   {"id":"dbms.dt.q5","topicIds":["dbms.distributed-transactions"],"moduleId":"dbms","type":"concept","difficulty":"medium","verified":"reviewed","title":"Why must event consumers be idempotent when using the outbox pattern?"},
   {"id":"dbms.dt.q6","topicIds":["dbms.distributed-transactions"],"moduleId":"dbms","type":"concept","difficulty":"medium","verified":"reviewed","title":"Orchestration vs choreography: which statement is correct?"},
+  {"id":"dbms.xm.q1","topicIds":["dbms.functional-dependencies"],"moduleId":"dbms","type":"concept","difficulty":"medium","verified":"reviewed","title":"R(A, B, C, D) has the FDs A → B, B → C and C → D. How many candidate keys does R have, and"},
+  {"id":"dbms.xm.q2","topicIds":["dbms.functional-dependencies"],"moduleId":"dbms","type":"concept","difficulty":"hard","verified":"reviewed","title":"R(A, B, C, D) has the FDs AB → C, C → D and D → A. How many candidate keys does R have?"},
+  {"id":"dbms.xm.q3","topicIds":["dbms.normalisation"],"moduleId":"dbms","type":"concept","difficulty":"hard","verified":"reviewed","title":"R(A, B, C, D) has the FDs AB → C and C → D. What is its highest normal form?"},
+  {"id":"dbms.xm.q4","topicIds":["dbms.normalisation"],"moduleId":"dbms","type":"concept","difficulty":"medium","verified":"reviewed","title":"R(A, B, C) with the FD A → B is decomposed into R1(A, B) and R2(A, C). Is the decompositio"},
+  {"id":"dbms.xm.q5","topicIds":["dbms.relational-algebra"],"moduleId":"dbms","type":"complexity","difficulty":"medium","verified":"reviewed","title":"Relation R has 100 tuples and S has 40 tuples. What is the cardinality of R × S, and what "},
+  {"id":"dbms.xm.q6","topicIds":["dbms.indexing"],"moduleId":"dbms","type":"complexity","difficulty":"medium","verified":"reviewed","title":"A table has 1,000,000 rows, a B+ tree index with fan-out 100, and 100 rows per data page. "},
+  {"id":"dbms.xm.q7","topicIds":["dbms.transactions-acid"],"moduleId":"dbms","type":"scenario","difficulty":"easy","verified":"reviewed","title":"A transfer debits account A, the server crashes, and after restart account A is debited bu"},
+  {"id":"dbms.xm.q8","topicIds":["dbms.isolation-concurrency"],"moduleId":"dbms","type":"scenario","difficulty":"medium","verified":"reviewed","title":"T1 runs SELECT COUNT() FROM orders WHERE status = 'open' twice. Between the two reads, T2 "},
+  {"id":"dbms.xm.q9","topicIds":["dbms.isolation-concurrency"],"moduleId":"dbms","type":"concept","difficulty":"medium","verified":"reviewed","title":"Which statement about strict two-phase locking (strict 2PL) is correct?"},
+  {"id":"dbms.xm.q10","topicIds":["dbms.deadlocks"],"moduleId":"dbms","type":"scenario","difficulty":"medium","verified":"reviewed","title":"In the wait-for graph, T1 waits for T2, T2 waits for T3, and T3 waits for T1. What does th"},
+  {"id":"dbms.xm.q11","topicIds":["dbms.storage-recovery"],"moduleId":"dbms","type":"concept","difficulty":"medium","verified":"reviewed","title":"Why does write-ahead logging require the log record to reach disk before the corresponding"},
+  {"id":"dbms.xm.q12","topicIds":["dbms.serialisability"],"moduleId":"dbms","type":"complexity","difficulty":"easy","verified":"reviewed","title":"How many different serial schedules exist for 4 transactions?"},
   {"id":"cpp.cd.q1","topicIds":["cpp.constructors-destructors"],"moduleId":"oop-cpp","type":"code-output","difficulty":"medium","verified":"compiled","title":"What does this program print?"},
-];
-
-const MCQ_META_2: McqMeta[] = [
   {"id":"cpp.cd.q2","topicIds":["cpp.constructors-destructors"],"moduleId":"oop-cpp","type":"code-output","difficulty":"easy","verified":"compiled","title":"What does this program print?"},
   {"id":"cpp.cd.q3","topicIds":["cpp.constructors-destructors"],"moduleId":"oop-cpp","type":"compile-error","difficulty":"medium","verified":"reviewed","title":"Why does this fail to compile?"},
   {"id":"cpp.cd.q4","topicIds":["cpp.constructors-destructors"],"moduleId":"oop-cpp","type":"code-output","difficulty":"hard","verified":"compiled","title":"The initialiser list names a before b. What does this program print?"},
@@ -923,6 +942,9 @@ const MCQ_META_2: McqMeta[] = [
   {"id":"cn.ad.q2","topicIds":["cn.arp-icmp-dhcp"],"moduleId":"cn","type":"concept","difficulty":"easy","verified":"reviewed","title":"What is the order of DHCP messages when a client joins a network?"},
   {"id":"cn.ad.q3","topicIds":["cn.arp-icmp-dhcp"],"moduleId":"cn","type":"concept","difficulty":"medium","verified":"reviewed","title":"How does traceroute discover each router on the path?"},
   {"id":"cn.ad.q4","topicIds":["cn.arp-icmp-dhcp"],"moduleId":"cn","type":"scenario","difficulty":"medium","verified":"reviewed","title":"A user's laptop shows the address 169.254.17.3 and cannot reach anything. Most likely caus"},
+];
+
+const MCQ_META_3: McqMeta[] = [
   {"id":"cn.ad.q5","topicIds":["cn.arp-icmp-dhcp"],"moduleId":"cn","type":"scenario","difficulty":"hard","verified":"reviewed","title":"After a firewall change that drops all ICMP, users can connect to a VPN-backed site and lo"},
   {"id":"cn.ad.q6","topicIds":["cn.arp-icmp-dhcp"],"moduleId":"cn","type":"scenario","difficulty":"medium","verified":"reviewed","title":"On a café Wi-Fi, an attacker sends ARP replies claiming to own the gateway's IP. What is t"},
   {"id":"cn.rt.q1","topicIds":["cn.routing-switching"],"moduleId":"cn","type":"scenario","difficulty":"medium","verified":"reviewed","title":"Routes: 10.0.0.0/8 → A, 10.1.0.0/16 → B, 10.1.2.0/24 → C, 0.0.0.0/0 → D. Where does a pack"},
@@ -942,9 +964,6 @@ const MCQ_META_2: McqMeta[] = [
   {"id":"cn.fc.q3","topicIds":["cn.flow-congestion"],"moduleId":"cn","type":"concept","difficulty":"medium","verified":"reviewed","title":"Under TCP Reno, the sender receives three duplicate ACKs while cwnd = 20 MSS. What happens"},
   {"id":"cn.fc.q4","topicIds":["cn.flow-congestion"],"moduleId":"cn","type":"concept","difficulty":"easy","verified":"reviewed","title":"What limits how much unacknowledged data a TCP sender may have in flight?"},
   {"id":"cn.fc.q5","topicIds":["cn.flow-congestion"],"moduleId":"cn","type":"concept","difficulty":"easy","verified":"reviewed","title":"Which statement is correct?"},
-];
-
-const MCQ_META_3: McqMeta[] = [
   {"id":"cn.fc.q6","topicIds":["cn.flow-congestion"],"moduleId":"cn","type":"complexity","difficulty":"medium","verified":"reviewed","title":"What is the bandwidth-delay product of a 1 Gbit/s path with a 50 ms RTT?"},
   {"id":"cn.fc.q7","topicIds":["cn.flow-congestion"],"moduleId":"cn","type":"concept","difficulty":"hard","verified":"reviewed","title":"How does BBR differ from loss-based algorithms like Reno and CUBIC?"},
   {"id":"cn.sa.q1","topicIds":["cn.sessions-auth"],"moduleId":"cn","type":"concept","difficulty":"easy","verified":"reviewed","title":"Which URL has the same origin as https://shop.example.com/cart?"},
@@ -1176,6 +1195,9 @@ const MCQ_META_3: McqMeta[] = [
   {"id":"sd.ms.q8","topicIds":["sd.messaging"],"moduleId":"system-design","type":"concept","difficulty":"medium","verified":"reviewed","title":"Which statement distinguishes pub/sub from a work queue?"},
   {"id":"sd.ap.q1","topicIds":["sd.api-design"],"moduleId":"system-design","type":"concept","difficulty":"easy","verified":"reviewed","title":"Which URL design is the best REST style for fetching one user's orders?"},
   {"id":"sd.ap.q2","topicIds":["sd.api-design"],"moduleId":"system-design","type":"scenario","difficulty":"medium","verified":"reviewed","title":"Mobile clients page through a feed with ?page=N. New posts keep arriving, and users see du"},
+];
+
+const MCQ_META_4: McqMeta[] = [
   {"id":"sd.ap.q3","topicIds":["sd.api-design"],"moduleId":"system-design","type":"scenario","difficulty":"medium","verified":"reviewed","title":"A client PUTs an edited document, but someone else changed it in the meantime. Which mecha"},
   {"id":"sd.ap.q4","topicIds":["sd.api-design"],"moduleId":"system-design","type":"concept","difficulty":"medium","verified":"reviewed","title":"Which change to an existing API response is a breaking change?"},
   {"id":"sd.ap.q5","topicIds":["sd.api-design"],"moduleId":"system-design","type":"scenario","difficulty":"medium","verified":"reviewed","title":"Generating a report takes 2 minutes. What should POST /v1/reports do?"},
@@ -1195,9 +1217,6 @@ const MCQ_META_3: McqMeta[] = [
   {"id":"sd.ob.q5","topicIds":["sd.observability"],"moduleId":"system-design","type":"concept","difficulty":"medium","verified":"reviewed","title":"You have p99 latency from 10 instances. How do you get the fleet-wide p99?"},
   {"id":"sd.ob.q6","topicIds":["sd.observability"],"moduleId":"system-design","type":"concept","difficulty":"easy","verified":"reviewed","title":"What is the purpose of propagating a trace or correlation id through services?"},
   {"id":"sd.ob.q7","topicIds":["sd.observability"],"moduleId":"system-design","type":"concept","difficulty":"medium","verified":"reviewed","title":"Your monitoring is hosted in the same cluster as the service, and the cluster loses its ne"},
-];
-
-const MCQ_META_4: McqMeta[] = [
   {"id":"sd.ft.q1","topicIds":["sd.fault-tolerance"],"moduleId":"system-design","type":"concept","difficulty":"easy","verified":"reviewed","title":"Why must every outbound network call have a timeout?"},
   {"id":"sd.ft.q2","topicIds":["sd.fault-tolerance"],"moduleId":"system-design","type":"complexity","difficulty":"medium","verified":"reviewed","title":"An API gateway, a service and a data layer each retry a failed call up to 3 times (3 attem"},
   {"id":"sd.ft.q3","topicIds":["sd.fault-tolerance"],"moduleId":"system-design","type":"concept","difficulty":"medium","verified":"reviewed","title":"Thousands of clients lose a connection at once and all retry after exactly 1 second, then "},

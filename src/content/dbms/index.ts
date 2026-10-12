@@ -3,6 +3,7 @@ import { mcq } from '../helpers';
 import { CMU, DBBOOK, dbmsTopic, q } from './common';
 import * as foundations from './foundations';
 import * as systems from './systems';
+import * as extra from './extra';
 
 
 // ---------------------------------------------------------------------------------------
@@ -371,4 +372,4 @@ const ixMcqs: MCQ[] = [
 ];
 
 export const topics: Topic[] = [keys, fds, normalisation, acid, isolation, indexing, ...foundations.topics, ...systems.topics];
-export const mcqs: MCQ[] = [...kcMcqs, ...fdMcqs, ...nfMcqs, ...txMcqs, ...icMcqs, ...ixMcqs, ...foundations.mcqs, ...systems.mcqs];
+export const mcqs: MCQ[] = [...kcMcqs, ...fdMcqs, ...nfMcqs, ...txMcqs, ...icMcqs, ...ixMcqs, ...foundations.mcqs, ...systems.mcqs, ...extra.mcqs];
