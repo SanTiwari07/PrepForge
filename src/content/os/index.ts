@@ -1,11 +1,8 @@
-import type { MCQ, Resource, Topic } from '../schema';
+import type { MCQ, Topic } from '../schema';
 import { cpp, mcq } from '../helpers';
-
-const MASTERY = { testSize: 6, testMinutes: 10, passPct: 80, minIndependentSolves: 0, minMediumIndependent: 0, retentionDays: 7 };
-const OSTEP: Resource = { title: 'Operating Systems: Three Easy Pieces (free book)', url: 'https://pages.cs.wisc.edu/~remzi/OSTEP/', kind: 'book' };
-type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
-const osTopic = (t: TopicInput): Topic => ({ moduleId: 'os', status: 'complete', mastery: MASTERY, mcqIds: [], problemIds: [], related: [], ...t });
-const q = (topic: string) => ({ topics: [topic], module: 'os' as const });
+import { OSTEP, osTopic, q } from './common';
+import * as more1 from './more1';
+import * as more2 from './more2';
 
 // ---------------------------------------------------------------------------------------
 const PT = 'os.processes-threads';
@@ -388,5 +385,5 @@ const prMcqs: MCQ[] = [
   mcq({ ...q(PR), id: 'os.pr.q6', type: 'scenario', difficulty: 'hard', stem: 'For 1 2 3 4 1 2 5 1 2 3 4 5 under FIFO, how many faults with 3 frames and with 4 frames?', options: ['9 and 10', ['10 and 9', 'This is the anomaly: more frames gives more faults.'], ['9 and 8', 'Count again with 4 frames.'], ['12 and 12', 'There are some hits.']], answer: 0, explanation: 'This is the textbook demonstration of Belady\'s anomaly.' }),
 ];
 
-export const topics: Topic[] = [procs, sched, sync, deadlocks, vmem, pageRepl];
-export const mcqs: MCQ[] = [...ptMcqs, ...csMcqs, ...syMcqs, ...dlMcqs, ...vmMcqs, ...prMcqs];
+export const topics: Topic[] = [procs, sched, sync, deadlocks, vmem, pageRepl, ...more1.topics, ...more2.topics];
+export const mcqs: MCQ[] = [...ptMcqs, ...csMcqs, ...syMcqs, ...dlMcqs, ...vmMcqs, ...prMcqs, ...more1.mcqs, ...more2.mcqs];

@@ -112,3 +112,96 @@ describe('CN application-layer MCQ facts', () => {
     expect(answerOf('cn.tr.q4')).toContain('2.2 s');
   });
 });
+
+describe('OS memory, file system, disk and concurrency MCQ facts', () => {
+  /** Hole placement computed independently of the lesson text. Returns the hole index used per request (or -1). */
+  function place(holes: number[], reqs: number[], rule: 'first' | 'best' | 'worst'): number[] {
+    const h = [...holes];
+    return reqs.map((r) => {
+      const fit = h.map((size, i) => ({ size, i })).filter((x) => x.size >= r);
+      if (!fit.length) return -1;
+      const pick = rule === 'first' ? fit[0] : fit.reduce((a, b) => ((rule === 'best' ? b.size < a.size : b.size > a.size) ? b : a));
+      h[pick.i] -= r;
+      return pick.i;
+    });
+  }
+  const holes = [100, 500, 200, 300, 600];
+  const reqs = [212, 417, 112, 426];
+  it('os.mm.q1: only best fit places all four', () => {
+    expect(place(holes, reqs, 'first')).toEqual([1, 4, 1, -1]);
+    expect(place(holes, reqs, 'best')).toEqual([3, 1, 2, 4]);
+    expect(place(holes, reqs, 'worst')).toEqual([4, 1, 4, -1]);
+    expect(answerOf('os.mm.q1')).toBe('Best fit');
+  });
+  it('os.mm.q2/q3: address 3000 with 1 KB pages → page 2, offset 952, frame 7 → 8120', () => {
+    expect([Math.floor(3000 / 1024), 3000 % 1024]).toEqual([2, 952]);
+    expect(7 * 1024 + 952).toBe(8120);
+    expect(answerOf('os.mm.q2')).toBe('Page 2, offset 952');
+    expect(answerOf('os.mm.q3')).toBe('8120');
+  });
+  it('os.mm.q4/q5: page table size and internal fragmentation', () => {
+    expect((2 ** 32 / 2 ** 12) * 4).toBe(4 * 2 ** 20);
+    const pages = Math.ceil(72766 / 2048);
+    expect(pages).toBe(36);
+    expect(pages * 2048 - 72766).toBe(962);
+    expect(answerOf('os.mm.q5')).toBe('962');
+  });
+  it('os.ps.q3: n unconditional forks give 2^n processes', () => {
+    let procs = 1;
+    for (let i = 0; i < 3; i++) procs *= 2;
+    expect(procs).toBe(8);
+    expect(answerOf('os.ps.q3')).toBe('8');
+  });
+  it('os.fs.q3: inode with 12 direct + single + double indirect (4 KB blocks, 4-byte pointers)', () => {
+    const ptrs = 4096 / 4;
+    const KB = 1024;
+    const direct = 12 * 4 * KB;
+    const single = ptrs * 4 * KB;
+    const dbl = ptrs ** 2 * 4 * KB;
+    const triple = ptrs ** 3 * 4 * KB;
+    expect(ptrs).toBe(1024);
+    expect([direct, single, dbl, triple]).toEqual([48 * KB, 4 * KB * KB, 4 * KB ** 3, 4 * KB ** 4]);
+    expect((direct + single + dbl) / KB ** 3).toBeCloseTo(4, 2);
+    expect(answerOf('os.fs.q3')).toContain('4 GB');
+  });
+  /** Total head movement for an ordered list of visited cylinders. */
+  const travel = (start: number, path: number[]) => path.reduce((acc, c) => ({ pos: c, total: acc.total + Math.abs(c - acc.pos) }), { pos: start, total: 0 }).total;
+  const queue = [98, 183, 37, 122, 14, 124, 65, 67];
+  it('os.io.q3-q6: FCFS 640, SSTF 236, SCAN 236, LOOK 208', () => {
+    expect(travel(53, queue)).toBe(640);
+    // SSTF computed greedily
+    const left = [...queue];
+    let pos = 53;
+    const order: number[] = [];
+    while (left.length) {
+      left.sort((a, b) => Math.abs(a - pos) - Math.abs(b - pos));
+      pos = left.shift()!;
+      order.push(pos);
+    }
+    expect(order).toEqual([65, 67, 37, 14, 98, 122, 124, 183]);
+    expect(travel(53, order)).toBe(236);
+    const down = queue.filter((c) => c < 53).sort((a, b) => b - a);
+    const up = queue.filter((c) => c > 53).sort((a, b) => a - b);
+    expect(travel(53, [...down, 0, ...up])).toBe(236);   // SCAN, going down first
+    expect(travel(53, [...down, ...up])).toBe(208);      // LOOK, going down first
+    expect(answerOf('os.io.q3')).toBe('640');
+    expect(answerOf('os.io.q4')).toBe('236');
+    expect(answerOf('os.io.q5')).toBe('208');
+  });
+  it('os.io.q2: 7200 RPM → 8.33 ms per rotation, 4.17 ms average; example access ≈ 9.2 ms', () => {
+    const rot = 60000 / 7200;
+    expect(rot).toBeCloseTo(8.333, 3);
+    expect(rot / 2).toBeCloseTo(4.167, 3);
+    expect(5 + rot / 2 + (4096 / 100e6) * 1000).toBeCloseTo(9.21, 2);
+  });
+  it('os.cm.q2/q3: Amdahl p=0.9 n=8 ≈ 4.71; limit 10; pool size 80', () => {
+    const amdahl = (p: number, n: number) => 1 / ((1 - p) + p / n);
+    expect(amdahl(0.9, 8)).toBeCloseTo(4.706, 3);
+    expect(amdahl(0.9, 1e9)).toBeCloseTo(10, 4);
+    expect(8 * (1 + 90 / 10)).toBe(80);
+    expect(answerOf('os.cm.q3')).toBe('80');
+  });
+  it('os.lx: exit codes are 128 + signal', () => {
+    expect([128 + 9, 128 + 15, 128 + 11]).toEqual([137, 143, 139]);
+  });
+});

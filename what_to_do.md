@@ -10,10 +10,10 @@
 | Product name | **PrepForge** (the working name "PlacementOS" was replaced at the user's request) |
 | Repository | `https://github.com/SanTiwari07/PrepForge.git` (public), branch `main`, local folder `D:\Projects\PlacementResource` |
 | Production | **https://prep-forge-omega.vercel.app** (Vercel, auto-deploys every push to `main`; GitHub shows each deploy under Deployments → Production) |
-| Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, schedule analyser, Vercel blank-page fix) |
+| Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, schedule analyser, Vercel blank-page fix) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
-| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17 complete**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
-| Overall status | Working app with **137 complete topics out of 173 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 6/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **914 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 359 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 452 C++/Java samples compile (and run where output is claimed), 0 skipped; 253/259 links checked automatically (1 pre-existing csapp.cs.cmu.edu outage, 5 bot-walled Cloudflare pages). |
+| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15 complete**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
+| Overall status | Working app with **146 complete topics out of 173 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **986 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 368 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 471 C++/Java samples compile (and run where output is claimed), 0 skipped; 253/259 links checked automatically (1 pre-existing csapp.cs.cmu.edu outage, 5 bot-walled Cloudflare pages). |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -59,7 +59,7 @@ Never tick a box for a feature that only exists as a mockup.
 **Next actions (in order):**
 
 1. Content (Phase 6): the LLD practice set (6 problems).
-2. Content (Phase 7): OS (9 topics left), System Design (foundations + case studies, 19 left), DevOps (7 left) and Core CS (1 left), in catalog order. CN is done; its helpers are in `cn/common.ts`, and the application-layer topics are in `cn/application.ts`. Prefer man.archlinux.org over man7.org (unreachable).
+2. Content (Phase 7): System Design (foundations + case studies, 19 left), DevOps (7 left) and Core CS (1 left), in catalog order. OS is done (`os/common.ts`, `os/more1.ts`, `os/more2.ts`). CN is done; its helpers are in `cn/common.ts`, and the application-layer topics are in `cn/application.ts`. Prefer man.archlinux.org over man7.org (unreachable).
 3. SQL/DBMS gaps: exercises towards 120 (74 now), 19 more SQL/DBMS MCQs to reach 200 (181 now), isolation-anomaly simulator and B+ tree visualiser.
 4. Walkthroughs: the 43 Blind 75 problems still without one (Problem bank → list Blind 75, coach "Pattern guidance"), then NeetCode 150.
 5. Performance: the DSA pack is 264 KB gzip (B14); split it per topic or move walkthroughs into their own chunk. Any new lazy chunk must follow `chunking.ts` (the guard test fails if the eager import graph reaches a lazy pack, which caused the session-4 blank page in production).
