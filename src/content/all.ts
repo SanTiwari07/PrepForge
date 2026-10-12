@@ -5,7 +5,7 @@ import { assembleTopics, stubFields } from './assemble';
 import { PROBLEMS } from './problems/bank.generated';
 import { exercises } from './sql/exercises';
 import * as dsa from './dsa';
-import * as sql from './sql/topics';
+import * as sql from './sql/pack';
 import * as dbms from './dbms';
 import * as oopCpp from './oop-cpp';
 import * as oopJava from './oop-java';

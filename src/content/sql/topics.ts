@@ -4,15 +4,15 @@ import { mcq, sqlCode } from '../helpers';
 // SQL lessons. Output-prediction MCQs carry `expectedOutput` and are executed in tests
 // (format: rows separated by newlines, columns by " | ", NULL as "NULL").
 
-const SQLITE_SELECT: Resource = { title: 'SELECT (SQLite docs)', url: 'https://www.sqlite.org/lang_select.html', kind: 'official-docs' };
-const MODE: Resource = { title: 'SQL Tutorial (ThoughtSpot, formerly Mode)', url: 'https://www.thoughtspot.com/sql-tutorial', kind: 'course' };
-const LC_SQL50: Resource = { title: 'LeetCode SQL 50 study plan', url: 'https://leetcode.com/studyplan/top-sql-50/', kind: 'practice', httpVerifiable: false };
+export const SQLITE_SELECT: Resource = { title: 'SELECT (SQLite docs)', url: 'https://www.sqlite.org/lang_select.html', kind: 'official-docs' };
+export const MODE: Resource = { title: 'SQL Tutorial (ThoughtSpot, formerly Mode)', url: 'https://www.thoughtspot.com/sql-tutorial', kind: 'course' };
+export const LC_SQL50: Resource = { title: 'LeetCode SQL 50 study plan', url: 'https://leetcode.com/studyplan/top-sql-50/', kind: 'practice', httpVerifiable: false };
 const MASTERY = { testSize: 6, testMinutes: 10, passPct: 80, minIndependentSolves: 2, minMediumIndependent: 1, retentionDays: 7 };
 
-type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
-const sqlTopic = (t: TopicInput): Topic => ({ moduleId: 'sql', status: 'complete', mastery: MASTERY, mcqIds: [], problemIds: [], related: [], ...t });
-const q = (topic: string) => ({ topics: [topic], module: 'sql' as const });
-const out = (code: string, expected: string) => ({ ...sqlCode(code), expectedOutput: expected, verify: true });
+export type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
+export const sqlTopic = (t: TopicInput): Topic => ({ moduleId: 'sql', status: 'complete', mastery: MASTERY, mcqIds: [], problemIds: [], related: [], ...t });
+export const q = (topic: string) => ({ topics: [topic], module: 'sql' as const });
+export const out = (code: string, expected: string) => ({ ...sqlCode(code), expectedOutput: expected, verify: true });
 
 // ---------------------------------------------------------------------------------------
 const SB = 'sql.select-basics';

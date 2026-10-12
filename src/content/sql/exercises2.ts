@@ -639,4 +639,33 @@ GROUP BY COALESCE(category, 'uncategorised');`,
     wrongApproaches: [{ sql: `SELECT COALESCE(category, 'uncategorised'), COUNT(category) FROM txns GROUP BY COALESCE(category, 'uncategorised');`, whyMd: 'COUNT(category) ignores NULLs, so the uncategorised group shows 0.' }],
     targetMinutes: 3, verification: v,
   },
+  {
+    id: 'sql-popular-posts', title: 'Popular posts, most liked first', topicIds: ['sql.select-basics'], difficulty: 'easy', datasetId: 'social',
+    promptMd: 'Return `id` and `likes` of posts with **at least 10 likes**, most liked first; break ties by the smaller id.',
+    referenceSql: `SELECT id, likes
+FROM posts
+WHERE likes >= 10
+ORDER BY likes DESC, id;`,
+    orderMatters: true,
+    hints: ['"At least" means >=.', 'Two sort keys: likes descending, then id ascending.'],
+    explanationMd: 'In the hidden data three posts have exactly 10 likes, so both the inclusive bound and the tie-break matter.',
+    wrongApproaches: [
+      { sql: `SELECT id, likes FROM posts WHERE likes > 10 ORDER BY likes DESC, id;`, whyMd: '> 10 drops posts with exactly 10 likes.' },
+      { sql: `SELECT id, likes FROM posts WHERE likes >= 10 ORDER BY likes DESC, id DESC;`, whyMd: 'Breaks ties by the larger id.' },
+    ],
+    targetMinutes: 3, verification: v,
+  },
+  {
+    id: 'sql-pune-riders-page', title: 'Second page of riders', topicIds: ['sql.select-basics'], difficulty: 'easy', datasetId: 'rides',
+    promptMd: 'Riders are listed alphabetically by name, 2 per page. Return the `name` of the riders on **page 2**.',
+    referenceSql: `SELECT name
+FROM riders
+ORDER BY name
+LIMIT 2 OFFSET 2;`,
+    orderMatters: true,
+    hints: ['Page 2 skips the first page (2 rows).', 'LIMIT count OFFSET skip; MySQL also accepts LIMIT skip, count.'],
+    explanationMd: 'OFFSET is the number of rows to skip: (page − 1) × page size. Without ORDER BY the pages would not be well defined.',
+    wrongApproaches: [{ sql: `SELECT name FROM riders ORDER BY name LIMIT 2 OFFSET 1;`, whyMd: 'Skips one row instead of a whole page, so the pages overlap.' }],
+    targetMinutes: 3, verification: v,
+  },
 ];

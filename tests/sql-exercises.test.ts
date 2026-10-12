@@ -8,7 +8,7 @@ import { datasets } from '@/content/sql/datasets';
 import { exercises } from '@/content/sql/exercises';
 import { compareResults, type ResultSet } from '@/engine/sqlCompare';
 import { execLast } from '@/lib/sqlExec';
-import { mcqs as sqlMcqs } from '@/content/sql/topics';
+import { mcqs as sqlMcqs } from '@/content/sql/pack';
 
 const require = createRequire(import.meta.url);
 let SQL: SqlJsStatic;
