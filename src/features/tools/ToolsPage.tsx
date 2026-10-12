@@ -4,6 +4,7 @@ import { PageHeader, Callout, Badge } from '@/components/ui';
 import { schedule, type Algorithm, type Proc } from '@/engine/tools/scheduling';
 import { parseRefString, simulatePaging, type PageAlgo } from '@/engine/tools/paging';
 import { prefixForHosts, subnetInfo } from '@/engine/tools/subnet';
+import { conflicts, formatOp, parseSchedule, precedenceEdges, recoverability, serialOrder, transactions, viewSerialOrder } from '@/engine/tools/schedule';
 import { candidateKeys, closure, countSuperkeys, isLosslessBinary, MAX_ATTRS, normalForm, parseAttributes, parseFDs, preservedFDs } from '@/engine/tools/fd';
 
 const TOOLS = [
@@ -11,6 +12,7 @@ const TOOLS = [
   { id: 'page-replacement', title: 'Page replacement', subject: 'Operating Systems' },
   { id: 'subnet', title: 'Subnet calculator', subject: 'Computer Networks' },
   { id: 'fd', title: 'FD and normalisation toolkit', subject: 'DBMS' },
+  { id: 'schedule', title: 'Schedule analyser', subject: 'DBMS' },
 ];
 
 export default function ToolsPage() {
@@ -27,6 +29,7 @@ export default function ToolsPage() {
       {active.id === 'page-replacement' && <PagingTool />}
       {active.id === 'subnet' && <SubnetTool />}
       {active.id === 'fd' && <FdTool />}
+      {active.id === 'schedule' && <ScheduleTool />}
     </div>
   );
 }
@@ -225,6 +228,56 @@ function FdTool() {
             )}
           </>
         ) : <p className="small muted">Enter valid attributes and dependencies.</p>}
+      </section>
+    </div>
+  );
+}
+
+function ScheduleTool() {
+  const [text, setText] = useState('R1(A) R2(A) W1(A) W2(A) C1 C2');
+  const ops = parseSchedule(text);
+  const result = useMemo(() => {
+    if (typeof ops === 'string' || !ops.length) return null;
+    const txs = transactions(ops);
+    let view: string[] | null | 'too-many' = null;
+    try { view = viewSerialOrder(ops); } catch { view = 'too-many'; }
+    return { txs, conflicts: conflicts(ops), edges: precedenceEdges(ops), order: serialOrder(ops), view, rec: recoverability(ops) };
+  }, [text]); // eslint-disable-line react-hooks/exhaustive-deps
+  const yes = (b: boolean) => <strong>{b ? 'Yes' : 'No'}</strong>;
+  return (
+    <div className="grid grid-2">
+      <section className="card stack">
+        <label className="field">
+          <span className="label">Schedule (R1(A) = T1 reads A, W2(B) = T2 writes B, C1 = T1 commits, A2 = T2 aborts)</span>
+          <textarea className="textarea textarea--code" rows={4} value={text} onChange={(e) => setText(e.target.value)} />
+        </label>
+        {typeof ops === 'string' && <Callout tone="danger">{ops}</Callout>}
+        <div className="row" style={{ gap: 6 }}>
+          {['R1(A) W1(A) R2(A) W2(A) R1(B) W1(B) R2(B) W2(B) C1 C2', 'R1(A) W2(A) W1(A) W3(A)', 'W1(A) R2(A) C2 C1', 'W1(A) C1 R2(A) C2'].map((ex) => (
+            <button key={ex} className="btn btn--ghost btn--sm mono" onClick={() => setText(ex)}>{ex}</button>
+          ))}
+        </div>
+        {result && (
+          <div className="small stack-sm">
+            <h2 className="eyebrow">Conflicting pairs</h2>
+            {result.conflicts.length ? <ul className="prose xsmall">{result.conflicts.map((c, i) => <li key={i}>{formatOp(c.first)} before {formatOp(c.second)} → edge T{c.first.tx} → T{c.second.tx}</li>)}</ul> : <p className="xsmall muted">No conflicts.</p>}
+          </div>
+        )}
+      </section>
+      <section className="card stack">
+        <h2 className="card__title">Analysis</h2>
+        {result ? (
+          <div className="small stack-sm">
+            <p>Transactions: {result.txs.map((t) => <Badge key={t} tone="dark">T{t}</Badge>)}</p>
+            <p>Precedence graph edges: {result.edges.length ? result.edges.map(([a, b]) => `T${a} → T${b}`).join(', ') : 'none'}</p>
+            <p>Conflict serialisable: {yes(result.order !== null)}{result.order ? ` (equivalent serial order ${result.order.map((t) => `T${t}`).join(' → ')})` : ' (the precedence graph has a cycle)'}</p>
+            <p>View serialisable: {result.view === 'too-many' ? 'not checked (more than 6 transactions)' : <>{yes(result.view !== null)}{result.view ? ` (serial order ${result.view.map((t) => `T${t}`).join(' → ')})` : ''}</>}</p>
+            <h3 className="eyebrow mt-2">Recoverability</h3>
+            <p>Recoverable: {yes(result.rec.recoverable)} · Cascadeless: {yes(result.rec.cascadeless)} · Strict: {yes(result.rec.strict)}</p>
+            {result.rec.notes.length > 0 && <ul className="prose xsmall">{result.rec.notes.map((n) => <li key={n}>{n}</li>)}</ul>}
+            <p className="xsmall muted">Recoverability needs commit (C) and abort (A) operations; a transaction without one is treated as still running.</p>
+          </div>
+        ) : <p className="small muted">Enter a schedule.</p>}
       </section>
     </div>
   );

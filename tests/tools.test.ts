@@ -1,3 +1,4 @@
+import { conflicts, formatOp, isConflictSerialisable, parseSchedule, precedenceEdges, recoverability, serialOrder, viewSerialOrder, type Op } from '@/engine/tools/schedule';
 import { describe, expect, it } from 'vitest';
 import { schedule } from '@/engine/tools/scheduling';
 import { simulatePaging } from '@/engine/tools/paging';
@@ -117,5 +118,43 @@ describe('FD toolkit', () => {
     expect(isLosslessBinary(['A', 'C'], ['B', 'C'], a, f)).toBe(false);  // common C determines nothing
     const pres = preservedFDs([['A', 'B'], ['A', 'C']], f);
     expect(pres.map((p) => p.preserved)).toEqual([true, false]);         // B→C is lost
+  });
+});
+
+describe('schedule analyser', () => {
+  const P = (s: string) => parseSchedule(s) as Op[];
+  it('parses and rejects bad tokens', () => {
+    expect(P('R1(A) w2(b), C1').map(formatOp)).toEqual(['R1(A)', 'W2(b)', 'C1']);
+    expect(typeof parseSchedule('X1(A)')).toBe('string');
+  });
+  it('finds conflicts and a serial order for a serialisable schedule', () => {
+    const s = P('R1(A) W1(A) R2(A) W2(A) R1(B) W1(B) R2(B) W2(B)');
+    expect(precedenceEdges(s)).toEqual([['1', '2']]);
+    expect(serialOrder(s)).toEqual(['1', '2']);
+  });
+  it('lists only conflicting pairs (different transactions, same item, at least one write)', () => {
+    const c = conflicts(P('R1(A) R2(A) W2(B) R1(B) W1(A)')).map((x) => `${formatOp(x.first)}<${formatOp(x.second)}`);
+    expect(c).toEqual(['R2(A)<W1(A)', 'W2(B)<R1(B)']);
+  });
+  it('detects a precedence cycle (lost update)', () => {
+    const s = P('R1(A) R2(A) W1(A) W2(A)');
+    expect(precedenceEdges(s).map((e) => e.join('>')).sort()).toEqual(['1>2', '2>1']);
+    expect(isConflictSerialisable(s)).toBe(false);
+    expect(viewSerialOrder(s)).toBeNull();
+  });
+  it('blind writes: view-serialisable but not conflict-serialisable', () => {
+    const s = P('R1(A) W2(A) W1(A) W3(A)');
+    expect(isConflictSerialisable(s)).toBe(false);
+    expect(viewSerialOrder(s)).toEqual(['1', '2', '3']);
+  });
+  it('classifies recoverability', () => {
+    const r = (s: string) => { const x = recoverability(P(s)); return [x.recoverable, x.cascadeless, x.strict]; };
+    expect(r('W1(A) R2(A) C2 C1')).toEqual([false, false, false]);
+    expect(r('W1(A) R2(A) C1 C2')).toEqual([true, false, false]);
+    expect(r('W1(A) C1 R2(A) C2')).toEqual([true, true, true]);
+    expect(r('W1(A) W2(A) C1 C2')).toEqual([true, true, false]);
+  });
+  it('ignores writes of a transaction that aborted before the read', () => {
+    expect(recoverability(P('W1(A) A1 R2(A) C2')).cascadeless).toBe(true);
   });
 });
