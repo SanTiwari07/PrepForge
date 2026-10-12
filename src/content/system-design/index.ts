@@ -152,7 +152,7 @@ string getUser(LruCache& cache, const string& key) {
     { id: 'f4', front: 'Pattern with data-loss risk?', backMd: 'Write-back (write-behind).' },
     { id: 'f5', front: 'LRU cache data structures?', backMd: 'Hash map + doubly linked list.' },
   ] },
-  resources: [PRIMER, { title: 'Caching challenges and strategies (Amazon Builders\' Library)', url: 'https://aws.amazon.com/builders-library/caching-challenges-and-strategies/', kind: 'article' }],
+  resources: [PRIMER, { title: 'Caching challenges and strategies (Amazon Builders\' Library)', url: 'https://builder.aws.com/content/3K9TeXp6strMiJ4vhakpRD7BQWO/caching-challenges-and-strategies', kind: 'article' }],
 });
 
 const caMcqs: MCQ[] = [

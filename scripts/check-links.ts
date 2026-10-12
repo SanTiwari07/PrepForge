@@ -1,6 +1,6 @@
 // Checks every external link shown in the app: topic resources and company sources.
-// LeetCode problem links are verified separately via LeetCode's GraphQL API
-// (research/*.verified.json), because leetcode.com pages return 403 to scripts.
+// leetcode.com pages return 403 to scripts, so LeetCode problem and study-plan links are
+// verified through LeetCode's GraphQL API instead (the same method as research/*.verified.json).
 // Usage: npm run check:links
 import { spawnSync } from 'node:child_process';
 import { TOPICS } from '../src/content/all';
@@ -32,7 +32,31 @@ function curlStatus(url: string): number | null {
   return r.status === 0 && code > 0 ? code : null;
 }
 
+// leetcode.com/problems/<slug>/ and leetcode.com/studyplan/<slug>/ exist iff GraphQL knows the slug.
+async function checkLeetCode(url: string): Promise<{ status: number | string } | null> {
+  const m = url.match(/^https:\/\/leetcode\.com\/(problems|studyplan)\/([a-z0-9-]+)\/?$/);
+  if (!m) return null;
+  const query = m[1] === 'problems'
+    ? 'query q($s: String!) { r: question(titleSlug: $s) { slug: titleSlug } }'
+    : 'query q($s: String!) { r: studyPlanV2Detail(planSlug: $s) { slug } }';
+  try {
+    const res = await fetch('https://leetcode.com/graphql', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', referer: 'https://leetcode.com/', 'user-agent': UA },
+      body: JSON.stringify({ query, variables: { s: m[2] } }),
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!res.ok) return { status: `graphql HTTP ${res.status}` };
+    const slug = (await res.json())?.data?.r?.slug;
+    return { status: slug === m[2] ? 200 : 404 };
+  } catch (e) {
+    return { status: `graphql ${(e as Error).message}` };
+  }
+}
+
 async function check(url: string): Promise<{ status: number | string; finalUrl?: string }> {
+  const lc = await checkLeetCode(url);
+  if (lc) return lc;
   const first = await checkFetch(url);
   if (typeof first.status === 'number' && first.status >= 200 && first.status < 400) return first;
   const viaCurl = curlStatus(url);
@@ -68,6 +92,7 @@ for (const r of results.sort((a, b) => a.url.localeCompare(b.url))) {
   const ok = typeof r.status === 'number' && r.status >= 200 && r.status < 400;
   const host = new URL(r.url).hostname;
   if (ok) continue;
+  if (typeof r.status === 'string' && r.status.startsWith('graphql')) { walled++; console.log(`UNVERIFIED ${r.url} (${r.status})`); continue; }
   if (r.status === 403 && BOT_WALLED.some((re) => re.test(host))) { walled++; console.log(`WALLED ${r.url} (403 to scripts; check manually)`); continue; }
   broken++;
   console.log(`BROKEN ${r.status} ${r.url}\n   used by: ${links.get(r.url)!.join(', ')}`);
