@@ -1,12 +1,8 @@
-import type { MCQ, Resource, Topic } from '../schema';
+import type { MCQ, Topic } from '../schema';
 import { cpp, cppErr, mcq } from '../helpers';
+import { CPPREF, ISOCPP, cppTopic, q } from './common';
+import * as core from './core';
 
-const MASTERY = { testSize: 6, testMinutes: 12, passPct: 80, minIndependentSolves: 0, minMediumIndependent: 0, retentionDays: 7 };
-const CPPREF = (title: string, path: string): Resource => ({ title: `${title} (cppreference)`, url: `https://en.cppreference.com/w/cpp/${path}`, kind: 'official-docs' });
-const ISOCPP: Resource = { title: 'C++ Super-FAQ (isocpp.org)', url: 'https://isocpp.org/faq', kind: 'article' };
-type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
-const cppTopic = (t: TopicInput): Topic => ({ moduleId: 'oop-cpp', status: 'complete', mastery: MASTERY, mcqIds: [], problemIds: [], related: [], ...t });
-const q = (topic: string) => ({ topics: [topic], module: 'oop-cpp' as const });
 
 // ---------------------------------------------------------------------------------------
 const CD = 'cpp.constructors-destructors';
@@ -497,5 +493,5 @@ std::shared_ptr<int> p2(raw);`), options: ['Two independent control blocks own t
   mcq({ ...q(MR), id: 'cpp.mr.q6', type: 'concept', difficulty: 'easy', stem: 'Which smart pointer should be your **default** for single ownership?', options: ['std::unique_ptr', ['std::shared_ptr', 'It adds reference-counting overhead and blurs ownership.'], ['std::weak_ptr', 'It does not own anything.'], ['std::auto_ptr', 'Removed in C++17; it had broken copy semantics.']], answer: 0, explanation: 'unique_ptr expresses exclusive ownership with zero overhead.' }),
 ];
 
-export const topics: Topic[] = [ctors, poly, copySem, statics, raii];
-export const mcqs: MCQ[] = [...cdMcqs, ...pvMcqs, ...csMcqs, ...smMcqs, ...mrMcqs];
+export const topics: Topic[] = [ctors, poly, copySem, statics, raii, ...core.topics];
+export const mcqs: MCQ[] = [...cdMcqs, ...pvMcqs, ...csMcqs, ...smMcqs, ...mrMcqs, ...core.mcqs];
