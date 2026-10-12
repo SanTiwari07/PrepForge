@@ -189,6 +189,12 @@ export const CATALOG: Record<ModuleId, CatalogEntry[]> = {
     { id: 'sd.case-api-gateway', title: 'Case Study: API Gateway', summary: 'Routing, auth, rate limiting and observability at the edge.', level: C, prerequisites: ['sd.api-design'] },
     { id: 'sd.case-logging', title: 'Case Study: Logging and Monitoring', summary: 'Ingestion pipelines, storage tiers and alerting.', level: C, prerequisites: ['sd.observability'] },
     { id: 'sd.case-video', title: 'Case Study: Basic Video Streaming', summary: 'Upload, transcoding, CDN and adaptive bitrate.', level: C, prerequisites: ['sd.caching'] },
+    { id: 'sd.lld-parking-lot', title: 'LLD Practice: Parking Lot', summary: 'Entities, spot allocation, pricing strategy and concurrent gates.', level: C, prerequisites: ['sd.requirements'] },
+    { id: 'sd.lld-library', title: 'LLD Practice: Library Management', summary: 'Book vs copy, members, loans, limits, fines and reservations.', level: C, prerequisites: ['sd.requirements'] },
+    { id: 'sd.lld-vending-machine', title: 'LLD Practice: Vending Machine (State Pattern)', summary: 'The State pattern, inventory, change-making and error handling.', level: C, prerequisites: ['sd.requirements'] },
+    { id: 'sd.lld-elevator', title: 'LLD Practice: Elevator System', summary: 'Request handling, LOOK scheduling, state and multi-elevator dispatch.', level: C, prerequisites: ['sd.requirements'] },
+    { id: 'sd.lld-rate-limiter', title: 'LLD Practice: Rate Limiter Class', summary: 'An in-process token-bucket limiter: interface, clock injection and thread safety.', level: C, prerequisites: ['sd.rate-limiting'] },
+    { id: 'sd.lld-snake-ladder', title: 'LLD Practice: Snake and Ladder', summary: 'Board, dice strategy, players, rule variants and testing with scripted dice.', level: C, prerequisites: ['sd.requirements'] },
   ],
   devops: [
     { id: 'devops.linux', title: 'Linux Fundamentals', summary: 'Filesystem, permissions, processes, signals, pipes and shell scripting.', level: F },

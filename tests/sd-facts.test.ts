@@ -126,3 +126,104 @@ describe('System Design case study facts', () => {
     expect(answerOf('sd.vd.q1')).toBe('5 Tbit/s');
   });
 });
+
+import { TOPIC_BY_ID } from '@/content/all';
+
+describe('LLD practice set facts', () => {
+  const LLD = ['sd.lld-parking-lot', 'sd.lld-library', 'sd.lld-vending-machine', 'sd.lld-elevator', 'sd.lld-rate-limiter', 'sd.lld-snake-ladder'];
+  it('every LLD topic ships a C++ and a Java skeleton whose verified outputs agree', () => {
+    for (const id of LLD) {
+      const codes = (TOPIC_BY_ID.get(id)?.sections ?? []).flatMap((s) => s.code ?? []);
+      const cpp = codes.find((c) => c.lang === 'cpp');
+      const jv = codes.find((c) => c.lang === 'java');
+      expect(cpp?.expectedOutput, `${id} C++`).toBeTruthy();
+      expect(jv?.expectedOutput, `${id} Java`).toBeTruthy();
+      expect(cpp?.expectedOutput, id).toBe(jv?.expectedOutput);
+    }
+  });
+
+  it('parking: car for 3 hours at 20/h = 60 (minimum one hour)', () => {
+    const rate = { bike: 10, car: 20, truck: 40 };
+    const fee = (t: keyof typeof rate, h: number) => rate[t] * Math.max(1, h);
+    expect(fee('car', 12 - 9)).toBe(60);
+    expect(fee('bike', 0)).toBe(10);
+  });
+
+  it('library: due day 14, returned day 19, 2 per day = 10; on time = 0', () => {
+    const fine = (due: number, back: number) => Math.max(0, back - due) * 2;
+    expect(fine(14, 19)).toBe(10);
+    expect(fine(15, 10)).toBe(0);
+    expect(answerOf('sd.lli.q2')).toBe('10');
+  });
+
+  it('vending: greedy change-making is optimal for {25,10,5,1} but not for {1,3,4}', () => {
+    const greedy = (coins: number[], amt: number) => [...coins].sort((a, b) => b - a).reduce((n, c) => { const k = Math.floor(amt / c); amt -= k * c; return n + k; }, 0);
+    const optimal = (coins: number[], amt: number) => {
+      const dp = Array(amt + 1).fill(Infinity);
+      dp[0] = 0;
+      for (let a = 1; a <= amt; a++) for (const c of coins) if (c <= a) dp[a] = Math.min(dp[a], dp[a - c] + 1);
+      return dp[amt];
+    };
+    expect([greedy([25, 10, 5, 1], 35), optimal([25, 10, 5, 1], 35)]).toEqual([2, 2]);
+    expect([greedy([1, 3, 4], 6), optimal([1, 3, 4], 6)]).toEqual([3, 2]);
+    expect(answerOf('sd.lve.q3')).toContain('Optimal 2 coins');
+  });
+
+  it('elevator: stops 3,1,5 from floor 0 travel 9 floors under FCFS and 5 under LOOK', () => {
+    const travel = (start: number, path: number[]) => path.reduce((a, c) => ({ pos: c, total: a.total + Math.abs(c - a.pos) }), { pos: start, total: 0 }).total;
+    expect(travel(0, [3, 1, 5])).toBe(9);
+    expect(travel(0, [1, 3, 5])).toBe(5);
+    expect(answerOf('sd.lel.q2')).toBe('FCFS 9 floors; LOOK 5 floors');
+  });
+
+  it('rate limiter: token bucket trace (capacity 3, 1/s) matches the lesson', () => {
+    const buckets = new Map<string, { tokens: number; last: number }>();
+    const allow = (key: string, now: number) => {
+      const b = buckets.get(key) ?? { tokens: 3, last: now };
+      b.tokens = Math.min(3, b.tokens + ((now - b.last) / 1000) * 1);
+      b.last = now;
+      buckets.set(key, b);
+      if (b.tokens >= 1) { b.tokens -= 1; return true; }
+      return false;
+    };
+    expect([0, 0, 0, 0].map(() => allow('u1', 0))).toEqual([true, true, true, false]);
+    expect(allow('u2', 0)).toBe(true);
+    expect([0, 0, 0].map(() => allow('u1', 2000))).toEqual([true, true, false]);
+    // empty bucket: retry-after = (1 - tokens) / rate = 1 s
+    expect((1 - 0) / 1).toBe(1);
+    expect(answerOf('sd.lra.q1')).toBe('3');
+    expect(answerOf('sd.lra.q2')).toBe('2');
+  });
+
+  it('snake and ladder: scripted game trace and BFS minimum of 3 throws on the sample board', () => {
+    const jumps: Record<number, number> = { 3: 12, 8: 14, 17: 4, 19: 7 };
+    const last = 20;
+    const rolls = [3, 6, 5, 2, 6, 6];
+    const pos = { A: 0, B: 0 };
+    const lines: string[] = [];
+    let turn = 0;
+    for (const r of rolls) {
+      const who = turn++ % 2 === 0 ? 'A' : 'B';
+      const target = pos[who] + r;
+      if (target <= last) pos[who] = jumps[target] ?? target;
+      lines.push(`${who} rolled ${r}, now at ${pos[who]}`);
+      if (pos[who] === last) { lines.push(`${who} wins`); break; }
+    }
+    const snake = (TOPIC_BY_ID.get('sd.lld-snake-ladder')?.sections ?? []).flatMap((s) => s.code ?? []).find((c) => c.lang === 'cpp');
+    expect(lines.join('\n')).toBe(snake?.expectedOutput);
+    // BFS over squares
+    const dist = new Map<number, number>([[0, 0]]);
+    const queue = [0];
+    while (queue.length) {
+      const p = queue.shift()!;
+      for (let d = 1; d <= 6; d++) {
+        const t = p + d;
+        if (t > last) continue;
+        const dest = jumps[t] ?? t;
+        if (!dist.has(dest)) { dist.set(dest, dist.get(p)! + 1); queue.push(dest); }
+      }
+    }
+    expect(dist.get(last)).toBe(3);
+    expect(answerOf('sd.lsn.q4')).toBe('3');
+  });
+});

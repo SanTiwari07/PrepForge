@@ -10,10 +10,10 @@
 | Product name | **PrepForge** (the working name "PlacementOS" was replaced at the user's request) |
 | Repository | `https://github.com/SanTiwari07/PrepForge.git` (public), branch `main`, local folder `D:\Projects\PlacementResource` |
 | Production | **https://prep-forge-omega.vercel.app** (Vercel, auto-deploys every push to `main`; GitHub shows each deploy under Deployments → Production) |
-| Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 26/26, schedule analyser, Vercel blank-page fix) |
+| Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 26/26 plus 6 LLD problems, DevOps 11/11, Core CS 4/4 (all 179 catalogued topics Complete), schedule analyser, Vercel blank-page fix) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
-| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 26/26 complete**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
-| Overall status | Working app with **165 complete topics out of 173 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 26/26, DevOps 4/11, Core CS 3/4), **1,110 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 386 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 471 C++/Java samples compile (and run where output is claimed), 0 skipped; 315/321 links checked automatically (1 csapp.cs.cmu.edu outage, 5 bot-walled Cloudflare pages). |
+| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32, DevOps 11/11, Core CS 4/4 complete: every catalogued topic**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
+| Overall status | Working app with **179 complete topics out of 179 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32 including the 6-problem LLD practice set, DevOps 11/11, Core CS 4/4), **1,208 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 402 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 489 C++/Java samples compile (and run where output is claimed), 0 skipped; 350/356 links checked automatically (1 csapp.cs.cmu.edu outage, 5 bot-walled Cloudflare pages). |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -58,11 +58,11 @@ Never tick a box for a feature that only exists as a mockup.
 
 **Next actions (in order):**
 
-1. Content (Phase 6): the LLD practice set (6 problems).
-2. Content (Phase 7): DevOps (7 left: `devops.cicd`, `aws`, `observability`, `cloud-security`, `k8s-advanced`, `iac-terraform`, plus any other unfinished) and Core CS (1 left: `core.concurrency-qa` or whichever is still Planned; check `TOPICS` status). OS and System Design are done (`os/more1.ts`, `os/more2.ts`, `system-design/foundations*.ts`, `system-design/cases*.ts`). CN is done; its helpers are in `cn/common.ts`, and the application-layer topics are in `cn/application.ts`. Prefer man.archlinux.org over man7.org (unreachable).
-3. SQL/DBMS gaps: exercises towards 120 (74 now), 19 more SQL/DBMS MCQs to reach 200 (181 now), isolation-anomaly simulator and B+ tree visualiser.
+1. Content is complete for every catalogued topic (179/179). What remains is depth, tools and polish, in this order:
+2. Quick win: 19 more SQL/DBMS MCQs to reach 200 (181 now).
+3. SQL/DBMS gaps: exercises towards 120 (74 now), isolation-anomaly simulator and B+ tree visualiser.
 4. Walkthroughs: the 43 Blind 75 problems still without one (Problem bank → list Blind 75, coach "Pattern guidance"), then NeetCode 150.
-5. Performance: the DSA pack is 264 KB gzip (B14); split it per topic or move walkthroughs into their own chunk. Any new lazy chunk must follow `chunking.ts` (the guard test fails if the eager import graph reaches a lazy pack, which caused the session-4 blank page in production).
+5. Performance: the DSA pack is 264 KB gzip (B14) and the eager content index is now 125 KB gzip (B15); split the DSA pack per topic or move walkthroughs into their own chunk, and load index metadata per module. Any new lazy chunk must follow `chunking.ts` (the guard test fails if the eager import graph reaches a lazy pack, which caused the session-4 blank page in production).
 6. `scripts/verify-sql-mysql.mjs` with Docker `mysql:8.0` (Docker Desktop is installed but was not started in session 3).
 
 ---
@@ -1167,7 +1167,7 @@ Depends on: Phase 2 (MCQ engine). Code verification needs `scripts/verify-code.m
 - [x] `scripts/verify-code.ts` (g++ / javac compile, run, compare with `expectedOutput`; expected-compile-error mode with a `// here` line check; toolchain capability probe that reports SKIPs)
 - [x] C++ topics content (Section 8.3), all output and compile-error questions verified (15/15 topics, 90 MCQs, all verified with g++)
 - [x] Java topics content (Section 8.4), all output and compile-error questions verified (15/15 topics, 90 MCQs, all verified with JDK 23)
-- [ ] LLD practice set (6 problems)
+- [x] LLD practice set (6 problems): parking lot, library, vending machine (State), elevator (LOOK), rate limiter class, snake and ladder; each has requirements, text class diagram, key decisions, C++ and Java skeletons (both compiled and run, outputs identical), mistakes, 4 interview questions and 6 MCQs. Lives in the System Design module as `sd.lld-*` (`system-design/lld.ts`)
 
 **Acceptance:** `npm run verify:code` passes for every `verify: true` snippet; each topic meets Section 11.
 
@@ -1175,11 +1175,11 @@ Depends on: Phase 2 (MCQ engine). Code verification needs `scripts/verify-code.m
 
 Depends on: Phase 2.
 
-- [ ] CN content + subnet calculator + the three required scenario walkthroughs (calculator done; 7/17 topics: models, subnetting, TCP/UDP, TCP lifecycle, DNS, HTTP including the type-a-URL walkthrough, TLS; subnetting answers tested against the calculator)
-- [ ] OS content + CPU scheduling simulator + page replacement simulator (each with unit-tested algorithms) (simulators done; 6/15 topics; numeric MCQ answers tested against the simulators)
-- [ ] System design foundations + 10 case studies (new-grad vs senior callouts) (7/26: estimation, caching, load balancing, replication/sharding, rate limiting, CAP, URL shortener case study; numeric facts tested)
-- [ ] DevOps content (core and advanced tracks) + YAML/Dockerfile debugging questions + local mini-labs (4/11: Linux, Git, Docker, Kubernetes core; Git facts tested against real git)
-- [ ] Core CS rapid-fire bank + security fundamentals (3/4: data representation, program execution, security fundamentals)
+- [x] CN content + subnet calculator + scenario walkthroughs (17/17 topics; the type-a-URL flow is in the HTTP topic and failed-connection diagnosis in the troubleshooting topic; numeric answers tested against the calculator and in `os-cn-facts.test.ts`)
+- [x] OS content + CPU scheduling simulator + page replacement simulator (15/15 topics; numeric MCQ answers tested against the simulators or by direct computation; fork/pipe/signal/thread samples compiled and run via WSL g++)
+- [x] System design foundations + 10 case studies (new-grad vs senior callouts) (26/26 topics: 16 foundations and 10 case studies; numeric facts tested in `sd-facts.test.ts`)
+- [x] (PARTIAL: no interactive local mini-labs) DevOps content (core and advanced tracks) (11/11 topics including Kubernetes advanced and Terraform; YAML and Dockerfile samples are illustrative, not machine-validated; Git facts tested against real git)
+- [x] Core CS rapid-fire bank + security fundamentals (4/4 topics: data representation, program execution, security fundamentals, concurrency concepts with compiled Java samples)
 
 **Acceptance:** each module has a navigable curriculum with all topics either Complete or honestly Planned; the simulators match hand-computed textbook examples in unit tests.
 
@@ -1199,7 +1199,7 @@ Depends on: the respective module phases.
 
 - [x] All 40 DSA topics Complete (40/40, session 3)
 - [ ] Authored walkthroughs for all Blind 75 problems, then all NeetCode 150 (59 authored: Blind 75 32/75, NeetCode 150 51/150)
-- [ ] SQL/DBMS, OOP, CN, OS, SD and DevOps topics all Complete
+- [x] SQL/DBMS, OOP, CN, OS, SD and DevOps topics all Complete (179/179)
 - [ ] Recognition drill bank (≥ 100 "which pattern?" items from problem summaries)
 
 ### Phase 10: QA, hardening and release (P0)
@@ -1323,7 +1323,8 @@ The project is complete only when **all** of these are verified:
 | B11 | ~~Local MinGW g++ lacks `<mutex>` and POSIX headers~~ **Resolved (session 3)** | none | g++ 15 installed in WSL Ubuntu; `verify-code.ts` compiles samples needing those capabilities there (3 samples), so 0 are skipped |
 | B12 | man7.org is unreachable from this network and the browser; Cloudflare Learning returns 403 to scripts | Those links cannot be auto-checked | man7 links replaced with man.archlinux.org pages (verified 200); Cloudflare listed as bot-walled in the checker after a manual browser check |
 | B13 | ~~One 932 KB content chunk~~ **Resolved (session 3)** | none | Per-module packs loaded on demand (`src/content/loader.ts`); eager metadata in `index.generated.ts` (regenerated by `npm run build:index`, staleness-tested) |
-| B15 | The eager content index is 513 KB (118 KB gzip) now that it lists 1,110 MCQs and 173 topics | Every page load downloads metadata for all modules | Load per-module metadata lazily, or drop `title` from MCQ metadata; the generator now emits chunks of 250 entries because TypeScript fails on ~1,000-literal arrays |
+| B15 | The eager content index is 548 KB (125 KB gzip) now that it lists 1,208 MCQs and 179 topics | Every page load downloads metadata for all modules | Load per-module metadata lazily, or drop `title` from MCQ metadata; the generator now emits chunks of 250 entries because TypeScript fails on ~1,000-literal arrays |
+| B16 | `csapp.cs.cmu.edu` (Core CS, program execution) fails from scripts and the in-app browser on 2026-10-12 | One resource link unverified | Keep the link (the site has been reachable before); re-check, or replace it with the CS:APP book page on a stable host |
 | B14 | The DSA pack is 859 KB (264 KB gzip) after completing all 40 topics | Opening any DSA page downloads all DSA lessons and walkthroughs | Split DSA per topic or put walkthroughs in their own lazily loaded chunk |
 | B10 | sql.js uses SQLite, while LeetCode and most OAs default to MySQL | Some syntax and behaviour differ | Dual reference solutions; every MySQL solution verified offline on MySQL 8.0 (Docker); clear "where it was executed" labels (Section 8.2.4) |
 
@@ -1361,6 +1362,7 @@ The project is complete only when **all** of these are verified:
 | 2026-10-12 | Curated problems outside the public lists are allowed only via `research/scripts/verify-curated.mjs` (GraphQL-verified) and carry the "Curated" badge | Several topics (MST, Fenwick, advanced graphs) had too few list problems; never invent slugs |
 | 2026-10-12 | LeetCode links are verified through GraphQL in the link checker | leetcode.com returns 403 to scripts; GraphQL is the same verification used for the research data |
 | 2026-10-12 | Samples needing threads/POSIX are compiled with WSL g++ | Local MinGW lacks those headers; skipped samples are never counted as verified |
+| 2026-10-12 | The LLD practice set lives in the System Design module (`sd.lld-*`), not in a new module | A new module touches nav, plans, readiness, chunking and OA presets; LLD is design practice and each problem ships both C++ and Java skeletons |
 
 ---
 
@@ -1375,3 +1377,4 @@ The project is complete only when **all** of these are verified:
 | 3 | 2026-10-12 | Resolved B11 (WSL g++) and B13 (per-module content packs). Added the Playwright e2e suite with axe and a 7-width sweep, which found and fixed a contrast bug and a search bug (hover stole the keyboard selection). Verified 74 curated problems via GraphQL (bank 383 → 417). Wrote the remaining 25 DSA topics (DSA 40/40) with 200+ MCQs and 25 walkthroughs, all compiler-verified, with numeric answers cross-checked by script. Link checker now verifies LeetCode via GraphQL. Not done: SQL/DBMS/OOP/CN/OS/SD/DevOps remaining topics, SQL exercises to 120, MySQL verification, B14. The history-rewrite question (institute name in commit `92c5b9c`) still needs the user's decision. |
 | 4 | 2026-10-12 | SQL: datasets `rides`, `social`, `ledger` with hidden variants, 41 new exercises (74 total), 8 lessons with 48 MCQs (22 executed); SQL 14/14. DBMS: schedule analyser tool and 10 topics (DBMS 16/16). C++: 10 topics (15/15). Java: 10 topics (15/15). CN: 5 topics (12/17) with numeric answers recomputed in tests against the graded option. Fixed a blank production page on Vercel (circular chunk import → TDZ crash) with a shared chunk rule and a guard test. Recorded the production URL. Not done: LLD practice set, last 5 CN topics, OS/SD/DevOps/Core CS remainder, SQL exercises to 120, MySQL verification, B14, e2e rerun. |
 | 5 | 2026-10-12 | CN: last 5 topics (17/17). OS: 9 topics (15/15) with g++-verified fork/pipe/signal/thread samples (471 samples, 0 failures). System Design: 19 topics (26/26): 10 foundations and 9 case studies, each with new-grad vs senior callouts, numeric answers recomputed in `tests/sd-facts.test.ts`. Content index generator now emits chunks (TS union-complexity error at ~1,000 entries). Not done: LLD practice set, DevOps/Core CS remainder, SQL exercises to 120, walkthroughs, MySQL verification, B14/B15, e2e rerun. |
+| 6 | 2026-10-12 | DevOps: 7 topics (11/11). Core CS: concurrency concepts (4/4). LLD practice set: 6 problems with verified C++ and Java skeletons (System Design 32/32). All 179 catalogued topics Complete; 1,208 MCQs; 489 code samples compile and run with 0 failures (the verifier caught a real deadlock in a lock-ordering sample, fixed). Not done: SQL exercises to 120, 19 SQL/DBMS MCQs, anomaly simulator and B+ tree visualiser, Blind 75 walkthroughs (43 left), B14/B15 performance, MySQL verification, e2e rerun. |

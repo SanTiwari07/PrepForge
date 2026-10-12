@@ -1,5 +1,6 @@
 import type { MCQ, Topic } from '../schema';
 import { cpp, java, mcq } from '../helpers';
+import * as more from './more';
 
 const MASTERY = { testSize: 6, testMinutes: 10, passPct: 80, minIndependentSolves: 0, minMediumIndependent: 0, retentionDays: 7 };
 type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
@@ -251,5 +252,5 @@ const sfMcqs: MCQ[] = [
   mcq({ ...q(SF), id: 'core.sf.q6', type: 'concept', difficulty: 'easy', stem: 'What does a salt protect against?', options: ['Precomputed (rainbow table) attacks and identical passwords sharing a hash', ['Network sniffing', 'That is TLS.'], ['SQL injection', 'Unrelated.'], ['Weak passwords being guessed online', 'That needs rate limiting and lockout.']], answer: 0, explanation: 'Each user\'s hash must be attacked separately.' }),
 ];
 
-export const topics: Topic[] = [dataRep, progExec, security];
-export const mcqs: MCQ[] = [...drMcqs, ...peMcqs, ...sfMcqs];
+export const topics: Topic[] = [dataRep, progExec, security, ...more.topics];
+export const mcqs: MCQ[] = [...drMcqs, ...peMcqs, ...sfMcqs, ...more.mcqs];

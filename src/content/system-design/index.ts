@@ -5,6 +5,7 @@ import * as foundations from './foundations';
 import * as foundations2 from './foundations2';
 import * as cases from './cases';
 import * as cases2 from './cases2';
+import * as lld from './lld';
 
 // ---------------------------------------------------------------------------------------
 const ES = 'sd.estimation';
@@ -452,5 +453,5 @@ const urMcqs: MCQ[] = [
   mcq({ ...q(UR), id: 'sd.ur.q6', type: 'concept', difficulty: 'easy', stem: 'What is the correct first step in a system design interview?', options: ['Clarify functional and non-functional requirements and scale', ['Choose the database', 'Premature.'], ['Draw microservices', 'Premature.'], ['Write code', 'Not the focus.']], answer: 0, explanation: 'Requirements drive every later decision.' }),
 ];
 
-export const topics: Topic[] = [estimation, caching, lb, replShard, rateLimit, cap, urlShort, ...foundations.topics, ...foundations2.topics, ...cases.topics, ...cases2.topics];
-export const mcqs: MCQ[] = [...esMcqs, ...caMcqs, ...lbMcqs, ...rsMcqs, ...rlMcqs, ...capMcqs, ...urMcqs, ...foundations.mcqs, ...foundations2.mcqs, ...cases.mcqs, ...cases2.mcqs];
+export const topics: Topic[] = [estimation, caching, lb, replShard, rateLimit, cap, urlShort, ...foundations.topics, ...foundations2.topics, ...cases.topics, ...cases2.topics, ...lld.topics];
+export const mcqs: MCQ[] = [...esMcqs, ...caMcqs, ...lbMcqs, ...rsMcqs, ...rlMcqs, ...capMcqs, ...urMcqs, ...foundations.mcqs, ...foundations2.mcqs, ...cases.mcqs, ...cases2.mcqs, ...lld.mcqs];

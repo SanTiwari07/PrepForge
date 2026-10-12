@@ -1,13 +1,7 @@
-import type { CodeSample, MCQ, Topic } from '../schema';
+import type { MCQ, Topic } from '../schema';
 import { mcq } from '../helpers';
-
-const MASTERY = { testSize: 6, testMinutes: 10, passPct: 80, minIndependentSolves: 0, minMediumIndependent: 0, retentionDays: 7 };
-type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
-const dTopic = (t: TopicInput): Topic => ({ moduleId: 'devops', status: 'complete', mastery: MASTERY, mcqIds: [], problemIds: [], related: [], ...t });
-const q = (topic: string) => ({ topics: [topic], module: 'devops' as const });
-const sh = (code: string, label = 'Shell'): CodeSample => ({ lang: 'bash', code, label });
-const yaml = (code: string, label = 'YAML'): CodeSample => ({ lang: 'yaml', code, label });
-const dockerfile = (code: string): CodeSample => ({ lang: 'dockerfile', code, label: 'Dockerfile' });
+import { dTopic, dockerfile, q, sh, yaml } from './common';
+import * as more from './more';
 
 // ---------------------------------------------------------------------------------------
 const LX = 'devops.linux';
@@ -314,5 +308,5 @@ const k8Mcqs: MCQ[] = [
   mcq({ ...q(K8), id: 'devops.k8.q6', type: 'debug', difficulty: 'hard', stem: 'During a brief database outage, every API pod restarted repeatedly. The liveness probe calls `/healthz`, which queries the database. What is wrong?', options: ['Liveness must not depend on downstream dependencies; check only the process itself and use readiness for dependency health', ['The probe period is too long', 'Not the root cause.'], ['The pods need more replicas', 'They would all restart too.'], ['The database needs a liveness probe', 'Not the issue here.']], answer: 0, explanation: 'Restarting pods cannot fix the database and causes a cascading failure.' }),
 ];
 
-export const topics: Topic[] = [linux, git, docker, k8s];
-export const mcqs: MCQ[] = [...lxMcqs, ...gtMcqs, ...dkMcqs, ...k8Mcqs];
+export const topics: Topic[] = [linux, git, docker, k8s, ...more.topics];
+export const mcqs: MCQ[] = [...lxMcqs, ...gtMcqs, ...dkMcqs, ...k8Mcqs, ...more.mcqs];
