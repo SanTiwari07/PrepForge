@@ -1,12 +1,7 @@
-import type { MCQ, Resource, Topic } from '../schema';
+import type { MCQ, Topic } from '../schema';
 import { java, javaErr, mcq } from '../helpers';
+import { JLS, TUT, javaTopic, q } from './common';
 
-const MASTERY = { testSize: 6, testMinutes: 12, passPct: 80, minIndependentSolves: 0, minMediumIndependent: 0, retentionDays: 7 };
-const JLS: Resource = { title: 'Java Language Specification (SE 21)', url: 'https://docs.oracle.com/javase/specs/jls/se21/html/index.html', kind: 'official-docs' };
-const TUT: Resource = { title: 'The Java Tutorials: Classes and Objects', url: 'https://docs.oracle.com/javase/tutorial/java/javaOO/index.html', kind: 'official-docs' };
-type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
-const javaTopic = (t: TopicInput): Topic => ({ moduleId: 'oop-java', status: 'complete', mastery: MASTERY, mcqIds: [], problemIds: [], related: [], ...t });
-const q = (topic: string) => ({ topics: [topic], module: 'oop-java' as const });
 
 // ---------------------------------------------------------------------------------------
 const CI = 'java.constructors-init';
