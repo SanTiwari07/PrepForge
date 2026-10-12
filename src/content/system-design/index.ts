@@ -1,11 +1,10 @@
-import type { MCQ, Resource, Topic } from '../schema';
+import type { MCQ, Topic } from '../schema';
 import { cpp, mcq } from '../helpers';
-
-const MASTERY = { testSize: 6, testMinutes: 12, passPct: 75, minIndependentSolves: 0, minMediumIndependent: 0, retentionDays: 10 };
-const PRIMER: Resource = { title: 'The System Design Primer (GitHub)', url: 'https://github.com/donnemartin/system-design-primer', kind: 'article' };
-type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
-const sdTopic = (t: TopicInput): Topic => ({ moduleId: 'system-design', status: 'complete', mastery: MASTERY, mcqIds: [], problemIds: [], related: [], ...t });
-const q = (topic: string) => ({ topics: [topic], module: 'system-design' as const });
+import { PRIMER, q, sdTopic } from './common';
+import * as foundations from './foundations';
+import * as foundations2 from './foundations2';
+import * as cases from './cases';
+import * as cases2 from './cases2';
 
 // ---------------------------------------------------------------------------------------
 const ES = 'sd.estimation';
@@ -453,5 +452,5 @@ const urMcqs: MCQ[] = [
   mcq({ ...q(UR), id: 'sd.ur.q6', type: 'concept', difficulty: 'easy', stem: 'What is the correct first step in a system design interview?', options: ['Clarify functional and non-functional requirements and scale', ['Choose the database', 'Premature.'], ['Draw microservices', 'Premature.'], ['Write code', 'Not the focus.']], answer: 0, explanation: 'Requirements drive every later decision.' }),
 ];
 
-export const topics: Topic[] = [estimation, caching, lb, replShard, rateLimit, cap, urlShort];
-export const mcqs: MCQ[] = [...esMcqs, ...caMcqs, ...lbMcqs, ...rsMcqs, ...rlMcqs, ...capMcqs, ...urMcqs];
+export const topics: Topic[] = [estimation, caching, lb, replShard, rateLimit, cap, urlShort, ...foundations.topics, ...foundations2.topics, ...cases.topics, ...cases2.topics];
+export const mcqs: MCQ[] = [...esMcqs, ...caMcqs, ...lbMcqs, ...rsMcqs, ...rlMcqs, ...capMcqs, ...urMcqs, ...foundations.mcqs, ...foundations2.mcqs, ...cases.mcqs, ...cases2.mcqs];
