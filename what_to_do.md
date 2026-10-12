@@ -10,10 +10,10 @@
 | Product name | **PrepForge** (the working name "PlacementOS" was replaced at the user's request) |
 | Repository | `https://github.com/SanTiwari07/PrepForge.git` (public), branch `main`, local folder `D:\Projects\PlacementResource` |
 | Production | **https://prep-forge-omega.vercel.app** (Vercel, auto-deploys every push to `main`; GitHub shows each deploy under Deployments → Production) |
-| Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 26/26 plus 6 LLD problems, DevOps 11/11, Core CS 4/4 (all 179 catalogued topics Complete), schedule analyser, Vercel blank-page fix) |
+| Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 26/26 plus 6 LLD problems, DevOps 11/11, Core CS 5/5 (all 180 catalogued topics Complete), schedule analyser, Vercel blank-page fix) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
-| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32, DevOps 11/11, Core CS 4/4 complete: every catalogued topic**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
-| Overall status | Working app with **179 complete topics out of 179 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32 including the 6-problem LLD practice set, DevOps 11/11, Core CS 4/4), **1,227 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **158 coach walkthroughs** (Blind 75 75/75, NeetCode 150 150/150, Top Interview 150 77/150, LeetCode 75 21/75), SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 417 unit tests pass (31 Playwright e2e tests passed when re-run at the end of session 6); 687 C++/Java samples compile (and run where output is claimed), 0 skipped; 350/356 links checked automatically (1 csapp.cs.cmu.edu outage, 5 bot-walled Cloudflare pages). |
+| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32, DevOps 11/11, Core CS 5/5 complete: every catalogued topic**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
+| Overall status | Working app with **180 complete topics out of 180 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 17/17, OS 15/15, System Design 32/32 including the 6-problem LLD practice set, DevOps 11/11, Core CS 5/5), **1,235 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **158 coach walkthroughs** (Blind 75 75/75, NeetCode 150 150/150, Top Interview 150 77/150, LeetCode 75 21/75), SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 419 unit tests pass (31 Playwright e2e tests passed when re-run at the end of session 6); 687 C++/Java samples compile (and run where output is claimed), 0 skipped; 350/356 links checked automatically (1 csapp.cs.cmu.edu outage, 5 bot-walled Cloudflare pages). |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -58,7 +58,7 @@ Never tick a box for a feature that only exists as a mockup.
 
 **Next actions (in order):**
 
-1. Content is complete for every catalogued topic (179/179). What remains is depth, tools and polish, in this order:
+1. Content is complete for every catalogued topic (180/180). What remains is depth, tools and polish, in this order:
 2. SQL/DBMS gaps: exercises towards 120 (74 now), isolation-anomaly simulator and B+ tree visualiser.
 3. Walkthroughs: Blind 75 and NeetCode 150 are complete (158 authored). Remaining gaps: Top Interview 150 (73 without one) and LeetCode 75 (54). Method: write both languages with a test `main` (and randomised brute-force checks for tricky ones), run them, then embed (generator kept in the session scratch; see the session 6 log).
 4. Performance: B14 is mostly resolved (walkthroughs now load from their own lazy chunk, only on problem pages that have one: DSA lessons pack 221 KB gzip, walkthrough chunk 138 KB gzip); B15 (eager content index 127 KB gzip) remains: load per-module metadata lazily. Any new lazy chunk must follow `chunking.ts`.
@@ -526,55 +526,55 @@ and a verified URL.
 
 Foundations
 - [x] `dsa.complexity` (F): Big-O, Big-Θ, Big-Ω; best/avg/worst; amortised analysis; recurrences and the Master theorem (intro); reading constraints → target complexity (n ≤ 10^5 → O(n log n), and so on)
-- [ ] `dsa.recursion` (F): call stack, base cases, recursion trees, tail recursion, recursion → iteration
-- [ ] `dsa.stl-collections` (F): C++ STL (vector, string, unordered_map/set, map/set, priority_queue, deque, stack, queue, algorithms, lower_bound) and Java Collections (ArrayList, HashMap, TreeMap, ArrayDeque, PriorityQueue, Collections/Arrays); complexity of each; common pitfalls
-- [ ] `dsa.math` (F): GCD/LCM, primes and the sieve, modular arithmetic, fast exponentiation, combinatorics basics, overflow
+- [x] `dsa.recursion` (F): call stack, base cases, recursion trees, tail recursion, recursion → iteration
+- [x] `dsa.stl-collections` (F): C++ STL (vector, string, unordered_map/set, map/set, priority_queue, deque, stack, queue, algorithms, lower_bound) and Java Collections (ArrayList, HashMap, TreeMap, ArrayDeque, PriorityQueue, Collections/Arrays); complexity of each; common pitfalls
+- [x] `dsa.math` (F): GCD/LCM, primes and the sieve, modular arithmetic, fast exponentiation, combinatorics basics, overflow
 
 Arrays and hashing
-- [ ] `dsa.arrays-strings` (F): traversal, in-place techniques, string building, char counting
+- [x] `dsa.arrays-strings` (F): traversal, in-place techniques, string building, char counting
 - [x] `dsa.hashing` (F): hash maps and sets, frequency counting, complement lookup, grouping by key
-- [ ] `dsa.prefix-sums` (C): prefix sums, subarray sum = k with a hashmap, 2D prefix sums, **difference arrays**
-- [ ] `dsa.kadane` (C): maximum subarray, max-product variant, circular variant
+- [x] `dsa.prefix-sums` (C): prefix sums, subarray sum = k with a hashmap, 2D prefix sums, **difference arrays**
+- [x] `dsa.kadane` (C): maximum subarray, max-product variant, circular variant
 
 Problem-solving patterns
 - [x] `dsa.two-pointers` (C): opposite ends, same direction, partitioning, k-sum
 - [x] `dsa.sliding-window` (C): fixed, variable (longest/shortest), counting with "at most k" decomposition
 - [x] `dsa.binary-search` (C): classic, boundaries (lower/upper bound), rotated arrays, **binary search on the answer**
-- [ ] `dsa.fast-slow-pointers` (C): cycle detection, middle node, Floyd's algorithm on arrays
-- [ ] `dsa.monotonic-stack-queue` (C): next greater/smaller, histogram, sliding window maximum (deque)
-- [ ] `dsa.intervals` (C): sort and merge, insert, overlap counting, sweep line, meeting rooms
-- [ ] `dsa.greedy` (C): exchange arguments, interval scheduling, jump game, when greedy fails
-- [ ] `dsa.divide-conquer` (C): merge sort, quickselect, counting inversions
-- [ ] `dsa.bit-manipulation` (C): bit tricks, XOR properties, masks, counting bits
+- [x] `dsa.fast-slow-pointers` (C): cycle detection, middle node, Floyd's algorithm on arrays
+- [x] `dsa.monotonic-stack-queue` (C): next greater/smaller, histogram, sliding window maximum (deque)
+- [x] `dsa.intervals` (C): sort and merge, insert, overlap counting, sweep line, meeting rooms
+- [x] `dsa.greedy` (C): exchange arguments, interval scheduling, jump game, when greedy fails
+- [x] `dsa.divide-conquer` (C): merge sort, quickselect, counting inversions
+- [x] `dsa.bit-manipulation` (C): bit tricks, XOR properties, masks, counting bits
 
 Data structures
-- [ ] `dsa.linked-lists` (F): reversal, dummy nodes, merge, reorder, LRU-style use
-- [ ] `dsa.stacks-queues` (F): parentheses, expression evaluation, queue via stacks, deque
-- [ ] `dsa.binary-trees` (C): DFS traversals (recursive and iterative), BFS level order, height/diameter, path problems, construction from traversals, serialisation
-- [ ] `dsa.bst` (C): search/insert/delete, validation, inorder properties, kth smallest, LCA
-- [ ] `dsa.heaps` (C): heapify, top-k, k-way merge, two heaps (median), scheduling
-- [ ] `dsa.tries` (C): insert/search/prefix, word search II, XOR trie (advanced)
-- [ ] `dsa.graphs` (C): representations, BFS/DFS on grids and graphs, connected components, cycle detection (directed and undirected), bipartite
-- [ ] `dsa.dsu` (C): union-find with path compression and union by rank; Kruskal; dynamic connectivity
-- [ ] `dsa.fenwick-segment` (A): Fenwick tree, segment tree (point update / range query), lazy propagation (advanced)
+- [x] `dsa.linked-lists` (F): reversal, dummy nodes, merge, reorder, LRU-style use
+- [x] `dsa.stacks-queues` (F): parentheses, expression evaluation, queue via stacks, deque
+- [x] `dsa.binary-trees` (C): DFS traversals (recursive and iterative), BFS level order, height/diameter, path problems, construction from traversals, serialisation
+- [x] `dsa.bst` (C): search/insert/delete, validation, inorder properties, kth smallest, LCA
+- [x] `dsa.heaps` (C): heapify, top-k, k-way merge, two heaps (median), scheduling
+- [x] `dsa.tries` (C): insert/search/prefix, word search II, XOR trie (advanced)
+- [x] `dsa.graphs` (C): representations, BFS/DFS on grids and graphs, connected components, cycle detection (directed and undirected), bipartite
+- [x] `dsa.dsu` (C): union-find with path compression and union by rank; Kruskal; dynamic connectivity
+- [x] `dsa.fenwick-segment` (A): Fenwick tree, segment tree (point update / range query), lazy propagation (advanced)
 
 Algorithms
-- [ ] `dsa.sorting` (F): bubble/insertion/selection (for analysis), merge, quick, heap, counting/bucket, stability, custom comparators (C++ and Java)
-- [ ] `dsa.topological-sort` (C): Kahn's algorithm and DFS ordering, course schedule, alien dictionary
-- [ ] `dsa.shortest-paths` (C): BFS on unweighted graphs, 0-1 BFS, Dijkstra, Bellman-Ford, Floyd-Warshall, when to use which
-- [ ] `dsa.mst` (C): Kruskal, Prim, proofs by cut property (intuition)
-- [ ] `dsa.backtracking` (C): subsets, permutations, combinations, pruning, N-Queens, word search
-- [ ] `dsa.dp-1d` (C): recognising DP, state, transition, base case, memoisation → tabulation → space optimisation; climbing stairs, house robber, coin change, word break, LIS (O(n²) and O(n log n))
-- [ ] `dsa.dp-2d` (C): grids, LCS, edit distance, knapsack (0/1 and unbounded), DP on strings, stock problems (state machine)
-- [ ] `dsa.dp-advanced` (A): interval DP (MCM, burst balloons), bitmask DP, DP on trees, digit DP (intro)
-- [ ] `dsa.advanced-graphs` (A): SCC (Kosaraju/Tarjan), bridges and articulation points, Eulerian path (reconstruct itinerary)
-- [ ] `dsa.string-matching` (A): KMP (prefix function), Z-algorithm, Rabin-Karp rolling hash
+- [x] `dsa.sorting` (F): bubble/insertion/selection (for analysis), merge, quick, heap, counting/bucket, stability, custom comparators (C++ and Java)
+- [x] `dsa.topological-sort` (C): Kahn's algorithm and DFS ordering, course schedule, alien dictionary
+- [x] `dsa.shortest-paths` (C): BFS on unweighted graphs, 0-1 BFS, Dijkstra, Bellman-Ford, Floyd-Warshall, when to use which
+- [x] `dsa.mst` (C): Kruskal, Prim, proofs by cut property (intuition)
+- [x] `dsa.backtracking` (C): subsets, permutations, combinations, pruning, N-Queens, word search
+- [x] `dsa.dp-1d` (C): recognising DP, state, transition, base case, memoisation → tabulation → space optimisation; climbing stairs, house robber, coin change, word break, LIS (O(n²) and O(n log n))
+- [x] `dsa.dp-2d` (C): grids, LCS, edit distance, knapsack (0/1 and unbounded), DP on strings, stock problems (state machine)
+- [x] `dsa.dp-advanced` (A): interval DP (MCM, burst balloons), bitmask DP, DP on trees, digit DP (intro)
+- [x] `dsa.advanced-graphs` (A): SCC (Kosaraju/Tarjan), bridges and articulation points, Eulerian path (reconstruct itinerary)
+- [x] `dsa.string-matching` (A): KMP (prefix function), Z-algorithm, Rabin-Karp rolling hash
 
 Additional interview topics
-- [ ] `dsa.matrix` (C): traversal orders, rotation, spiral, in-place marking, search in a sorted matrix
-- [ ] `dsa.design-ds` (C): LRU cache, min stack, LFU (advanced), iterator design, time-based KV store
-- [ ] `dsa.implementation` (C): simulation, careful indexing, parsing, OA-style long statements
-- [ ] `dsa.advanced-patterns` (A): meet in the middle, coordinate compression, sweep line, randomisation, two-heap and multi-pointer combinations
+- [x] `dsa.matrix` (C): traversal orders, rotation, spiral, in-place marking, search in a sorted matrix
+- [x] `dsa.design-ds` (C): LRU cache, min stack, LFU (advanced), iterator design, time-based KV store
+- [x] `dsa.implementation` (C): simulation, careful indexing, parsing, OA-style long statements
+- [x] `dsa.advanced-patterns` (A): meet in the middle, coordinate compression, sweep line, randomisation, two-heap and multi-pointer combinations
 
 **Default roadmap order:** complexity → stl-collections → arrays-strings → hashing → two-pointers → sliding-window → prefix-sums → kadane → binary-search → stacks-queues → monotonic-stack-queue → linked-lists → fast-slow → recursion → binary-trees → bst → heaps → backtracking → intervals → greedy → graphs → topological-sort → dsu → shortest-paths → dp-1d → dp-2d → tries → bit-manipulation → matrix → sorting/divide-conquer → design-ds → math → mst → implementation → (advanced track) fenwick-segment, dp-advanced, advanced-graphs, string-matching, advanced-patterns.
 
@@ -604,38 +604,38 @@ technical topics (Section 8.11). No other company-specific SQL claims are made w
 Tags: **[Q]** query writing · **[C]** concept / interview · **[A]** advanced track.
 
 **SQL querying (P0)**
-- [ ] `sql.select-basics` [Q]: SELECT, WHERE, ORDER BY, LIMIT/OFFSET, DISTINCT, LIKE, IN, BETWEEN, aliases, logical query processing order (FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT)
-- [ ] `sql.null-handling` [Q][C]: three-valued logic, IS NULL, COALESCE/IFNULL, NULLs in aggregates, joins and comparisons, the `NOT IN` + NULL trap
-- [ ] `sql.aggregation` [Q]: aggregate functions, GROUP BY, HAVING vs WHERE, COUNT(*) vs COUNT(col) vs COUNT(DISTINCT), **zero-count groups**
-- [ ] `sql.joins` [Q][C]: INNER, LEFT, RIGHT, FULL (MySQL emulation via UNION), CROSS; anti-joins and semi-joins; **join row multiplication**; join vs subquery
-- [ ] `sql.self-joins` [Q]: comparing rows, manager–employee, pairs, consecutive rows without window functions
-- [ ] `sql.subqueries` [Q]: scalar, IN, correlated, EXISTS / NOT EXISTS, ANY / ALL, derived tables
-- [ ] `sql.set-operations` [Q]: UNION vs UNION ALL, INTERSECT and EXCEPT (with emulation)
-- [ ] `sql.cte` [Q]: WITH, chained CTEs, recursive CTEs (hierarchies, number series)
-- [ ] `sql.window-functions` [Q][C]: OVER, PARTITION BY, ORDER BY, frames; ROW_NUMBER / RANK / DENSE_RANK; LAG / LEAD; NTILE; running totals; moving averages
-- [ ] `sql.case-conditional-agg` [Q]: CASE, conditional aggregation, pivoting rows to columns
-- [ ] `sql.date-string-functions` [Q]: date arithmetic and extraction (MySQL vs SQLite differences), date-boundary pitfalls, string functions, LIKE vs REGEXP
-- [ ] `sql.patterns` [Q]: duplicates, Nth highest, top-N per group, relational division ("for all"), consecutive records and gaps-and-islands, first/last event per user, retention and cohorts, year-over-year, median
-- [ ] `sql.dml-ddl` [Q][C]: INSERT / UPDATE / DELETE, CREATE / ALTER, constraints (PK, FK, UNIQUE, CHECK, NOT NULL, DEFAULT), referential actions, DELETE vs TRUNCATE vs DROP, views and when they are updatable
+- [x] `sql.select-basics` [Q]: SELECT, WHERE, ORDER BY, LIMIT/OFFSET, DISTINCT, LIKE, IN, BETWEEN, aliases, logical query processing order (FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT)
+- [x] `sql.null-handling` [Q][C]: three-valued logic, IS NULL, COALESCE/IFNULL, NULLs in aggregates, joins and comparisons, the `NOT IN` + NULL trap
+- [x] `sql.aggregation` [Q]: aggregate functions, GROUP BY, HAVING vs WHERE, COUNT(*) vs COUNT(col) vs COUNT(DISTINCT), **zero-count groups**
+- [x] `sql.joins` [Q][C]: INNER, LEFT, RIGHT, FULL (MySQL emulation via UNION), CROSS; anti-joins and semi-joins; **join row multiplication**; join vs subquery
+- [x] `sql.self-joins` [Q]: comparing rows, manager–employee, pairs, consecutive rows without window functions
+- [x] `sql.subqueries` [Q]: scalar, IN, correlated, EXISTS / NOT EXISTS, ANY / ALL, derived tables
+- [x] `sql.set-operations` [Q]: UNION vs UNION ALL, INTERSECT and EXCEPT (with emulation)
+- [x] `sql.cte` [Q]: WITH, chained CTEs, recursive CTEs (hierarchies, number series)
+- [x] `sql.window-functions` [Q][C]: OVER, PARTITION BY, ORDER BY, frames; ROW_NUMBER / RANK / DENSE_RANK; LAG / LEAD; NTILE; running totals; moving averages
+- [x] `sql.case-conditional-agg` [Q]: CASE, conditional aggregation, pivoting rows to columns
+- [x] `sql.date-string-functions` [Q]: date arithmetic and extraction (MySQL vs SQLite differences), date-boundary pitfalls, string functions, LIKE vs REGEXP
+- [x] `sql.patterns` [Q]: duplicates, Nth highest, top-N per group, relational division ("for all"), consecutive records and gaps-and-islands, first/last event per user, retention and cohorts, year-over-year, median
+- [x] `sql.dml-ddl` [Q][C]: INSERT / UPDATE / DELETE, CREATE / ALTER, constraints (PK, FK, UNIQUE, CHECK, NOT NULL, DEFAULT), referential actions, DELETE vs TRUNCATE vs DROP, views and when they are updatable
 
 **DBMS concepts (P0 unless marked)**
-- [ ] `dbms.relational-basics` [C]: relation, tuple, attribute, schema vs instance; DBMS vs file system (the interview version: why databases exist)
-- [ ] `dbms.keys-constraints` [C]: super, candidate, primary, alternate, foreign and composite keys; prime attributes; integrity constraints
-- [ ] `dbms.er-modelling` [C]: entities, attributes, relationships, cardinality, weak entities; **ER → tables**; design exercises for typical product features (e-commerce orders, ride booking, social follows)
-- [ ] `dbms.relational-algebra` [C]: σ, π, ⋈, ∪, −, ×, ÷ at OA-MCQ depth (output size and equivalence questions)
-- [ ] `dbms.functional-dependencies` [C]: FDs, Armstrong's axioms, **attribute closure**, candidate keys from FDs, prime attributes, superkey counting (common OA MCQs)
-- [ ] `dbms.normalisation` [C]: anomalies, 1NF, 2NF, 3NF, BCNF; finding the highest normal form; lossless join and dependency preservation; **when to denormalise** (interview trade-off)
-- [ ] `dbms.transactions-acid` [C]: transactions, ACID with concrete failure examples, commit and rollback
-- [ ] `dbms.isolation-concurrency` [C]: dirty read, non-repeatable read, phantom, lost update; READ UNCOMMITTED → SERIALIZABLE; locks (shared/exclusive), 2PL, MVCC (how InnoDB and PostgreSQL avoid read locks), optimistic vs pessimistic locking
-- [ ] `dbms.serialisability` [C]: conflict serialisability via precedence graphs, recoverable and cascadeless schedules (OA MCQs)
-- [ ] `dbms.deadlocks` [C]: how deadlocks happen in databases, detection and wait-for graphs, prevention (lock ordering, timeouts), wait-die / wound-wait
-- [ ] `dbms.indexing` [C]: why indexes speed reads and slow writes; B-tree vs B+ tree; clustered (InnoDB primary key) vs secondary indexes; composite indexes and the leftmost prefix; covering indexes; hash indexes; when an index is not used (functions on columns, low selectivity, leading wildcard)
-- [ ] `sql.explain-optimisation` [C][Q]: reading `EXPLAIN` (MySQL) / `EXPLAIN QUERY PLAN` (SQLite), sargable predicates, rewriting correlated subqueries, keyset vs offset pagination, N+1 queries
-- [ ] `dbms.sql-vs-nosql` [C]: relational vs document, key-value, wide-column and graph stores; choosing for a use case; schema flexibility vs consistency
-- [ ] `dbms.replication-sharding` [C] (P1): leader–follower replication, replication lag, read replicas, partitioning and sharding keys, hotspots (links to System Design 8.7)
-- [ ] `dbms.storage-recovery` [A] (P2): pages, buffer pool, write-ahead logging, crash recovery intuition
-- [ ] `dbms.query-processing` [A] (P2): join algorithms (nested-loop, hash, sort-merge), cost-based optimisation intuition
-- [ ] `dbms.distributed-transactions` [A] (P2): two-phase commit, why it is avoided at scale, sagas (links to System Design)
+- [x] `dbms.relational-basics` [C]: relation, tuple, attribute, schema vs instance; DBMS vs file system (the interview version: why databases exist)
+- [x] `dbms.keys-constraints` [C]: super, candidate, primary, alternate, foreign and composite keys; prime attributes; integrity constraints
+- [x] `dbms.er-modelling` [C]: entities, attributes, relationships, cardinality, weak entities; **ER → tables**; design exercises for typical product features (e-commerce orders, ride booking, social follows)
+- [x] `dbms.relational-algebra` [C]: σ, π, ⋈, ∪, −, ×, ÷ at OA-MCQ depth (output size and equivalence questions)
+- [x] `dbms.functional-dependencies` [C]: FDs, Armstrong's axioms, **attribute closure**, candidate keys from FDs, prime attributes, superkey counting (common OA MCQs)
+- [x] `dbms.normalisation` [C]: anomalies, 1NF, 2NF, 3NF, BCNF; finding the highest normal form; lossless join and dependency preservation; **when to denormalise** (interview trade-off)
+- [x] `dbms.transactions-acid` [C]: transactions, ACID with concrete failure examples, commit and rollback
+- [x] `dbms.isolation-concurrency` [C]: dirty read, non-repeatable read, phantom, lost update; READ UNCOMMITTED → SERIALIZABLE; locks (shared/exclusive), 2PL, MVCC (how InnoDB and PostgreSQL avoid read locks), optimistic vs pessimistic locking
+- [x] `dbms.serialisability` [C]: conflict serialisability via precedence graphs, recoverable and cascadeless schedules (OA MCQs)
+- [x] `dbms.deadlocks` [C]: how deadlocks happen in databases, detection and wait-for graphs, prevention (lock ordering, timeouts), wait-die / wound-wait
+- [x] `dbms.indexing` [C]: why indexes speed reads and slow writes; B-tree vs B+ tree; clustered (InnoDB primary key) vs secondary indexes; composite indexes and the leftmost prefix; covering indexes; hash indexes; when an index is not used (functions on columns, low selectivity, leading wildcard)
+- [x] `sql.explain-optimisation` [C][Q]: reading `EXPLAIN` (MySQL) / `EXPLAIN QUERY PLAN` (SQLite), sargable predicates, rewriting correlated subqueries, keyset vs offset pagination, N+1 queries
+- [x] `dbms.sql-vs-nosql` [C]: relational vs document, key-value, wide-column and graph stores; choosing for a use case; schema flexibility vs consistency
+- [x] `dbms.replication-sharding` [C] (P1): leader–follower replication, replication lag, read replicas, partitioning and sharding keys, hotspots (links to System Design 8.7)
+- [x] `dbms.storage-recovery` [A] (P2): pages, buffer pool, write-ahead logging, crash recovery intuition
+- [x] `dbms.query-processing` [A] (P2): join algorithms (nested-loop, hash, sort-merge), cost-based optimisation intuition
+- [x] `dbms.distributed-transactions` [A] (P2): two-phase commit, why it is avoided at scale, sagas (links to System Design)
 
 **Default order:** select-basics → null-handling → aggregation → joins → self-joins →
 subqueries → set-operations → case-conditional-agg → cte → window-functions →
@@ -719,38 +719,38 @@ Every question explains why the answer is correct **and** why each tempting alte
 wrong. Topics show "In Java this differs because…" callouts, and vice versa.
 
 **C++ topics:**
-- [ ] `cpp.classes-objects` (F): class vs struct, members, `this`, const member functions
-- [ ] `cpp.constructors-destructors` (F): default, parameterised, initialiser lists (and member init order!), delegating, explicit, destructor order, temporaries
-- [ ] `cpp.access-encapsulation` (F): public/protected/private, friend, invariants
-- [ ] `cpp.inheritance` (C): access in inheritance, constructor/destructor order, multiple inheritance, diamond and virtual inheritance
-- [ ] `cpp.polymorphism-virtual` (C): virtual functions, vtables (conceptual), dynamic dispatch, **static vs dynamic binding**, override/final, **virtual destructors**, calling virtuals in constructors, **object slicing**
-- [ ] `cpp.overloading` (C): function overloading resolution, default arguments, **operator overloading** (member vs friend, `<<`, `==`, `[]`, `++` pre/post)
-- [ ] `cpp.static-members` (C): static data and functions, initialisation, static locals
-- [ ] `cpp.copy-semantics` (C): copy constructor, copy assignment, **shallow vs deep copy**, rule of three/five/zero, copy elision
-- [ ] `cpp.memory-raii` (C): stack vs heap, new/delete pitfalls, **RAII**, `unique_ptr`, `shared_ptr`, `weak_ptr`, cycles
-- [ ] `cpp.move-semantics` (A): lvalues/rvalues, move constructor and assignment, `std::move`, noexcept moves
-- [ ] `cpp.abstract-interfaces` (C): pure virtual functions, abstract classes as interfaces
-- [ ] `cpp.composition-association` (C): composition vs aggregation vs association, has-a vs is-a
-- [ ] `cpp.exceptions` (C): try/catch/throw, stack unwinding, exception safety, noexcept
-- [ ] `cpp.templates` (A): function and class templates, specialisation (intro), templates vs Java generics
-- [ ] `cpp.solid-patterns` (C): SOLID in C++; Singleton, Factory, Strategy, Observer, Decorator, Adapter (with C++ idioms)
+- [x] `cpp.classes-objects` (F): class vs struct, members, `this`, const member functions
+- [x] `cpp.constructors-destructors` (F): default, parameterised, initialiser lists (and member init order!), delegating, explicit, destructor order, temporaries
+- [x] `cpp.access-encapsulation` (F): public/protected/private, friend, invariants
+- [x] `cpp.inheritance` (C): access in inheritance, constructor/destructor order, multiple inheritance, diamond and virtual inheritance
+- [x] `cpp.polymorphism-virtual` (C): virtual functions, vtables (conceptual), dynamic dispatch, **static vs dynamic binding**, override/final, **virtual destructors**, calling virtuals in constructors, **object slicing**
+- [x] `cpp.overloading` (C): function overloading resolution, default arguments, **operator overloading** (member vs friend, `<<`, `==`, `[]`, `++` pre/post)
+- [x] `cpp.static-members` (C): static data and functions, initialisation, static locals
+- [x] `cpp.copy-semantics` (C): copy constructor, copy assignment, **shallow vs deep copy**, rule of three/five/zero, copy elision
+- [x] `cpp.memory-raii` (C): stack vs heap, new/delete pitfalls, **RAII**, `unique_ptr`, `shared_ptr`, `weak_ptr`, cycles
+- [x] `cpp.move-semantics` (A): lvalues/rvalues, move constructor and assignment, `std::move`, noexcept moves
+- [x] `cpp.abstract-interfaces` (C): pure virtual functions, abstract classes as interfaces
+- [x] `cpp.composition-association` (C): composition vs aggregation vs association, has-a vs is-a
+- [x] `cpp.exceptions` (C): try/catch/throw, stack unwinding, exception safety, noexcept
+- [x] `cpp.templates` (A): function and class templates, specialisation (intro), templates vs Java generics
+- [x] `cpp.solid-patterns` (C): SOLID in C++; Singleton, Factory, Strategy, Observer, Decorator, Adapter (with C++ idioms)
 
 **Java topics:**
-- [ ] `java.classes-objects` (F): classes, references vs objects, `this`, pass-by-value of references
-- [ ] `java.constructors-init` (F): constructor chaining (`this()`/`super()`), **initialisation order** (static blocks, instance initialisers, field defaults)
-- [ ] `java.access-packages` (F): private/default/protected/public, packages, encapsulation
-- [ ] `java.inheritance` (C): extends, super, constructor chaining, `Object` methods
-- [ ] `java.polymorphism` (C): dynamic dispatch, **fields are not polymorphic**, **static method hiding**, private/final methods, covariant returns, casting and `ClassCastException`
-- [ ] `java.overloading-resolution` (C): widening vs boxing vs varargs priority, ambiguity errors
-- [ ] `java.abstract-interfaces` (C): abstract classes vs interfaces, default and static methods, diamond resolution, functional interfaces
-- [ ] `java.static-final` (C): static members, final variables/methods/classes, effectively final
-- [ ] `java.object-equality` (C): `==` vs `equals`, the `hashCode` contract, String pool and immutability, Integer cache
-- [ ] `java.exceptions` (C): checked vs unchecked, finally semantics (return-in-finally traps), try-with-resources, custom exceptions, overriding rules
-- [ ] `java.generics` (A): type erasure, bounded types, wildcards and PECS, generic methods, generics vs C++ templates
-- [ ] `java.collections-internals` (A): HashMap internals (buckets, treeification), `equals`/`hashCode` effects, fail-fast iterators, Comparable vs Comparator
-- [ ] `java.memory-gc` (A): stack vs heap, GC basics, references, memory leaks in Java
-- [ ] `java.inner-lambdas` (A): inner, static nested and anonymous classes; lambdas and method references
-- [ ] `java.solid-patterns` (C): SOLID in Java; the same pattern set as C++, in Java idioms
+- [x] `java.classes-objects` (F): classes, references vs objects, `this`, pass-by-value of references
+- [x] `java.constructors-init` (F): constructor chaining (`this()`/`super()`), **initialisation order** (static blocks, instance initialisers, field defaults)
+- [x] `java.access-packages` (F): private/default/protected/public, packages, encapsulation
+- [x] `java.inheritance` (C): extends, super, constructor chaining, `Object` methods
+- [x] `java.polymorphism` (C): dynamic dispatch, **fields are not polymorphic**, **static method hiding**, private/final methods, covariant returns, casting and `ClassCastException`
+- [x] `java.overloading-resolution` (C): widening vs boxing vs varargs priority, ambiguity errors
+- [x] `java.abstract-interfaces` (C): abstract classes vs interfaces, default and static methods, diamond resolution, functional interfaces
+- [x] `java.static-final` (C): static members, final variables/methods/classes, effectively final
+- [x] `java.object-equality` (C): `==` vs `equals`, the `hashCode` contract, String pool and immutability, Integer cache
+- [x] `java.exceptions` (C): checked vs unchecked, finally semantics (return-in-finally traps), try-with-resources, custom exceptions, overriding rules
+- [x] `java.generics` (A): type erasure, bounded types, wildcards and PECS, generic methods, generics vs C++ templates
+- [x] `java.collections-internals` (A): HashMap internals (buckets, treeification), `equals`/`hashCode` effects, fail-fast iterators, Comparable vs Comparator
+- [x] `java.memory-gc` (A): stack vs heap, GC basics, references, memory leaks in Java
+- [x] `java.inner-lambdas` (A): inner, static nested and anonymous classes; lambdas and method references
+- [x] `java.solid-patterns` (C): SOLID in Java; the same pattern set as C++, in Java idioms
 
 **Shared object-oriented design (LLD) practice:** parking lot, library management, vending
 machine (state pattern), elevator (simplified), rate limiter class, snake and ladder. Each
@@ -765,23 +765,23 @@ questions. Required scenario walkthroughs: "what happens when you type a URL" (D
 TCP → TLS → HTTP → render), a failed TCP connection (RST vs timeout vs refused), and
 an unexpected DNS result (stale cache, TTL, split-horizon, hosts file).
 
-- [ ] `cn.models` (F): OSI vs TCP/IP, encapsulation, PDUs per layer
-- [ ] `cn.ethernet-mac` (F): frames, MAC addresses, switches, broadcast and collision domains, VLAN basics
-- [ ] `cn.ip-subnetting` (C): IPv4 addressing, CIDR, subnetting and supernetting, private ranges, IPv6 basics
-- [ ] `cn.arp-icmp-dhcp` (C): ARP, ICMP (ping, traceroute), DHCP DORA
-- [ ] `cn.routing-switching` (C): routing tables, longest-prefix match, static vs dynamic routing (RIP/OSPF/BGP at interview depth)
-- [ ] `cn.tcp-udp` (C): TCP vs UDP, ports, headers, use cases
-- [ ] `cn.tcp-lifecycle` (C): 3-way handshake, 4-way termination, TIME_WAIT, sequence and ack numbers, retransmission
-- [ ] `cn.flow-congestion` (C): sliding window, flow control, slow start, congestion avoidance, fast retransmit and recovery
-- [ ] `cn.dns` (C): resolution path, record types, caching and TTL, recursive vs iterative
-- [ ] `cn.http` (C): HTTP/1.1 vs 2 vs 3, methods, status codes, headers, keep-alive, caching headers
-- [ ] `cn.tls-https` (C): TLS 1.3 handshake (interview depth), certificates, CAs and chain of trust, HTTPS
-- [ ] `cn.sessions-auth` (C): cookies, sessions, tokens (JWT), SameSite, CORS basics, OAuth (overview)
-- [ ] `cn.rest-protocols` (C): REST principles, idempotency, WebSockets, gRPC (overview), SMTP/FTP/SSH (brief)
-- [ ] `cn.proxies-lb` (C): forward vs reverse proxy, L4 vs L7 load balancing, CDN
-- [ ] `cn.nat-firewalls` (C): NAT/PAT, stateful vs stateless firewalls, security groups
-- [ ] `cn.sockets` (A): socket API flow (server and client), blocking vs non-blocking, select/epoll (intro)
-- [ ] `cn.troubleshooting` (C): ping, traceroute, dig/nslookup, curl -v, netstat/ss, tcpdump basics; scenario drills
+- [x] `cn.models` (F): OSI vs TCP/IP, encapsulation, PDUs per layer
+- [x] `cn.ethernet-mac` (F): frames, MAC addresses, switches, broadcast and collision domains, VLAN basics
+- [x] `cn.ip-subnetting` (C): IPv4 addressing, CIDR, subnetting and supernetting, private ranges, IPv6 basics
+- [x] `cn.arp-icmp-dhcp` (C): ARP, ICMP (ping, traceroute), DHCP DORA
+- [x] `cn.routing-switching` (C): routing tables, longest-prefix match, static vs dynamic routing (RIP/OSPF/BGP at interview depth)
+- [x] `cn.tcp-udp` (C): TCP vs UDP, ports, headers, use cases
+- [x] `cn.tcp-lifecycle` (C): 3-way handshake, 4-way termination, TIME_WAIT, sequence and ack numbers, retransmission
+- [x] `cn.flow-congestion` (C): sliding window, flow control, slow start, congestion avoidance, fast retransmit and recovery
+- [x] `cn.dns` (C): resolution path, record types, caching and TTL, recursive vs iterative
+- [x] `cn.http` (C): HTTP/1.1 vs 2 vs 3, methods, status codes, headers, keep-alive, caching headers
+- [x] `cn.tls-https` (C): TLS 1.3 handshake (interview depth), certificates, CAs and chain of trust, HTTPS
+- [x] `cn.sessions-auth` (C): cookies, sessions, tokens (JWT), SameSite, CORS basics, OAuth (overview)
+- [x] `cn.rest-protocols` (C): REST principles, idempotency, WebSockets, gRPC (overview), SMTP/FTP/SSH (brief)
+- [x] `cn.proxies-lb` (C): forward vs reverse proxy, L4 vs L7 load balancing, CDN
+- [x] `cn.nat-firewalls` (C): NAT/PAT, stateful vs stateless firewalls, security groups
+- [x] `cn.sockets` (A): socket API flow (server and client), blocking vs non-blocking, select/epoll (intro)
+- [x] `cn.troubleshooting` (C): ping, traceroute, dig/nslookup, curl -v, netstat/ss, tcpdump basics; scenario drills
 
 ### 8.6 Operating Systems
 
@@ -790,21 +790,21 @@ chart; waiting and turnaround times) with a "solve by hand, then check" mode; a 
 replacement simulator (FIFO, LRU, Optimal; fault count and Belady's anomaly demo); Banker's
 algorithm exercises; synchronisation code-output questions (C++ threads, Java threads).
 
-- [ ] `os.processes-threads` (F): process vs thread, PCB, address space, user vs kernel threads
-- [ ] `os.process-states` (F): state diagram, context switching cost, fork/exec/wait (Linux)
-- [ ] `os.cpu-scheduling` (C): algorithms, metrics, starvation and aging, multilevel queues
-- [ ] `os.synchronisation` (C): race conditions, critical sections, Peterson's algorithm (conceptual), mutexes, semaphores, monitors, condition variables
-- [ ] `os.classic-problems` (C): producer-consumer, readers-writers, dining philosophers
-- [ ] `os.deadlocks` (C): Coffman conditions, prevention, avoidance (Banker's), detection, recovery
-- [ ] `os.memory-management` (C): contiguous allocation, fragmentation, paging, segmentation
-- [ ] `os.virtual-memory` (C): demand paging, page faults, TLB, multi-level page tables, thrashing, working set
-- [ ] `os.page-replacement` (C): FIFO, LRU, Optimal, Clock, Belady's anomaly
-- [ ] `os.system-calls` (C): user vs kernel mode, traps and interrupts, system call flow
-- [ ] `os.ipc` (C): pipes, message queues, shared memory, signals, sockets
-- [ ] `os.file-systems` (C): inodes, directories, allocation methods, journaling, hard vs soft links
-- [ ] `os.io-management` (A): interrupts vs polling, DMA, disk scheduling (FCFS, SSTF, SCAN, C-SCAN)
-- [ ] `os.concurrency-multithreading` (C): concurrency vs parallelism, thread pools, false sharing, atomics (intro)
-- [ ] `os.linux-essentials` (C): processes (ps/top), signals, memory (free, /proc), OOM killer, load average
+- [x] `os.processes-threads` (F): process vs thread, PCB, address space, user vs kernel threads
+- [x] `os.process-states` (F): state diagram, context switching cost, fork/exec/wait (Linux)
+- [x] `os.cpu-scheduling` (C): algorithms, metrics, starvation and aging, multilevel queues
+- [x] `os.synchronisation` (C): race conditions, critical sections, Peterson's algorithm (conceptual), mutexes, semaphores, monitors, condition variables
+- [x] `os.classic-problems` (C): producer-consumer, readers-writers, dining philosophers
+- [x] `os.deadlocks` (C): Coffman conditions, prevention, avoidance (Banker's), detection, recovery
+- [x] `os.memory-management` (C): contiguous allocation, fragmentation, paging, segmentation
+- [x] `os.virtual-memory` (C): demand paging, page faults, TLB, multi-level page tables, thrashing, working set
+- [x] `os.page-replacement` (C): FIFO, LRU, Optimal, Clock, Belady's anomaly
+- [x] `os.system-calls` (C): user vs kernel mode, traps and interrupts, system call flow
+- [x] `os.ipc` (C): pipes, message queues, shared memory, signals, sockets
+- [x] `os.file-systems` (C): inodes, directories, allocation methods, journaling, hard vs soft links
+- [x] `os.io-management` (A): interrupts vs polling, DMA, disk scheduling (FCFS, SSTF, SCAN, C-SCAN)
+- [x] `os.concurrency-multithreading` (C): concurrency vs parallelism, thread pools, false sharing, atomics (intro)
+- [x] `os.linux-essentials` (C): processes (ps/top), signals, memory (free, /proc), OOM killer, load average
 
 ### 8.7 System Design
 
@@ -813,27 +813,27 @@ algorithm exercises; synchronisation code-output questions (C++ threads, Java th
 calculator; a timed design-mock checklist with a self-assessed rubric (labelled).
 
 Foundations:
-- [ ] `sd.requirements` (F): functional vs non-functional requirements, scoping, clarifying questions
-- [ ] `sd.estimation` (F): capacity estimation, powers of two, latency numbers, QPS and storage maths
-- [ ] `sd.latency-throughput-availability` (F): SLAs/SLOs, nines, reliability
-- [ ] `sd.scalability` (F): vertical vs horizontal, stateless services
-- [ ] `sd.load-balancing` (C): algorithms, health checks, L4/L7
-- [ ] `sd.caching` (C): cache-aside, write-through/back, eviction, invalidation, CDN
-- [ ] `sd.databases` (C): SQL vs NoSQL, indexing, data modelling for access patterns
-- [ ] `sd.replication-sharding` (C): replication strategies, sharding keys, consistent hashing, hotspots
-- [ ] `sd.consistency-cap` (C): consistency models, CAP, PACELC (intro), quorum reads/writes
-- [ ] `sd.messaging` (C): queues vs pub/sub, delivery semantics, idempotency, event-driven architecture
-- [ ] `sd.rate-limiting` (C): token bucket, leaky bucket, fixed and sliding windows
-- [ ] `sd.api-design` (C): REST resource design, pagination, versioning, idempotency keys
-- [ ] `sd.auth` (C): authentication vs authorisation, sessions vs JWT, OAuth2/OIDC (overview), RBAC
-- [ ] `sd.observability` (C): logs, metrics, traces, alerting, SLIs
-- [ ] `sd.fault-tolerance` (A): retries with backoff, timeouts, circuit breakers, bulkheads, graceful degradation
-- [ ] `sd.distributed-fundamentals` (A): clocks, leader election, consensus (Raft intuition), exactly-once myths
+- [x] `sd.requirements` (F): functional vs non-functional requirements, scoping, clarifying questions
+- [x] `sd.estimation` (F): capacity estimation, powers of two, latency numbers, QPS and storage maths
+- [x] `sd.latency-throughput-availability` (F): SLAs/SLOs, nines, reliability
+- [x] `sd.scalability` (F): vertical vs horizontal, stateless services
+- [x] `sd.load-balancing` (C): algorithms, health checks, L4/L7
+- [x] `sd.caching` (C): cache-aside, write-through/back, eviction, invalidation, CDN
+- [x] `sd.databases` (C): SQL vs NoSQL, indexing, data modelling for access patterns
+- [x] `sd.replication-sharding` (C): replication strategies, sharding keys, consistent hashing, hotspots
+- [x] `sd.consistency-cap` (C): consistency models, CAP, PACELC (intro), quorum reads/writes
+- [x] `sd.messaging` (C): queues vs pub/sub, delivery semantics, idempotency, event-driven architecture
+- [x] `sd.rate-limiting` (C): token bucket, leaky bucket, fixed and sliding windows
+- [x] `sd.api-design` (C): REST resource design, pagination, versioning, idempotency keys
+- [x] `sd.auth` (C): authentication vs authorisation, sessions vs JWT, OAuth2/OIDC (overview), RBAC
+- [x] `sd.observability` (C): logs, metrics, traces, alerting, SLIs
+- [x] `sd.fault-tolerance` (A): retries with backoff, timeouts, circuit breakers, bulkheads, graceful degradation
+- [x] `sd.distributed-fundamentals` (A): clocks, leader election, consensus (Raft intuition), exactly-once myths
 
 Case studies (each: clarification, functional and non-functional requirements, estimation,
 high-level architecture, API, data model, components, bottlenecks and failures, scaling,
 trade-offs, follow-ups):
-- [ ] URL shortener · [ ] Rate limiter · [ ] Pastebin · [ ] Notification service · [ ] File storage service · [ ] Chat application · [ ] News feed · [ ] API gateway · [ ] Logging and monitoring service · [ ] Basic video streaming
+- [x] URL shortener · [x] Rate limiter · [x] Pastebin · [x] Notification service · [x] File storage service · [x] Chat application · [x] News feed · [x] API gateway · [x] Logging and monitoring service · [x] Basic video streaming (all ten are Complete topics; see Section 13, Phase 7)
 
 ### 8.8 DevOps, Docker, Kubernetes, CI/CD and Cloud
 
@@ -844,27 +844,27 @@ against; clearly labelled as local labs). Two tracks: **Core (interview fundamen
 **Advanced**. Kubernetes depth beyond core concepts sits in Advanced, because not every SWE
 interview needs it.
 
-- [ ] `devops.linux` (F): filesystem hierarchy, permissions (chmod/chown, octal), processes and signals, environment variables, pipes and redirection, grep/sed/awk/find, shell scripting basics
-- [ ] `devops.linux-networking` (C): ip/ss/netstat, curl, dig, ping, traceroute, nc, firewall basics
-- [ ] `devops.git` (F): branching, merge vs rebase, conflict resolution, reset vs revert, cherry-pick, stash, common workflows (trunk-based, GitFlow), PR etiquette
-- [ ] `devops.docker` (C): images vs containers, Dockerfile instructions, layers and caching, volumes vs bind mounts, networks, Compose, multi-stage builds, container security, troubleshooting
-- [ ] `devops.k8s-core` (C): architecture (control plane, kubelet, etcd), Pods, Deployments, ReplicaSets, Services (ClusterIP/NodePort/LoadBalancer), ConfigMaps and Secrets, namespaces, probes, requests and limits, kubectl troubleshooting (CrashLoopBackOff, ImagePullBackOff, Pending)
-- [ ] `devops.k8s-advanced` (A): Ingress, HPA autoscaling, PersistentVolumes and PVCs, StatefulSets, DaemonSets, Helm fundamentals, RBAC
-- [ ] `devops.cicd` (C): pipeline stages, artifacts, GitHub Actions (workflows, jobs, matrix, secrets, caching), deployment strategies (rolling, blue/green, canary), rollback
-- [ ] `devops.iac-terraform` (A): IaC principles, Terraform plan/apply/state, modules, drift
-- [ ] `devops.aws` (C): IAM (users, roles, policies, least privilege), VPC (subnets, route tables, IGW/NAT, security groups vs NACLs), EC2, S3, RDS, Lambda, CloudWatch
-- [ ] `devops.observability` (C): logs, metrics, monitoring, alerting basics
-- [ ] `devops.cloud-security` (C): shared responsibility, secrets management, least privilege, image scanning
+- [x] `devops.linux` (F): filesystem hierarchy, permissions (chmod/chown, octal), processes and signals, environment variables, pipes and redirection, grep/sed/awk/find, shell scripting basics
+- [x] `devops.linux-networking` (C): ip/ss/netstat, curl, dig, ping, traceroute, nc, firewall basics
+- [x] `devops.git` (F): branching, merge vs rebase, conflict resolution, reset vs revert, cherry-pick, stash, common workflows (trunk-based, GitFlow), PR etiquette
+- [x] `devops.docker` (C): images vs containers, Dockerfile instructions, layers and caching, volumes vs bind mounts, networks, Compose, multi-stage builds, container security, troubleshooting
+- [x] `devops.k8s-core` (C): architecture (control plane, kubelet, etcd), Pods, Deployments, ReplicaSets, Services (ClusterIP/NodePort/LoadBalancer), ConfigMaps and Secrets, namespaces, probes, requests and limits, kubectl troubleshooting (CrashLoopBackOff, ImagePullBackOff, Pending)
+- [x] `devops.k8s-advanced` (A): Ingress, HPA autoscaling, PersistentVolumes and PVCs, StatefulSets, DaemonSets, Helm fundamentals, RBAC
+- [x] `devops.cicd` (C): pipeline stages, artifacts, GitHub Actions (workflows, jobs, matrix, secrets, caching), deployment strategies (rolling, blue/green, canary), rollback
+- [x] `devops.iac-terraform` (A): IaC principles, Terraform plan/apply/state, modules, drift
+- [x] `devops.aws` (C): IAM (users, roles, policies, least privilege), VPC (subnets, route tables, IGW/NAT, security groups vs NACLs), EC2, S3, RDS, Lambda, CloudWatch
+- [x] `devops.observability` (C): logs, metrics, monitoring, alerting basics
+- [x] `devops.cloud-security` (C): shared responsibility, secrets management, least privilege, image scanning
 
 ### 8.9 Core CS interview questions
 
 A cross-cutting rapid-fire bank: short Q&A with model answers, tagged to modules, used for
 flashcards and mock rounds.
-- [ ] `core.program-execution` (F): compilation vs interpretation, compile/link/load, process memory layout (stack, heap, data, text)
-- [ ] `core.data-representation` (F): two's complement, floating point pitfalls, endianness, character encodings (ASCII, UTF-8)
-- [ ] `core.security-fundamentals` (C): CIA triad, hashing vs encryption vs encoding, symmetric vs asymmetric, digital signatures, PKI, XSS/CSRF/SQL injection (OWASP Top 10 overview), **zero trust** (important for Zscaler)
-- [ ] `core.concurrency-qa` (C): deadlock vs livelock vs starvation, thread safety, immutability
-- [ ] `core.oop-dbms-os-cn-rapid` (C): curated top-50 rapid-fire questions across modules (references to topic pages)
+- [x] `core.program-execution` (F): compilation vs interpretation, compile/link/load, process memory layout (stack, heap, data, text)
+- [x] `core.data-representation` (F): two's complement, floating point pitfalls, endianness, character encodings (ASCII, UTF-8)
+- [x] `core.security-fundamentals` (C): CIA triad, hashing vs encryption vs encoding, symmetric vs asymmetric, digital signatures, PKI, XSS/CSRF/SQL injection (OWASP Top 10 overview), **zero trust** (important for Zscaler)
+- [x] `core.concurrency-qa` (C): deadlock vs livelock vs starvation, thread safety, immutability
+- [x] `core.oop-dbms-os-cn-rapid` (C): curated top-50 rapid-fire questions across modules (references to topic pages)
 
 ### 8.10 Online Assessment Centre
 
@@ -949,14 +949,14 @@ score summarises your preparation evidence. It does not predict hiring outcomes.
 
 ## 9. Cross-cutting features
 
-- [ ] Global search (Ctrl/Cmd+K) across topics, problems, MCQs, SQL exercises and notes
-- [ ] Notes per topic, problem and question (plain text, escaped); bookmarks for anything; a notes index page
-- [ ] Mistake journal: every logged error category with a link to the source attempt; filter by category and topic; "practise this weakness" buttons
-- [ ] Settings: profile, target companies, daily minutes, preferred language (C++/Java default tab), weekly goals
-- [ ] Data management: JSON export, JSON import (schema-validated, with a preview and a confirm step), reset with typed confirmation, storage usage display
-- [ ] Content status badges (Complete / Partial / Planned) on every module, topic and company page
-- [ ] Keyboard shortcuts: search, MCQ answer keys 1–4, flashcard grading, OA navigation
-- [ ] Error boundary per route with a friendly fallback; a 404 page
+- [x] Global search (Ctrl/Cmd+K) across topics, problems, MCQs, SQL exercises and notes
+- [x] Notes per topic, problem and question (plain text, escaped); bookmarks for anything; a notes index page
+- [x] Mistake journal: every logged error category with a link to the source attempt; filter by category and topic; "practise this weakness" buttons
+- [x] Settings: profile, target companies, daily minutes, preferred language (C++/Java default tab), weekly goals
+- [x] Data management: JSON export, JSON import (schema-validated, with a preview and a confirm step), reset with typed confirmation, storage usage display
+- [x] Content status badges (Complete / Partial / Planned) on every module, topic and company page
+- [ ] (PARTIAL: Ctrl/Cmd+K search and MCQ answer keys exist; flashcard grading and OA navigation shortcuts are not implemented) Keyboard shortcuts: search, MCQ answer keys 1–4, flashcard grading, OA navigation
+- [x] Error boundary per route with a friendly fallback; a 404 page
 
 ---
 
@@ -1049,7 +1049,7 @@ dependencies are unmet.
 - [x] Write this roadmap (`what_to_do.md`) and `research/README.md`
 - [x] Verify the LeetCode Database problem list (323 problems, 105 free) → `research/leetcode-database.verified.json`; HTTP-check HackerRank, StrataScratch, DataLemur, SQLZoo, pgexercises, db-book, CMU 15-445, NPTEL, GFG, SQLite docs
 - [ ] (BLOCKED: guide is a PDF download; needs user permission) Meta Full Loop guide
-- [ ] Research Apple, Netflix, Zscaler, Microsoft and other company pages from official sources (P1, can run in parallel with Phases 1–6)
+- [x] Research Apple, Netflix, Zscaler, Microsoft and other company pages from official sources (P1; the pages exist with sourced facts and verification dates)
 - [ ] Map A2Z items that link to GFG or other non-LeetCode sites (P2)
 
 ### Phase 0: Repository setup (P0)
@@ -1186,9 +1186,9 @@ Depends on: Phase 2.
 
 Depends on: Phases 3–4; company research tasks in Phase R.
 
-- [ ] Company content files for Google and Amazon (verified facts), plus Meta, Apple, Netflix, Zscaler and Microsoft, with only verified facts and "not yet verified" labels
-- [ ] Company page template; per-company readiness weighting; practice-simulation assessments; STAR story builder
-- [ ] Mock interviews (coding, behavioural, system design) with timers and self-assessed rubrics
+- [x] Company content files for Google and Amazon (verified facts), plus Meta, Apple, Netflix, Zscaler and Microsoft, with only verified facts and "not yet verified" labels (`src/content/companies.ts`, 7 companies)
+- [x] Company page template; per-company readiness weighting; practice-simulation assessments; STAR story builder (`features/companies`, weights labelled as recommendations)
+- [x] Mock interviews (coding, behavioural, system design) with timers and self-assessed rubrics (`features/mock`)
 
 **Acceptance:** every factual company claim has a source URL and a verified-on date; no compensation or frequency claims exist.
 
@@ -1289,19 +1289,19 @@ as Planned.
 
 The project is complete only when **all** of these are verified:
 
-- [ ] Every core subject has a navigable curriculum (all topics Complete or explicitly Planned with a phase)
-- [ ] Topics contain real educational content meeting Section 11
-- [ ] MCQs work and show explanations; attempts are logged
-- [ ] Practice questions are organised, filterable and searchable
-- [ ] DSA questions have a working solve-and-hint workflow (Problem-Solving Coach)
-- [ ] Progress persists across reloads; export and import work
-- [ ] Weaknesses (error categories, studied-but-cannot-apply) and revision needs are tracked
-- [ ] Timed assessments work (timer, autosave, resume, submit, auto-submit)
-- [ ] Results are calculated accurately (unit-tested)
+- [x] Every core subject has a navigable curriculum (all topics Complete or explicitly Planned with a phase) (all 180 catalogued topics are Complete (including the Core CS rapid-fire top-50 added late in session 6))
+- [x] Topics contain real educational content meeting Section 11 (enforced by `tests/content.test.ts`)
+- [x] MCQs work and show explanations; attempts are logged (covered by e2e)
+- [x] Practice questions are organised, filterable and searchable (problem bank, MCQ practice and global search)
+- [x] DSA questions have a working solve-and-hint workflow (Problem-Solving Coach) (158 authored walkthroughs plus pattern guidance for the rest)
+- [x] Progress persists across reloads; export and import work (covered by e2e)
+- [x] Weaknesses (error categories, studied-but-cannot-apply) and revision needs are tracked (mistake journal, analytics and SM-2 revision)
+- [x] Timed assessments work (timer, autosave, resume, submit, auto-submit) (covered by the OA e2e test)
+- [x] Results are calculated accurately (unit-tested) (`tests/plan-readiness.test.ts`, `tests/engines.test.ts`)
 - [ ] Company-specific preparation is available with sourced facts
 - [ ] The interface works at 320–2560px (screenshots reviewed)
-- [ ] The production build succeeds
-- [ ] Major flows are covered by e2e tests that were actually run
+- [x] The production build succeeds (Vercel deploys every push)
+- [x] Major flows are covered by e2e tests that were actually run (31 Playwright tests, last run at the end of session 6)
 - [ ] Missing content and limitations are documented honestly in this file and the README
 
 ---

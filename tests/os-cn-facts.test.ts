@@ -46,7 +46,7 @@ describe('CN subnetting MCQ facts', () => {
   it('flashcard: 100 hosts need /25', () => expect(prefixForHosts(100)).toBe(25));
 });
 
-import { MCQ_BY_ID } from '@/content/all';
+import { MCQ_BY_ID, TOPIC_BY_ID } from '@/content/all';
 /** Text of the option marked correct, so tests check the answer the learner is actually graded on. */
 function answerOf(id: string): string {
   const m = MCQ_BY_ID.get(id);
@@ -203,5 +203,17 @@ describe('OS memory, file system, disk and concurrency MCQ facts', () => {
   });
   it('os.lx: exit codes are 128 + signal', () => {
     expect([128 + 9, 128 + 15, 128 + 11]).toEqual([137, 143, 139]);
+  });
+});
+
+describe('Core CS rapid-fire facts', () => {
+  it('core.rp.q1: a /24 has 254 usable hosts', () => {
+    expect((subnetInfo('10.0.0.0/24') as SubnetInfo).usableHosts).toBe(254);
+    expect(answerOf('core.rp.q1')).toBe('254');
+  });
+  it('the rapid-fire topic lists exactly 50 numbered questions', () => {
+    const body = (TOPIC_BY_ID.get('core.oop-dbms-os-cn-rapid')?.sections ?? []).filter((s) => ['oop', 'dbms', 'os', 'cn'].includes(s.id)).map((s) => s.bodyMd).join('\n');
+    const numbers = [...body.matchAll(/^(\d+)\. \*\*/gm)].map((m) => Number(m[1]));
+    expect(numbers).toEqual(Array.from({ length: 50 }, (_, i) => i + 1));
   });
 });

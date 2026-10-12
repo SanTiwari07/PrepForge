@@ -214,6 +214,7 @@ export const CATALOG: Record<ModuleId, CatalogEntry[]> = {
     { id: 'core.data-representation', title: 'Data Representation', summary: "Two's complement, floating point, endianness and encodings.", level: F },
     { id: 'core.security-fundamentals', title: 'Security Fundamentals', summary: 'Hashing vs encryption, PKI, OWASP basics and zero trust.', level: C },
     { id: 'core.concurrency-qa', title: 'Concurrency Concepts', summary: 'Deadlock vs livelock vs starvation and thread safety.', level: C },
+    { id: 'core.oop-dbms-os-cn-rapid', title: 'Rapid-Fire: Top 50 Interview Questions', summary: 'Fifty short model answers across OOP, DBMS, OS and CN, each pointing to the full topic.', level: C },
   ],
 };
 
