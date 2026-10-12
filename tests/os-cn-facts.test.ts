@@ -45,3 +45,53 @@ describe('CN subnetting MCQ facts', () => {
   it('cn.ip.q5: /20 mask is 255.255.240.0', () => expect(s('10.0.0.0/20').mask).toBe('255.255.240.0'));
   it('flashcard: 100 hosts need /25', () => expect(prefixForHosts(100)).toBe(25));
 });
+
+import { MCQ_BY_ID } from '@/content/all';
+/** Text of the option marked correct, so tests check the answer the learner is actually graded on. */
+function answerOf(id: string): string {
+  const m = MCQ_BY_ID.get(id);
+  if (!m) throw new Error(`no MCQ ${id}`);
+  return m.options.find((o) => o.id === m.correct[0])!.textMd;
+}
+
+describe('CN routing, flow and congestion MCQ facts', () => {
+  const ip = (a: string) => a.split('.').reduce((n, o) => n * 256 + Number(o), 0);
+  const table: [string, number, string][] = [['10.0.0.0', 8, 'A'], ['10.1.0.0', 16, 'B'], ['10.1.2.0', 24, 'C'], ['0.0.0.0', 0, 'D']];
+  /** Longest-prefix match computed independently of the lesson text. */
+  const lpm = (dst: string) => table
+    .filter(([net, len]) => len === 0 || Math.floor(ip(dst) / 2 ** (32 - len)) === Math.floor(ip(net) / 2 ** (32 - len)))
+    .sort((a, b) => b[1] - a[1])[0][2];
+  it('cn.rt.q1 / q2 and the worked example', () => {
+    expect(lpm('10.1.2.5')).toBe('C');
+    expect(answerOf('cn.rt.q1')).toBe('C');
+    expect(lpm('10.1.9.9')).toBe('B');
+    expect(answerOf('cn.rt.q2')).toBe('B');
+    expect(lpm('10.200.0.1')).toBe('A');
+    expect(lpm('8.8.8.8')).toBe('D');
+  });
+
+  /** Textbook cwnd per round (MSS): slow start doubles up to ssthresh, then +1; a timeout halves ssthresh and resets cwnd to 1. */
+  function cwndTrace(rounds: number, ssthresh: number, timeoutAfterRound?: number): number[] {
+    const out: number[] = [];
+    let cwnd = 1;
+    for (let r = 1; r <= rounds; r++) {
+      out.push(cwnd);
+      if (r === timeoutAfterRound) { ssthresh = Math.floor(cwnd / 2); cwnd = 1; continue; }
+      cwnd = cwnd < ssthresh ? Math.min(cwnd * 2, ssthresh) : cwnd + 1;
+    }
+    return out;
+  }
+  it('cn.fc.q2: 6th round is 17 MSS; lesson trace with a timeout in round 9', () => {
+    expect(cwndTrace(6, 16)[5]).toBe(17);
+    expect(answerOf('cn.fc.q2')).toBe('17 MSS');
+    expect(cwndTrace(15, 16, 9)).toEqual([1, 2, 4, 8, 16, 17, 18, 19, 20, 1, 2, 4, 8, 10, 11]);
+  });
+  it('cn.fc.q1: 65,535-byte window / 100 ms ≈ 5.24 Mbit/s', () => {
+    expect((65535 * 8) / 0.1 / 1e6).toBeCloseTo(5.24, 2);
+    expect(answerOf('cn.fc.q1')).toContain('5.24');
+  });
+  it('cn.fc.q6: BDP of 1 Gbit/s × 50 ms = 6.25 MB', () => {
+    expect((1e9 * 0.05) / 8 / 1e6).toBe(6.25);
+    expect(answerOf('cn.fc.q6')).toBe('6.25 MB');
+  });
+});

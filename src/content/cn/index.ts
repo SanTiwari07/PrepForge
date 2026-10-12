@@ -1,13 +1,7 @@
-import type { CodeSample, MCQ, Resource, Topic } from '../schema';
+import type { MCQ, Topic } from '../schema';
 import { mcq } from '../helpers';
-
-const MASTERY = { testSize: 6, testMinutes: 10, passPct: 80, minIndependentSolves: 0, minMediumIndependent: 0, retentionDays: 7 };
-const HPBN: Resource = { title: 'High Performance Browser Networking (free online book)', url: 'https://hpbn.co/', kind: 'book' };
-const MDN_HTTP: Resource = { title: 'MDN: HTTP', url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP', kind: 'official-docs' };
-type TopicInput = Omit<Topic, 'moduleId' | 'status' | 'mastery' | 'mcqIds' | 'problemIds' | 'related'> & { related?: string[] };
-const cnTopic = (t: TopicInput): Topic => ({ moduleId: 'cn', status: 'complete', mastery: MASTERY, mcqIds: [], problemIds: [], related: [], ...t });
-const q = (topic: string) => ({ topics: [topic], module: 'cn' as const });
-const sh = (code: string, label = 'Shell'): CodeSample => ({ lang: 'bash', code, label });
+import { HPBN, MDN_HTTP, cnTopic, q, sh } from './common';
+import * as network from './network';
 
 // ---------------------------------------------------------------------------------------
 const MO = 'cn.models';
@@ -435,5 +429,5 @@ const tsMcqs: MCQ[] = [
   mcq({ ...q(TS), id: 'cn.ts.q6', type: 'concept', difficulty: 'easy', stem: 'What does a TLS certificate bind together?', options: ['A public key and a domain name (identity), signed by a CA', ['A private key and an IP address', 'Private keys are never in certificates.'], ['A session key and a cookie', 'Unrelated.'], ['A username and a password', 'Not a certificate.']], answer: 0, explanation: 'The CA\'s signature vouches that the key belongs to that name.' }),
 ];
 
-export const topics: Topic[] = [models, ipSub, tcpUdp, tcpLife, dns, http, tls];
-export const mcqs: MCQ[] = [...moMcqs, ...ipMcqs, ...tuMcqs, ...tlMcqs, ...dnMcqs, ...htMcqs, ...tsMcqs];
+export const topics: Topic[] = [models, ipSub, tcpUdp, tcpLife, dns, http, tls, ...network.topics];
+export const mcqs: MCQ[] = [...moMcqs, ...ipMcqs, ...tuMcqs, ...tlMcqs, ...dnMcqs, ...htMcqs, ...tsMcqs, ...network.mcqs];
