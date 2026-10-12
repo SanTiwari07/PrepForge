@@ -9,10 +9,11 @@
 |---|---|
 | Product name | **PrepForge** (the working name "PlacementOS" was replaced at the user's request) |
 | Repository | `https://github.com/SanTiwari07/PrepForge.git` (public), branch `main`, local folder `D:\Projects\PlacementResource` |
-| Last updated | 2026-10-12 (session 3: per-module content loading, Playwright e2e + axe, WSL g++ verification, all 40 DSA topics, curated problems, GraphQL link checks) |
+| Production | **https://prep-forge-omega.vercel.app** (Vercel, auto-deploys every push to `main`; GitHub shows each deploy under Deployments → Production) |
+| Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 10/15, schedule analyser, Vercel blank-page fix) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
-| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA complete (40/40)**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
-| Overall status | Working app with **89 complete topics out of 173 catalogued** (DSA 40/40, SQL 6/14, DBMS 6/16, C++ 5/15, Java 5/15, CN 7/17, OS 6/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **612 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (33 exercises), OA centre, revision (SM-2), readiness, companies, mocks, 4 tools. 191 unit tests and 31 Playwright e2e tests pass; 362 C++/Java samples compile (and run where output is claimed), 0 skipped; 168/171 links verified automatically, 3 bot-walled pages checked manually. |
+| Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15 complete**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
+| Overall status | Working app with **122 complete topics out of 173 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 10/15, CN 7/17, OS 6/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **811 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 353 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 429 C++/Java samples compile (and run where output is claimed), 0 skipped; 213/216 links verified automatically, 3 bot-walled pages checked manually. |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -57,11 +58,12 @@ Never tick a box for a feature that only exists as a mockup.
 
 **Next actions (in order):**
 
-1. Content (Phase 5): the 8 planned SQL lessons (self joins, set operations, CASE, CTEs, dates/strings, patterns, DML/DDL, EXPLAIN) and SQL exercises towards 120 (33 now); add datasets `rides`, `social`, `ledger`.
-2. Content (Phases 5C/6/7): remaining DBMS, C++, Java, CN, OS, System Design (foundations + case studies), DevOps and Core CS topics, in catalog order.
-3. Walkthroughs: the 43 Blind 75 problems still without one (Problem bank → list Blind 75, coach "Pattern guidance"), then NeetCode 150.
-4. Performance: the DSA pack is 264 KB gzip (B14); split it per topic or move walkthroughs into their own chunk.
-5. `scripts/verify-sql-mysql.mjs` with Docker `mysql:8.0` (Docker Desktop is installed but was not started in session 3).
+1. Content (Phase 6): the last 5 Java topics (generics, collections internals, memory/GC, nested classes and lambdas, SOLID and patterns), compiled with `npm run verify:code`.
+2. Content (Phase 7): remaining CN, OS, System Design (foundations + case studies), DevOps and Core CS topics, in catalog order.
+3. SQL/DBMS gaps: exercises towards 120 (74 now), 19 more SQL/DBMS MCQs to reach 200 (181 now), isolation-anomaly simulator and B+ tree visualiser.
+4. Walkthroughs: the 43 Blind 75 problems still without one (Problem bank → list Blind 75, coach "Pattern guidance"), then NeetCode 150.
+5. Performance: the DSA pack is 264 KB gzip (B14); split it per topic or move walkthroughs into their own chunk. Any new lazy chunk must follow `chunking.ts` (the guard test fails if the eager import graph reaches a lazy pack, which caused the session-4 blank page in production).
+6. `scripts/verify-sql-mysql.mjs` with Docker `mysql:8.0` (Docker Desktop is installed but was not started in session 3).
 
 ---
 
@@ -1131,28 +1133,28 @@ sets in OAs. Full specification: Section 8.2.
 
 **5A. Engine and verification (P0)**
 - [x] sql.js Web Worker engine (lazy-loaded, 3 s timeout, `PRAGMA foreign_keys = ON`, reset per run)
-- [x] (PARTIAL: `company`, `shop`, `events` done; `rides`, `social`, `ledger` pending) Datasets `company`, `shop`, `events`, `rides`, `social`, `ledger`, each with hidden edge-case variants; MySQL and SQLite DDL kept in sync
+- [x] Datasets `company`, `shop`, `events`, `rides`, `social`, `ledger`, each with hidden edge-case variants; MySQL and SQLite DDL kept in sync
 - [ ] `scripts/verify-sql-mysql.mjs` (Docker `mysql:8.0`; runs every reference solution, captures expected output, fails on mismatch)
 - [x] `sqlCompare.ts` + unit tests (order, NULLs, floats, duplicates, column-name policy, classic wrong queries must fail)
 
 **5B. Practical SQL (P0)**
 - [x] SQL editor page (schema browser, sample-data preview, run with Ctrl+Enter, result grid, readable errors, history, reset, dialect notes)
 - [x] Exercise page (hint ladder, check on visible + hidden datasets with row diff, explanation, wrong-approach notes, target time, bookmarks, notes)
-- [ ] (PARTIAL: 33 exercises, all executed in tests) ≥ 120 original exercises covering every [Q] topic (start with 40 covering joins, aggregation, subqueries and window functions)
+- [ ] (PARTIAL: 74 exercises over 6 datasets, every reference executed on every variant and every wrong approach proven to fail) ≥ 120 original exercises covering every [Q] topic (start with 40 covering joins, aggregation, subqueries and window functions)
 - [ ] LeetCode SQL 50 mapped to topics with original hint ladders; curate the 55 free LeetCode Database extras; HackerRank, DataLemur and StrataScratch lists with link checks
 - [x] Timed SQL sets in the OA engine
 
 **5C. Concepts (P0)**
-- [ ] Notes for every P0 concept topic in 8.2.2 (definitions, worked examples, diagrams for B+ trees, isolation anomalies and schedules, common mistakes, revision notes, flashcards)
-- [ ] ≥ 200 MCQs and ≥ 80 interview questions with model answers
+- [x] Notes for every P0 concept topic in 8.2.2 (definitions, worked examples, diagrams for B+ trees, isolation anomalies and schedules, common mistakes, revision notes, flashcards)
+- [ ] (PARTIAL: 181 MCQs, 126 interview questions) ≥ 200 MCQs and ≥ 80 interview questions with model answers
 
 **5D. Tools (P1)**
 - [x] FD toolkit + tests
-- [ ] Schedule analyser + isolation-anomaly simulator + tests
+- [ ] (PARTIAL: schedule analyser with textbook unit tests done; anomaly simulator pending) Schedule analyser + isolation-anomaly simulator + tests
 - [ ] B+ tree visualiser
 
 **5E. Advanced track (P2)**
-- [ ] `dbms.storage-recovery`, `dbms.query-processing`, `dbms.distributed-transactions`
+- [x] `dbms.storage-recovery`, `dbms.query-processing`, `dbms.distributed-transactions`
 
 **Acceptance:** Section 8.2.5. In addition: a wrong query never shows as correct; an
 equivalent query with a different column or row order (when order doesn't matter) passes;
@@ -1163,8 +1165,8 @@ infinite recursive CTEs are stopped by the timeout.
 Depends on: Phase 2 (MCQ engine). Code verification needs `scripts/verify-code.mjs`.
 
 - [x] `scripts/verify-code.ts` (g++ / javac compile, run, compare with `expectedOutput`; expected-compile-error mode with a `// here` line check; toolchain capability probe that reports SKIPs)
-- [ ] C++ topics content (Section 8.3), all output and compile-error questions verified (5/15 topics complete, 30 MCQs, all verified with g++)
-- [ ] Java topics content (Section 8.4), all output and compile-error questions verified (5/15 topics complete, 30 MCQs, all verified with JDK 23)
+- [x] C++ topics content (Section 8.3), all output and compile-error questions verified (15/15 topics, 90 MCQs, all verified with g++)
+- [ ] Java topics content (Section 8.4), all output and compile-error questions verified (PARTIAL: 10/15 topics, 60 MCQs, all verified with JDK 23)
 - [ ] LLD practice set (6 problems)
 
 **Acceptance:** `npm run verify:code` passes for every `verify: true` snippet; each topic meets Section 11.
@@ -1270,6 +1272,11 @@ as Planned.
 | 2026-10-12 | `npm run check:links` | 171 links: 168 OK (LeetCode via GraphQL), 0 broken, 3 bot-walled (Cloudflare Learning, browser-checked) |
 | 2026-10-12 | `npx vite build` | Pass. Eager JS ≈ 186 KB gzip; packs load on demand (DSA 264 KB gzip, others 10–19 KB) |
 | 2026-10-12 | `node research/scripts/verify-curated.mjs` | 74 curated problems verified via LeetCode GraphQL, 0 failed |
+| 2026-10-12 | `npm run verify:code` (session 4, after Java batch 2) | 429 C++/Java samples, 0 failures, 0 skipped (3 via WSL g++ 15.2) |
+| 2026-10-12 | `npx vitest run` (session 4) | 353/353 pass (11 files; includes 22 executed SQL output MCQs, the schedule analyser and the eager-import chunk guard) |
+| 2026-10-12 | `npm run check:links` (session 4) | 216 links: 213 OK, 0 broken, 3 bot-walled |
+| 2026-10-12 | Production check | https://prep-forge-omega.vercel.app loads after the chunk fix; a SQL lesson's lazy chunk loads with no console errors |
+| 2026-10-12 | Browser (dev server) | Java topic `java.abstract-interfaces` renders with 6 MCQs, no console errors |
 
 ---
 
@@ -1359,3 +1366,4 @@ The project is complete only when **all** of these are verified:
 | 1b | 2026-10-11 | Drafted a college + placement SQL/DBMS plan; the user then rejected the college scope. Rewrote SQL/DBMS (Section 8.2, 6.3, Phase 5) for fresher placement only and removed all college material from the plan. Added the verified LeetCode Database list (323; 105 free). No app code written. |
 | 2c | 2026-10-11 | Autonomous content run (user away): DSA topics 5 to 15 and walkthroughs 14 to 34; SQL lessons (6), DBMS (6), OOP C++ (5) and Java (5) with compiler-verified questions; then OS (6), CN (7), System Design (7), DevOps (4) and Core CS (3). Added fact tests, the toolchain-capability probe, section-program execution in the verifier, and `scripts/check-links.ts`. All pushed. |
 | 3 | 2026-10-12 | Resolved B11 (WSL g++) and B13 (per-module content packs). Added the Playwright e2e suite with axe and a 7-width sweep, which found and fixed a contrast bug and a search bug (hover stole the keyboard selection). Verified 74 curated problems via GraphQL (bank 383 → 417). Wrote the remaining 25 DSA topics (DSA 40/40) with 200+ MCQs and 25 walkthroughs, all compiler-verified, with numeric answers cross-checked by script. Link checker now verifies LeetCode via GraphQL. Not done: SQL/DBMS/OOP/CN/OS/SD/DevOps remaining topics, SQL exercises to 120, MySQL verification, B14. The history-rewrite question (institute name in commit `92c5b9c`) still needs the user's decision. |
+| 4 | 2026-10-12 | SQL: datasets `rides`, `social`, `ledger` with hidden variants, 41 new exercises (74 total), 8 lessons with 48 MCQs (22 executed); SQL 14/14. DBMS: schedule analyser tool and 10 topics (DBMS 16/16). C++: 10 topics (15/15). Java: 5 topics (10/15). Fixed a blank production page on Vercel (circular chunk import → TDZ crash) with a shared chunk rule and a guard test. Recorded the production URL. Not done: last 5 Java topics, CN/OS/SD/DevOps/Core CS remainder, SQL exercises to 120, MySQL verification, B14, e2e rerun. |

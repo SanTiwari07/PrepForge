@@ -5,6 +5,8 @@ product companies**. It covers DSA, SQL and DBMS, OOP (C++ and Java), operating 
 networks, system design and DevOps. It teaches, makes you practise, tracks evidence, and
 schedules revision.
 
+**Live:** https://prep-forge-omega.vercel.app (deployed by Vercel on every push to `main`).
+
 > The master roadmap and source of truth is [`what_to_do.md`](what_to_do.md). It lists
 > what is done, what is partial, and what is planned.
 
@@ -27,7 +29,8 @@ npm run dev        # http://localhost:5173
 | `npm run build:index` | Regenerate `src/content/index.generated.ts` after editing content (also runs before `npm run build`; a test fails if it is stale) |
 | `npm run build:problems` | Regenerate the problem bank from `research/dsa-problems.verified.json` |
 
-Deploy `dist/` to any static host. SPA fallbacks are included for Netlify (`public/_redirects`)
+The live site is on Vercel, which builds and deploys every push to `main`. To host it
+elsewhere, deploy `dist/` to any static host. SPA fallbacks are included for Netlify (`public/_redirects`)
 and Vercel (`vercel.json`).
 
 ## How progress is stored
