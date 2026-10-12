@@ -2,7 +2,7 @@
 // has loaded (topic outlines, MCQ tags, walkthrough slugs). Regenerate with `npm run build:index`;
 // tests/content-index.test.ts fails when the committed file is stale.
 import type { McqMeta, TopicMeta } from '../../src/content/schema';
-import { PACKS } from '../../src/content/all';
+import { PACKS, WALKTHROUGHS } from '../../src/content/all';
 
 export function renderContentIndex(): string {
   const topics: TopicMeta[] = PACKS.flatMap((p) => p.topics).map((t) => {
@@ -14,7 +14,7 @@ export function renderContentIndex(): string {
     id: q.id, topicIds: q.topicIds, moduleId: q.moduleId, type: q.type, difficulty: q.difficulty, verified: q.verified,
     title: q.stemMd.replace(/[`*_]/g, '').replace(/\s+/g, ' ').trim().slice(0, 90),
   }));
-  const slugs = PACKS.flatMap((p) => Object.keys(p.walkthroughs ?? {})).sort();
+  const slugs = Object.keys(WALKTHROUGHS).sort();
   // TypeScript gives up ("union type too complex") on array literals with ~1000 object literals,
   // so each list is emitted as chunks of at most 250 entries that are spread into the export.
   const CHUNK = 250;

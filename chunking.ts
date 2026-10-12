@@ -4,6 +4,8 @@
 // or the two chunks import each other and the app fails at load time.
 export function packChunkFor(id: string): string | undefined {
   const p = id.replace(/\\/g, '/');
+  // Authored walkthroughs are the bulk of the DSA content; they get their own lazy chunk.
+  if (/\/src\/content\/dsa\/walkthroughs[\w-]*\.ts$/.test(p)) return 'pack-dsa-walkthroughs';
   const m = p.match(/\/src\/content\/(dsa|sql|dbms|oop-cpp|oop-java|cn|os|system-design|devops|core-cs)\//);
   if (!m || /\/sql\/(datasets|exercises\d*)\.ts$/.test(p)) return undefined;
   return `pack-${m[1]}`;

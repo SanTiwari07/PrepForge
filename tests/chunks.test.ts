@@ -40,5 +40,7 @@ describe('production chunking', () => {
     expect(packChunkFor('/x/src/content/sql/topics2.ts')).toBe('pack-sql');
     expect(packChunkFor('/x/src/content/sql/exercises2.ts')).toBeUndefined();
     expect(packChunkFor(['C:', 'x', 'src', 'content', 'dsa', 'heaps.ts'].join(String.fromCharCode(92)))).toBe('pack-dsa');
+    expect(packChunkFor('/x/src/content/dsa/walkthroughs3.ts')).toBe('pack-dsa-walkthroughs');
+    expect(packChunkFor('/x/src/content/dsa/walkthroughs-pack.ts')).toBe('pack-dsa-walkthroughs');
   });
 });

@@ -14,12 +14,13 @@ import * as os from './os';
 import * as sd from './system-design';
 import * as devops from './devops';
 import * as coreCs from './core-cs';
+import { walkthroughs as dsaWalkthroughs } from './dsa/walkthroughs-pack';
 
 export const PACKS: ContentPack[] = [dsa, sql, dbms, oopCpp, oopJava, cn, os, sd, devops, coreCs];
 
 export const MCQS: MCQ[] = PACKS.flatMap((p) => p.mcqs);
 export const MCQ_BY_ID = new Map(MCQS.map((m) => [m.id, m]));
-export const WALKTHROUGHS: Record<string, CoachWalkthrough> = Object.assign({}, ...PACKS.map((p) => p.walkthroughs ?? {}));
+export const WALKTHROUGHS: Record<string, CoachWalkthrough> = Object.assign({}, dsaWalkthroughs, ...PACKS.map((p) => p.walkthroughs ?? {}));
 
 const authored = new Map<string, Topic>(PACKS.flatMap((p) => p.topics).map((t) => [t.id, t]));
 export const TOPICS: Topic[] = assembleTopics<Topic>(

@@ -33,6 +33,21 @@ function loadOne(id: ModuleId): Promise<void> {
   return p;
 }
 
+// Authored coach walkthroughs live in their own lazy chunk, loaded only on a problem page that has one.
+let wtLoaded = false;
+let wtFailed = false;
+let wtInflight: Promise<void> | null = null;
+export function loadWalkthroughs(): Promise<void> {
+  if (wtLoaded) return Promise.resolve();
+  if (wtInflight) return wtInflight;
+  wtFailed = false;
+  wtInflight = import('./dsa/walkthroughs-pack')
+    .then((m) => { for (const [slug, w] of Object.entries(m.walkthroughs)) walkthroughs.set(slug, w); wtLoaded = true; })
+    .catch(() => { wtFailed = true; })
+    .finally(() => { wtInflight = null; notify(); });
+  return wtInflight;
+}
+
 /** Resolves when every requested pack has loaded (or failed; check with `isLoaded`). */
 export function loadModules(ids: Iterable<ModuleId>): Promise<void> {
   return Promise.all([...new Set(ids)].map(loadOne)).then(() => undefined);
@@ -52,8 +67,19 @@ export function useModules(ids: ModuleId[]): LoadState {
   return 'loading';
 }
 
+/** Loads the walkthrough chunk when `enabled` (a problem that has an authored walkthrough) and re-renders when it arrives. */
+export function useWalkthroughs(enabled: boolean): LoadState {
+  useEffect(() => { if (enabled) void loadWalkthroughs(); }, [enabled]);
+  useSyncExternalStore((l) => { listeners.add(l); return () => { listeners.delete(l); }; }, () => version);
+  if (!enabled || wtLoaded) return 'ready';
+  return wtFailed ? 'error' : 'loading';
+}
+
 /** Retry failed packs (e.g. after the network comes back). */
-export function retry(ids: ModuleId[]): void { void loadModules(ids); }
+export function retry(ids: ModuleId[]): void {
+  void loadModules(ids);
+  if (ids.includes('dsa')) void loadWalkthroughs();
+}
 
 export const getMcq = (id: string): MCQ | undefined => mcqs.get(id);
 /** All loaded MCQ bodies, keyed by id. */
