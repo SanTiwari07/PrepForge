@@ -2,6 +2,7 @@ import type { MCQ, Topic } from '../schema';
 import { cpp, cppErr, mcq } from '../helpers';
 import { CPPREF, ISOCPP, cppTopic, q } from './common';
 import * as core from './core';
+import * as advanced from './advanced';
 
 
 // ---------------------------------------------------------------------------------------
@@ -493,5 +494,5 @@ std::shared_ptr<int> p2(raw);`), options: ['Two independent control blocks own t
   mcq({ ...q(MR), id: 'cpp.mr.q6', type: 'concept', difficulty: 'easy', stem: 'Which smart pointer should be your **default** for single ownership?', options: ['std::unique_ptr', ['std::shared_ptr', 'It adds reference-counting overhead and blurs ownership.'], ['std::weak_ptr', 'It does not own anything.'], ['std::auto_ptr', 'Removed in C++17; it had broken copy semantics.']], answer: 0, explanation: 'unique_ptr expresses exclusive ownership with zero overhead.' }),
 ];
 
-export const topics: Topic[] = [ctors, poly, copySem, statics, raii, ...core.topics];
-export const mcqs: MCQ[] = [...cdMcqs, ...pvMcqs, ...csMcqs, ...smMcqs, ...mrMcqs, ...core.mcqs];
+export const topics: Topic[] = [ctors, poly, copySem, statics, raii, ...core.topics, ...advanced.topics];
+export const mcqs: MCQ[] = [...cdMcqs, ...pvMcqs, ...csMcqs, ...smMcqs, ...mrMcqs, ...core.mcqs, ...advanced.mcqs];
