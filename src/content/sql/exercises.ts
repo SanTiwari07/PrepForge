@@ -1,5 +1,6 @@
 import type { SqlExercise } from '../schema';
 import { exercises2 } from './exercises2';
+import { exercises3 } from './exercises3';
 
 // Original PrepForge exercises modelled on common interview patterns (not copied).
 // Expected outputs are never hand-written: they are produced by running referenceSql
@@ -507,4 +508,4 @@ GROUP BY u.country;`,
   },
 ];
 
-export const exercises: SqlExercise[] = [...batch1, ...exercises2];
+export const exercises: SqlExercise[] = [...batch1, ...exercises2, ...exercises3];
