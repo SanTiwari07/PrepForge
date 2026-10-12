@@ -2,6 +2,7 @@ import type { MCQ, Topic } from '../schema';
 import { java, javaErr, mcq } from '../helpers';
 import { JLS, TUT, javaTopic, q } from './common';
 import * as core from './core';
+import * as advanced from './advanced';
 
 
 // ---------------------------------------------------------------------------------------
@@ -501,5 +502,5 @@ static long size() { return 1L; }   // here`), options: ['Methods cannot differ 
   mcq({ ...q(OR), id: 'java.or.q6', type: 'concept', difficulty: 'easy', stem: 'Overload selection in Java uses:', options: ['The compile-time (declared) types of the arguments', ['The runtime types of the arguments', 'That is how overriding (on the receiver) works.'], ['The return type', 'It is not part of resolution.'], ['Random choice among matches', 'Resolution is deterministic.']], answer: 0, explanation: 'Overloads are resolved statically.' }),
 ];
 
-export const topics: Topic[] = [init, poly, equality, exceptions, overload, ...core.topics];
-export const mcqs: MCQ[] = [...ciMcqs, ...poMcqs, ...oeMcqs, ...exMcqs, ...orMcqs, ...core.mcqs];
+export const topics: Topic[] = [init, poly, equality, exceptions, overload, ...core.topics, ...advanced.topics];
+export const mcqs: MCQ[] = [...ciMcqs, ...poMcqs, ...oeMcqs, ...exMcqs, ...orMcqs, ...core.mcqs, ...advanced.mcqs];
