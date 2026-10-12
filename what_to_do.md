@@ -13,7 +13,7 @@
 | Last updated | 2026-10-12 (session 4: SQL 14/14 with 74 exercises and 3 new datasets, DBMS 16/16, C++ 15/15, Java 15/15, CN 12/17, schedule analyser, Vercel blank-page fix) |
 | Target role | **Fresher / new-grad (SDE-1, internship-to-FTE)** at big product companies. College syllabi and assignments are out of scope (user decision) |
 | Current phase | Phase 9, Content expansion (Phases 0–4 done; **DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15 complete**; other subjects partly complete, the rest honestly labelled Planned). Phase 10 QA largely done (e2e, axe, link check, performance split) |
-| Overall status | Working app with **132 complete topics out of 173 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 12/17, OS 6/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **872 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 357 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 452 C++/Java samples compile (and run where output is claimed), 0 skipped; 235/238 links verified automatically, 3 bot-walled pages checked manually. |
+| Overall status | Working app with **132 complete topics out of 173 catalogued** (DSA 40/40, SQL 14/14, DBMS 16/16, C++ 15/15, Java 15/15, CN 12/17, OS 6/15, System Design 7/26, DevOps 4/11, Core CS 3/4), **872 MCQs**, **417-problem bank** (383 from public lists + 34 curated, all verified via LeetCode GraphQL), **59 coach walkthroughs**, SQL lab with real execution (74 exercises over 6 datasets), OA centre, revision (SM-2), readiness, companies, mocks, 5 tools. 357 unit tests pass (31 Playwright e2e tests passed when last run in session 3); 452 C++/Java samples compile (and run where output is claimed), 0 skipped; 237/240 links verified automatically, 3 bot-walled pages checked manually. |
 
 > **Git workflow (user requirement): keep pushing.** Commit and push to `origin main` after
 > every completed task or meaningful checkpoint, always including the updated `what_to_do.md`.
@@ -1282,7 +1282,7 @@ as Planned.
 | 2026-10-12 | `npm run check:links` (after Java batch 3) | 225 links: 222 OK, 0 broken, 3 bot-walled |
 | 2026-10-12 | Browser (dev server) | `java.inner-lambdas` renders with 6 MCQs and 5 interview questions, no console errors |
 | 2026-10-12 | `npx vitest run` (after CN batch 2) | 357/357 pass (4 new CN fact tests: longest-prefix match, cwnd trace, window/RTT throughput, BDP) |
-| 2026-10-12 | `npm run check:links` (after CN batch 2) | 238 links: 235 OK, 0 broken, 3 bot-walled |
+| 2026-10-12 | `npm run check:links` (after CN batch 2) | 240 links: 237 OK, 0 broken, 3 bot-walled |
 
 ---
 
