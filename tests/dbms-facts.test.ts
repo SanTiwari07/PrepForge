@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import { candidateKeys, closure, countSuperkeys, isLosslessBinary, normalForm, parseAttributes, parseFDs } from '@/engine/tools/fd';
 import type { FD } from '@/engine/tools/fd';
+import { isConflictSerialisable, parseSchedule, recoverability, serialOrder, viewSerialOrder, type Op } from '@/engine/tools/schedule';
 
 const parse = (a: string, f: string) => {
   const attrs = parseAttributes(a);
@@ -23,5 +24,21 @@ describe('DBMS MCQ facts', () => {
     const r = parse('S C T', 'S C -> T\nT -> C');
     expect(candidateKeys(r.attrs, r.fds).map((k) => k.join('')).sort()).toEqual(['SC', 'ST']);
     expect(normalForm(r.attrs, r.fds).highest).toBe('3NF');
+  });
+});
+
+describe('DBMS schedule MCQ facts (schedule analyser)', () => {
+  const P = (s: string) => parseSchedule(s) as Op[];
+  it('dbms.sr.q2: lost update is not conflict serialisable', () => expect(isConflictSerialisable(P('R1(A) R2(A) W1(A) W2(A)'))).toBe(false));
+  it('dbms.sr.q3: serial order T1 -> T2', () => expect(serialOrder(P('R1(A) W1(A) R2(A) W2(A) R1(B) W1(B) R2(B) W2(B)'))).toEqual(['1', '2']));
+  it('dbms.sr.q4: blind writes are view- but not conflict-serialisable', () => {
+    const s = P('R1(A) W2(A) W1(A) W3(A)');
+    expect(isConflictSerialisable(s)).toBe(false);
+    expect(viewSerialOrder(s)).toEqual(['1', '2', '3']);
+  });
+  it('dbms.sr.q5: W1(A) R2(A) C2 C1 is not recoverable', () => expect(recoverability(P('W1(A) R2(A) C2 C1')).recoverable).toBe(false));
+  it('dbms.sr.q6 / iq5: W1(A) R2(A) C1 C2 is recoverable but not cascadeless', () => {
+    const r = recoverability(P('W1(A) R2(A) C1 C2'));
+    expect([r.recoverable, r.cascadeless]).toEqual([true, false]);
   });
 });
