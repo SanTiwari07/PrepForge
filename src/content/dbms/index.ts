@@ -2,6 +2,7 @@ import type { MCQ, Topic } from '../schema';
 import { mcq } from '../helpers';
 import { CMU, DBBOOK, dbmsTopic, q } from './common';
 import * as foundations from './foundations';
+import * as systems from './systems';
 
 
 // ---------------------------------------------------------------------------------------
@@ -369,5 +370,5 @@ const ixMcqs: MCQ[] = [
   mcq({ ...q(IX), id: 'dbms.ix.q6', type: 'concept', difficulty: 'medium', stem: 'A table has 10⁹ rows and a B+ tree with fan-out about 500. Roughly how many levels does a lookup traverse?', options: ['About 4', ['About 30', 'That is a binary tree (log₂ 10⁹).'], ['About 500', 'Fan-out is not depth.'], ['Exactly 1', 'A single page cannot index a billion rows.']], answer: 0, explanation: 'log₅₀₀(10⁹) ≈ 3.3, so 4 levels.' }),
 ];
 
-export const topics: Topic[] = [keys, fds, normalisation, acid, isolation, indexing, ...foundations.topics];
-export const mcqs: MCQ[] = [...kcMcqs, ...fdMcqs, ...nfMcqs, ...txMcqs, ...icMcqs, ...ixMcqs, ...foundations.mcqs];
+export const topics: Topic[] = [keys, fds, normalisation, acid, isolation, indexing, ...foundations.topics, ...systems.topics];
+export const mcqs: MCQ[] = [...kcMcqs, ...fdMcqs, ...nfMcqs, ...txMcqs, ...icMcqs, ...ixMcqs, ...foundations.mcqs, ...systems.mcqs];
