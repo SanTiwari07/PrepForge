@@ -17,3 +17,4 @@ Thumbs.db
 *.tsbuildinfo
 test-results/
 playwright-report/
+scripts/_*

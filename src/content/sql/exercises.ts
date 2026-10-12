@@ -1,4 +1,5 @@
 import type { SqlExercise } from '../schema';
+import { exercises2 } from './exercises2';
 
 // Original PrepForge exercises modelled on common interview patterns (not copied).
 // Expected outputs are never hand-written: they are produced by running referenceSql
@@ -7,7 +8,7 @@ import type { SqlExercise } from '../schema';
 
 const LC = (slug: string, title: string) => ({ title: `LeetCode: ${title}`, url: `https://leetcode.com/problems/${slug}/` });
 
-export const exercises: SqlExercise[] = [
+const batch1: SqlExercise[] = [
   // ---------- company ----------
   {
     id: 'sql-high-earners', title: 'High earners, highest first', topicIds: ['sql.select-basics'], difficulty: 'easy', datasetId: 'company',
@@ -505,3 +506,5 @@ GROUP BY u.country;`,
     targetMinutes: 4, verification: 'verified-sqlite',
   },
 ];
+
+export const exercises: SqlExercise[] = [...batch1, ...exercises2];
