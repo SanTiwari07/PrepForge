@@ -2,6 +2,7 @@ import type { MCQ, Topic } from '../schema';
 import { mcq } from '../helpers';
 import { HPBN, MDN_HTTP, cnTopic, q, sh } from './common';
 import * as network from './network';
+import * as application from './application';
 
 // ---------------------------------------------------------------------------------------
 const MO = 'cn.models';
@@ -429,5 +430,5 @@ const tsMcqs: MCQ[] = [
   mcq({ ...q(TS), id: 'cn.ts.q6', type: 'concept', difficulty: 'easy', stem: 'What does a TLS certificate bind together?', options: ['A public key and a domain name (identity), signed by a CA', ['A private key and an IP address', 'Private keys are never in certificates.'], ['A session key and a cookie', 'Unrelated.'], ['A username and a password', 'Not a certificate.']], answer: 0, explanation: 'The CA\'s signature vouches that the key belongs to that name.' }),
 ];
 
-export const topics: Topic[] = [models, ipSub, tcpUdp, tcpLife, dns, http, tls, ...network.topics];
-export const mcqs: MCQ[] = [...moMcqs, ...ipMcqs, ...tuMcqs, ...tlMcqs, ...dnMcqs, ...htMcqs, ...tsMcqs, ...network.mcqs];
+export const topics: Topic[] = [models, ipSub, tcpUdp, tcpLife, dns, http, tls, ...network.topics, ...application.topics];
+export const mcqs: MCQ[] = [...moMcqs, ...ipMcqs, ...tuMcqs, ...tlMcqs, ...dnMcqs, ...htMcqs, ...tsMcqs, ...network.mcqs, ...application.mcqs];

@@ -95,3 +95,20 @@ describe('CN routing, flow and congestion MCQ facts', () => {
     expect(answerOf('cn.fc.q6')).toBe('6.25 MB');
   });
 });
+
+describe('CN application-layer MCQ facts', () => {
+  it('cn.pl.q4: hash mod 3 → mod 4 keeps 3 of 12 keys (25%); in general 1/(N+1)', () => {
+    const stay = (n: number, m: number, keys: number) => Array.from({ length: keys }, (_, k) => k).filter((k) => k % n === k % m).length;
+    expect(stay(3, 4, 12)).toBe(3);
+    expect(stay(3, 4, 12000) / 12000).toBeCloseTo(0.25, 6);
+    expect(stay(9, 10, 90000) / 90000).toBeCloseTo(0.1, 6);
+    expect(answerOf('cn.pl.q4')).toBe('3 of 12 (25%)');
+  });
+  it('cn.tr.q4: differences of cumulative curl timings', () => {
+    const t = { dns: 0.012, connect: 0.045, tls: 0.110, ttfb: 2.350, total: 2.400 };
+    expect(t.tls - t.connect).toBeCloseTo(0.065, 6);
+    expect(t.ttfb - t.tls).toBeCloseTo(2.24, 6);
+    expect(t.total - t.ttfb).toBeCloseTo(0.05, 6);
+    expect(answerOf('cn.tr.q4')).toContain('2.2 s');
+  });
+});
