@@ -21,7 +21,10 @@ npm run dev        # http://localhost:5173
 | `npm run preview` | Serve the production build locally |
 | `npm test` | Unit, content-integrity and SQL-execution tests (Vitest) |
 | `npm run typecheck` / `npm run lint` | TypeScript and ESLint |
-| `npm run verify:code` | Compile every C++/Java snippet with `g++`/`javac` and run the code-output MCQs (requires both on PATH) |
+| `npm run test:e2e` | Build, then run the Playwright end-to-end, viewport and accessibility tests in the locally installed Chrome |
+| `npm run verify:code` | Compile every C++/Java snippet with `g++`/`javac` and run the code-output MCQs (requires both on PATH; on Windows, samples needing threads or POSIX headers use `g++` inside WSL) |
+| `npm run check:links` | Check every external link (LeetCode links via LeetCode's GraphQL API) |
+| `npm run build:index` | Regenerate `src/content/index.generated.ts` after editing content (also runs before `npm run build`; a test fails if it is stale) |
 | `npm run build:problems` | Regenerate the problem bank from `research/dsa-problems.verified.json` |
 
 Deploy `dist/` to any static host. SPA fallbacks are included for Netlify (`public/_redirects`)
