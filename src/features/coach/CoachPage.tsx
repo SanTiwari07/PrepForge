@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Bookmark, BookmarkCheck, ExternalLink, Eye, Lightbulb, Pause, Play, PlayCircle, Timer } from 'lucide-react';
 import { PROBLEM_BY_SLUG, WALKTHROUGH_SET } from '@/content/registry';
-import { getFullTopic, getWalkthrough, useModules, useWalkthroughs } from '@/content/loader';
+import { getFullTopic, getWalkthrough, useModules, useWalkthrough } from '@/content/loader';
 import { PackStatus } from '@/components/PackStatus';
 import type { CoachWalkthrough, Problem, Topic } from '@/content/schema';
 import { emptyProblemProgress, useStore } from '@/store/store';
@@ -72,7 +72,7 @@ export default function CoachPage() {
   const startedRef = useRef(false);
 
   const dsaPack = useModules(['dsa']);
-  const wtState = useWalkthroughs(WALKTHROUGH_SET.has(slug));
+  const wtState = useWalkthrough(slug, WALKTHROUGH_SET.has(slug));
   const pack = dsaPack === 'ready' && wtState === 'ready' ? 'ready' : dsaPack === 'error' || wtState === 'error' ? 'error' : 'loading';
   const wt: CoachWalkthrough | undefined = pack === 'ready' ? getWalkthrough(slug) : undefined;
   const topic = problem && pack === 'ready' ? getFullTopic(problem.primaryTopicId) : undefined;

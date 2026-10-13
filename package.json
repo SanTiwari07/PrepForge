@@ -6,8 +6,8 @@
   "description": "PrepForge: an adaptive placement-preparation platform for fresher SDE roles at big product companies.",
   "scripts": {
     "dev": "vite",
-    "build": "vite-node scripts/build-content-index.ts && tsc -b && vite build",
-    "build:index": "vite-node scripts/build-content-index.ts",
+    "build": "npm run build:index && tsc -b && vite build",
+    "build:index": "vite-node scripts/build-content-index.ts && vite-node scripts/build-walkthrough-files.ts",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit && tsc -p e2e/tsconfig.json",
     "lint": "eslint .",
