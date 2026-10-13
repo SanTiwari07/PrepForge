@@ -81,12 +81,28 @@ function Runner({ attempt }: { attempt: AssessmentAttempt }) {
   const go = (k: number) => setCurrent(attempt.id, Math.max(0, Math.min(attempt.items.length - 1, k)));
   const unanswered = attempt.items.filter((it) => !isAnswered(attempt, it));
 
+  // Keyboard: Alt+N next, Alt+P previous, Alt+M mark for review (Alt+arrows would clash with browser history).
+  useEffect(() => {
+    if (confirm) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (!e.altKey || e.ctrlKey || e.metaKey) return;
+      const k = e.key.toLowerCase();
+      if (k === 'n') go(i + 1);
+      else if (k === 'p') go(i - 1);
+      else if (k === 'm') toggleMark(attempt.id, item.id);
+      else return;
+      e.preventDefault();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
   return (
     <div className="oa">
       <header className="oa__bar">
         <div className="grow">
           <span className="strong small">{attempt.config.title}</span>
-          <span className="xsmall muted" style={{ display: 'block' }}>Practice simulation · answers save automatically</span>
+          <span className="xsmall muted" style={{ display: 'block' }}>Practice simulation · answers save automatically · Alt+N next, Alt+P previous, Alt+M mark</span>
         </div>
         <span className={`clock${remaining < 300 ? ' text-danger' : ''}`} role="timer" aria-label="Time remaining">{formatClock(remaining)}</span>
         <button className="btn btn--primary btn--sm" onClick={() => setConfirm(true)}>Submit</button>

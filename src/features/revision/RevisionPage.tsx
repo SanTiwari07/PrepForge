@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
 import { useStore } from '@/store/store';
@@ -61,6 +61,23 @@ export default function RevisionPage() {
     setIdx(idx + 1); setFlipped(false); setMcqSel([]); setMcqRevealed(false);
   };
 
+  // Keyboard: Space shows the answer, 1-4 grade Again/Hard/Good/Easy (MCQ items use their own keys).
+  useEffect(() => {
+    if (!session || pack !== 'ready') return;
+    const card = cards[session[idx]];
+    if (!card || card.kind === 'mcq') return;
+    const c = cardContent(card);
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (e.metaKey || e.ctrlKey || e.altKey || t?.closest('input, textarea, select')) return;
+      if (e.key === ' ' && c.back && !flipped) { e.preventDefault(); setFlipped(true); return; }
+      const g = ({ '1': 1, '2': 3, '3': 4, '4': 5 } as Record<string, number>)[e.key];
+      if (g && (flipped || !c.back)) { review(card.id, g); advance(); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
   if (pack !== 'ready') return <div className="stack-lg"><PageHeader title="Revision" /><PackStatus state={pack} modules={modules} /></div>;
 
   if (session) {
@@ -91,11 +108,11 @@ export default function RevisionPage() {
           <div className="card stack">
             <Markdown md={c.front} />
             {c.href && <Link to={c.href} className="btn btn--secondary" target="_blank">Open it in a new tab</Link>}
-            {c.back && !flipped && <button className="btn btn--primary" onClick={() => setFlipped(true)}>Show answer</button>}
+            {c.back && !flipped && <button className="btn btn--primary" onClick={() => setFlipped(true)}>Show answer <span className="xsmall">(Space)</span></button>}
             {(flipped || !c.back) && (
               <>
                 {c.back && <div className="card card--muted"><Markdown md={c.back} /></div>}
-                <p className="small muted">How well did you recall it?</p>
+                <p className="small muted">How well did you recall it? Keys 1 Again, 2 Hard, 3 Good, 4 Easy.</p>
                 <div className="grade-row">
                   {([['Again', 1], ['Hard', 3], ['Good', 4], ['Easy', 5]] as const).map(([label, g]) => (
                     <button key={label} className="btn btn--secondary" onClick={() => { review(card.id, g); advance(); }}>{label}</button>

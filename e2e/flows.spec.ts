@@ -167,3 +167,50 @@ test('search: Ctrl+K finds a topic and Enter opens it', async ({ page }) => {
   await expect(page).toHaveURL(/\/learn\/dsa\/dsa\.sliding-window$/);
   await expect(page.getByRole('heading', { name: 'Sliding Window', level: 1 })).toBeVisible();
 });
+
+test('keyboard: OA navigation (Alt+N/P/M), revision grading (1-4) and a pattern drill', async ({ page }) => {
+  const errors = trackErrors(page);
+  await onboard(page);
+
+  await page.goto('/oa');
+  await page.locator('.card', { hasText: 'DSA concepts sprint' }).getByRole('button', { name: 'Start' }).click();
+  await expect(page.getByText('Question 1 of 15')).toBeVisible();
+  await page.keyboard.press('Alt+n');
+  await expect(page.getByText('Question 2 of 15')).toBeVisible();
+  await page.keyboard.press('Alt+m');
+  await expect(page.getByRole('button', { name: /Question 2, marked for review/ })).toBeVisible();
+  await page.keyboard.press('Alt+p');
+  await expect(page.getByText('Question 1 of 15')).toBeVisible();
+
+  // A revision card made due in the past, graded with the "3" (Good) key.
+  await page.goto('/problems/two-sum');
+  await page.getByRole('button', { name: 'Reveal' }).first().click();
+  await page.getByRole('button', { name: 'Log outcome' }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByRole('button', { name: 'Yes, it passed' }).click();
+  await dialog.getByRole('button', { name: 'Save attempt' }).click();
+  await expect(page.getByText(/Added to your revision queue/)).toBeVisible();
+  await page.evaluate(() => {
+    const raw = JSON.parse(localStorage.getItem('prepforge:v1')!);
+    for (const c of Object.values(raw.state.reviewCards) as { due: string }[]) c.due = '2000-01-01';
+    localStorage.setItem('prepforge:v1', JSON.stringify(raw));
+  });
+  await page.goto('/revision');
+  await page.getByRole('button', { name: /Review 1 due item/ }).click();
+  await page.keyboard.press('3');
+  await expect(page.getByRole('button', { name: /Review 1 due item/ })).toHaveCount(0);
+  const s = await readState(page);
+  const card = Object.values(s.reviewCards).find((c) => c.kind === 'problem');
+  expect(card?.lastGrade).toBe(4);
+
+  // Pattern drill: answer one item, see the explanation, finish a 10-item round by choosing the first option each time.
+  await page.goto('/practice/patterns');
+  await page.getByRole('button', { name: 'Start drill' }).click();
+  for (let k = 0; k < 10; k++) {
+    await page.locator('.mcq__options button').first().click();
+    await expect(page.locator('.mcq__explain')).toBeVisible();
+    await page.getByRole('button', { name: k === 9 ? 'Finish' : 'Next drill' }).click();
+  }
+  await expect(page.getByRole('heading', { name: 'Drill complete' })).toBeVisible();
+  expect(errors).toEqual([]);
+});
