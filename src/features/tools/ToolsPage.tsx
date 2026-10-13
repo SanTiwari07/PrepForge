@@ -5,6 +5,7 @@ import { schedule, type Algorithm, type Proc } from '@/engine/tools/scheduling';
 import { parseRefString, simulatePaging, type PageAlgo } from '@/engine/tools/paging';
 import { prefixForHosts, subnetInfo } from '@/engine/tools/subnet';
 import { conflicts, formatOp, parseSchedule, precedenceEdges, recoverability, serialOrder, transactions, viewSerialOrder } from '@/engine/tools/schedule';
+import { BPlusTool, IsolationTool } from './DbmsVisualisers';
 import { candidateKeys, closure, countSuperkeys, isLosslessBinary, MAX_ATTRS, normalForm, parseAttributes, parseFDs, preservedFDs } from '@/engine/tools/fd';
 
 const TOOLS = [
@@ -13,6 +14,8 @@ const TOOLS = [
   { id: 'subnet', title: 'Subnet calculator', subject: 'Computer Networks' },
   { id: 'fd', title: 'FD and normalisation toolkit', subject: 'DBMS' },
   { id: 'schedule', title: 'Schedule analyser', subject: 'DBMS' },
+  { id: 'isolation', title: 'Isolation anomalies', subject: 'DBMS' },
+  { id: 'bplus', title: 'B+ tree', subject: 'DBMS' },
 ];
 
 export default function ToolsPage() {
@@ -30,6 +33,8 @@ export default function ToolsPage() {
       {active.id === 'subnet' && <SubnetTool />}
       {active.id === 'fd' && <FdTool />}
       {active.id === 'schedule' && <ScheduleTool />}
+      {active.id === 'isolation' && <IsolationTool />}
+      {active.id === 'bplus' && <BPlusTool />}
     </div>
   );
 }
