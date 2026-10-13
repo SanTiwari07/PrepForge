@@ -48,6 +48,15 @@ no server and no account. Clearing site data or switching browser or device lose
 - **No AI.** The Problem-Solving Coach uses authored hints, or pattern guidance derived from the topic.
 - **Scores are preparation evidence,** not hiring predictions.
 
+## Limitations
+
+- **Single learner, single browser.** No accounts or sync; progress lives in `localStorage` (see above).
+- **No real code execution.** C++/Java snippets were compiled and run when the content was written (`npm run verify:code`), but the app does not run your code. Only SQL runs in the browser.
+- **SQL dialect.** The SQL lab runs SQLite. Exercises note where MySQL/PostgreSQL syntax differs; the answers have not yet been verified against a real MySQL server.
+- **Coach walkthroughs are partial.** Blind 75 and NeetCode 150 have authored walkthroughs; the rest of Top Interview 150 and LeetCode 75 get pattern guidance only, and that is labelled in the app.
+- **Content breadth.** Every catalogued topic is complete; depth is not uniform. Company pages cite sources and dates and should be re-checked before an interview.
+- **Scores are evidence, not predictions.**
+
 ## Sources
 
 The problem lists come from NeetCode's public site data, LeetCode study plans (Top Interview 150,

@@ -10,6 +10,7 @@ const TopicPage = lazy(() => import('@/features/learn/TopicPage'));
 const ProblemsPage = lazy(() => import('@/features/problems/ProblemsPage'));
 const CoachPage = lazy(() => import('@/features/coach/CoachPage'));
 const McqPracticePage = lazy(() => import('@/features/mcq/McqPracticePage'));
+const PatternDrillsPage = lazy(() => import('@/features/mcq/PatternDrillsPage'));
 const SqlLabPage = lazy(() => import('@/features/sql/SqlLabPage'));
 const SqlExercisePage = lazy(() => import('@/features/sql/SqlExercisePage'));
 const OaCentre = lazy(() => import('@/features/oa/OaCentre'));
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
       { path: 'problems', element: <ProblemsPage /> },
       { path: 'problems/:slug', element: <CoachPage /> },
       { path: 'practice/mcq', element: <McqPracticePage /> },
+      { path: 'practice/patterns', element: <PatternDrillsPage /> },
       { path: 'sql/lab', element: <SqlLabPage /> },
       { path: 'sql/exercises/:id', element: <SqlExercisePage /> },
       { path: 'oa', element: <OaCentre /> },

@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { onboard } from './helpers';
 
-const ROUTES = ['/', '/learn', '/learn/dsa/dsa.sliding-window', '/learn/dsa/dsa.sliding-window?tab=mcqs', '/problems', '/problems/two-sum', '/sql/lab', '/sql/exercises/sql-manager-names', '/oa', '/revision', '/analytics', '/companies', '/tools', '/settings'];
+const ROUTES = ['/', '/learn', '/learn/dsa/dsa.sliding-window', '/learn/dsa/dsa.sliding-window?tab=mcqs', '/problems', '/problems/two-sum', '/practice/patterns', '/sql/lab', '/sql/exercises/sql-manager-names', '/oa', '/revision', '/analytics', '/companies', '/tools', '/settings'];
 
 for (const path of ROUTES) {
   test(`no serious axe violations on ${path}`, async ({ page }) => {

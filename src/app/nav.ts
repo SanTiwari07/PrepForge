@@ -27,6 +27,7 @@ export const NAV: NavGroup[] = [
   { title: 'Practice', items: [
     { to: '/problems', label: 'Problem bank', icon: ListChecks },
     { to: '/practice/mcq', label: 'MCQ practice', icon: ClipboardList },
+    { to: '/practice/patterns', label: 'Pattern drills', icon: Repeat },
     { to: '/sql/lab', label: 'SQL lab', icon: Database },
     { to: '/oa', label: 'OA centre', icon: Timer },
     { to: '/mock', label: 'Mock interviews', icon: MessagesSquare },
